@@ -18,7 +18,7 @@ type RegisterForm = {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Add User',
+        title: 'Tambah User',
         href: '/users',
     },
 ];
