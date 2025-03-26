@@ -13,8 +13,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin/dashboard', function () {
         return Inertia::render('admin/dashboard');
     })->name('dashboard');
+
+    //user routes
     Route::resource('admin/users', UserController::class);
+    
+    //product routes
     Route::resource('admin/product', ProductController::class);
+    Route::put('/admin/product/{product}', [ProductController::class, 'update'])->name('product.update');
+    Route::post('/admin/product/{product}', [ProductController::class, 'update']);
 });
 
 

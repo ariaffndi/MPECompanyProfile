@@ -6,6 +6,7 @@ use App\Models\Product;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
+
 class ProductController extends Controller
 {
     /**
@@ -34,7 +35,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'nama_product' => 'required|string|max:255',
-            'deskripsi_product' => 'required|string',
+            'deskripsi_product' => 'required|string|max:225',
             'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -64,36 +65,32 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return inertia('admin/product/edit',[
-            'product'=> $product
+        return inertia('admin/product/edit', [
+            'product' => $product
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        $product = Product::findOrFail($id);
-         
         $validated = $request->validate([
-            'nama_product' => 'required|string|max:255',
-            'deskripsi_product' => 'required|string',
-            'foto_product' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_product' => 'required|string|max:225',
+            'deskripsi_product' => 'required|string|max:225',
+            'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $path = null;
+    
         if ($request->hasFile('foto_product')) {
-            $path = $request->file('foto_product')->store('product_images', 'public');
-            $validated['foto_product'] = $path;
-        }else {
-            $validated['foto_product'] = $product->foto_product;
+            $foto = $request->file('foto_product')->store('product', 'public');
+            $validated['foto_product'] = $foto;
         }
-
+    
         $product->update($validated);
-
-        return redirect()->route('product.index')->with('success', 'Produk berhasil diupdate');
+    
+        return redirect()->route('product.index')->with('success', 'Product berhasil diupdate.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

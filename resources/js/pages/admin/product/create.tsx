@@ -76,6 +76,7 @@ export default function ProductCreate() {
                                     disabled={processing}
                                     placeholder="deskripsi produk"
                                 />
+                                <p className='text-red-600 font-light text-[10px]'>*Maksimal 225 karakter</p>
                                 <InputError message={errors.deskripsi_product} />
                             </div>
 

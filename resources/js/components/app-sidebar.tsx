@@ -19,7 +19,7 @@ const mainNavItems: NavItem[] = [
         icon: Users,
     },
     {
-        title: 'Product',
+        title: 'Products',
         href: '/admin/product',
         icon: FileBox,
     },

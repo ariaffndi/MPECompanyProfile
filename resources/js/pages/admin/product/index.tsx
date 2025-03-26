@@ -4,7 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Product',
+        title: 'Products',
         href: '/product',
     },
 ];
@@ -24,7 +24,7 @@ export default function Product() {
             <Head title="Product" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Tambah Data
+                    Tambah Produk
                 </Link>
 
                 <div className="rounded-box border-base-content/5 overflow-x-auto border">
@@ -55,7 +55,7 @@ export default function Product() {
                                         />
                                     </td>
                                     <td>
-                                        <Link href={route('product.edit',product.id)} className="btn btn-sm btn-primary w-fit rounded-xl">
+                                        <Link href={route('product.edit', product.id)} className="btn btn-sm btn-primary w-fit rounded-xl">
                                             Edit
                                         </Link>
                                     </td>
