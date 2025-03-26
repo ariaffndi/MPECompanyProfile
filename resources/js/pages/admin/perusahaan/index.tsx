@@ -1,7 +1,7 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, } from '@inertiajs/react';
 import { Instagram, Mail, Phone, MessageCircle, Facebook } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -11,21 +11,39 @@ const breadcrumbs: BreadcrumbItem[] = [
    },
 ];
 
-export default function Dashboard() {
+interface Perusahaan {
+    id: number;
+    nama_perusahaan: string;
+    alamat_perusahaan: string;
+    email_perusahaan: string;
+    no_telp_perusahaan: string;
+    whatsapp_perusahaan: string;
+    deskripsi_perusahaan: string;
+    instagram_perusahaan: string;
+    facebook_perusahaan: string;
+    foto_kantor_perusahaan?: string | null;
+}
+
+interface Props {
+    perusahaan: Perusahaan;
+}
+
+export default function Perusahaan({perusahaan}:Props) {
+
    return (
        <AppLayout breadcrumbs={breadcrumbs}>
            <Head title="Perusahaan" />
            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-               <Link href='' className="btn btn-sm btn-info w-fit rounded-xl">
+               <Link href={route('perusahaan.edit')} className="btn btn-sm btn-info w-fit rounded-xl">
                    Edit Data
                </Link>
                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative flex aspect-video flex-col overflow-hidden rounded-xl border">
                        <div className="flex w-full flex-1 items-center p-4">
-                           <p className="text-3xl font-bold">PT. Mitra Prima Enviro</p>
+                           <p className="text-3xl font-bold">{perusahaan.nama_perusahaan}</p>
                        </div>
                        <div className="flex w-full flex-1 p-4">
-                           <p>Alamat Perusahaan Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, laudantium?</p>
+                           <p>{perusahaan.alamat_perusahaan}</p>
                        </div>
                    </div>
 
@@ -36,7 +54,7 @@ export default function Dashboard() {
                                    <Mail size={20} />
                                </div>
                                <div>
-                                   <p className="text-md">admin@mitraprimaenviro.com</p>
+                                   <p className="text-md">{perusahaan.email_perusahaan}</p>
                                </div>
                            </div>
                        </div>
@@ -46,7 +64,7 @@ export default function Dashboard() {
                                    <Phone size={20} />
                                </div>
                                <div>
-                                   <p className="text-md">(031) 5924526</p>
+                                   <p className="text-md">{perusahaan.no_telp_perusahaan}</p>
                                </div>
                            </div>
                        </div>
@@ -56,7 +74,7 @@ export default function Dashboard() {
                                    <MessageCircle size={20} />
                                </div>
                                <div>
-                                   <p className="text-md">+62 812-5942-9377</p>
+                                   <p className="text-md">{perusahaan.whatsapp_perusahaan}</p>
                                </div>
                            </div>
                        </div>
@@ -66,7 +84,7 @@ export default function Dashboard() {
                                    <Instagram size={20} />
                                </div>
                                <div>
-                                   <p className="text-md">@mitraprimaenviro</p>
+                                   <p className="text-md">{perusahaan.instagram_perusahaan}</p>
                                </div>
                            </div>
                        </div>
@@ -76,7 +94,7 @@ export default function Dashboard() {
                                    <Facebook size={20} />
                                </div>
                                <div>
-                                   <p className="text-md">PT. Mitra Prima Enviro</p>
+                                   <p className="text-md">{perusahaan.facebook_perusahaan}</p>
                                </div>
                            </div>
                        </div>
@@ -87,9 +105,9 @@ export default function Dashboard() {
                </div>
                <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min p-4">
                    <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat nihil nam provident, corrupti libero magnam quam sequi velit, saepe eos itaque aut quia eligendi laudantium, fuga odit reiciendis laborum ea officia! Doloribus eius quaerat dolores maxime culpa, voluptas ipsam cumque obcaecati repellendus ea laboriosam quis eos, laudantium excepturi! Vitae perspiciatis ratione sequi maxime consequatur incidunt facilis quidem architecto tempora blanditiis, magni dicta, quod fuga odio ea molestias? Alias aut similique hic incidunt, tempora temporibus reiciendis omnis. Unde odit debitis amet eius soluta praesentium temporibus aspernatur! Dolor adipisci saepe sapiente eligendi dolore cupiditate quas ea. Ut quasi natus odit ducimus modi.
+                     {perusahaan.deskripsi_perusahaan}
                      <br /><br />
-                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic ad, cum exercitationem dolor nesciunt unde nostrum at quo, dolores, reiciendis suscipit deserunt distinctio ab cupiditate sit optio. Reprehenderit eius nemo laborum recusandae, beatae, dolore adipisci tempore repudiandae voluptate consequuntur minima vel nesciunt possimus illo dolorem vero odit delectus ducimus illum!
+                     
                    </p>
                </div>
            </div>
