@@ -28,6 +28,7 @@ interface Props {
         deskripsi_perusahaan: string;
         instagram_perusahaan: string;
         facebook_perusahaan: string;
+        foto_kantor_perusahaan: string;
     };
 }
 
@@ -147,8 +148,16 @@ export default function EditPerusahaan({ perusahaan }: Props) {
 
                             <div className="grid gap-2">
                                 <Label htmlFor="foto_kantor_perusahaan">Foto Kantor</Label>
+                                <input
+                                    id="foto_kantor_perusahaan"
+                                    name="foto_kantor_perusahaan"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setData('foto_kantor_perusahaan', e.target.files ? e.target.files[0] : null)}
+                                    className="file-input file-input-ghost"
+                                />
+                                <img src={`/storage/${perusahaan.foto_kantor_perusahaan}`} alt="Preview" className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover" />
                                 <InputError message={errors.foto_kantor_perusahaan} />
-                                <input id="foto_kantor_perusahaan" type="file" className="file-input file-input-ghost" accept="image/*" />
                             </div>
 
                             <div className="grid gap-2">
