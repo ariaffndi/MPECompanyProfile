@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Edit Data Perusahaan',
@@ -17,22 +16,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-
 type FormPerusahaan = {
-        id: number;
-        nama_perusahaan: string;
-        alamat_perusahaan: string;
-        email_perusahaan: string;
-        no_telp_perusahaan: string;
-        whatsapp_perusahaan: string;
-        deskripsi_perusahaan: string;
-        instagram_perusahaan: string;
-        facebook_perusahaan: string;
-        foto_kantor_perusahaan: string;
+    id: number;
+    nama_perusahaan: string;
+    alamat_perusahaan: string;
+    email_perusahaan: string;
+    no_telp_perusahaan: string;
+    whatsapp_perusahaan: string;
+    deskripsi_perusahaan: string;
+    instagram_perusahaan: string;
+    facebook_perusahaan: string;
+    foto_kantor_perusahaan: string;
 };
 
 export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusahaan }) {
-    const { data, setData, post, put, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         nama_perusahaan: perusahaan.nama_perusahaan,
         alamat_perusahaan: perusahaan.alamat_perusahaan,
         email_perusahaan: perusahaan.email_perusahaan,
@@ -49,7 +47,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
         post(route('perusahaan.update', perusahaan.id), {
             method: 'put',
             forceFormData: true,
-            onSuccess: () => reset (), 
+            onSuccess: () => reset(),
         });
     };
 
@@ -156,11 +154,12 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     onChange={(e) => setData('foto_kantor_perusahaan', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
-                                <img
+                                {/* <img
                                     src={`/storage/${perusahaan.foto_kantor_perusahaan}`}
                                     alt="Preview"
                                     className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover"
-                                />
+                                /> */}
+                                <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 16:9</p>
                                 <InputError message={errors.foto_kantor_perusahaan} />
                             </div>
 

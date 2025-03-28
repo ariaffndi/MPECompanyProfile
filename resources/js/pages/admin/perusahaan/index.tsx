@@ -32,7 +32,7 @@ export default function Perusahaan({ perusahaan }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Perusahaan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Link href={route('perusahaan.edit')} className="btn btn-sm btn-info w-fit rounded-xl">
+                <Link href={route('perusahaan.edit', perusahaan.id)} className="btn btn-sm btn-info w-fit rounded-xl">
                     Edit Data
                 </Link>
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">

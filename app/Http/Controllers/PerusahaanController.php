@@ -46,9 +46,9 @@ class PerusahaanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        $perusahaan = Perusahaan::firstorfail();
+        $perusahaan = Perusahaan::findorfail($id);
 
         return Inertia::render('admin/perusahaan/edit', [
             'perusahaan' => $perusahaan
@@ -61,8 +61,6 @@ class PerusahaanController extends Controller
     public function update(Request $request, Perusahaan $perusahaan)
     {       
 
-        dd($request->all());
-
         $perusahaan = Perusahaan::firstorfail();
 
         $validated = $request->validate([
@@ -74,7 +72,6 @@ class PerusahaanController extends Controller
         'deskripsi_perusahaan' => 'string|',
         'instagram_perusahaan' => 'string|max:255',
         'facebook_perusahaan' => 'string|max:255',
-        'foto_kantor_perusahaan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
     
     if ($request->hasFile('foto_kantor_perusahaan')) {
