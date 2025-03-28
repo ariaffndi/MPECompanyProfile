@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-// Breadcrumbs untuk navigasi
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Edit Data Perusahaan',
@@ -17,8 +17,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface Props {
-    perusahaan: {
+
+type FormPerusahaan = {
         id: number;
         nama_perusahaan: string;
         alamat_perusahaan: string;
@@ -29,15 +29,28 @@ interface Props {
         instagram_perusahaan: string;
         facebook_perusahaan: string;
         foto_kantor_perusahaan: string;
-    };
-}
+};
 
-export default function EditPerusahaan({ perusahaan }: Props) {
-    const { data, setData, put, processing, errors } = useForm({ ...perusahaan });
+export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusahaan }) {
+    const { data, setData, post, put, processing, errors, reset } = useForm({
+        nama_perusahaan: perusahaan.nama_perusahaan,
+        alamat_perusahaan: perusahaan.alamat_perusahaan,
+        email_perusahaan: perusahaan.email_perusahaan,
+        no_telp_perusahaan: perusahaan.no_telp_perusahaan,
+        whatsapp_perusahaan: perusahaan.whatsapp_perusahaan,
+        deskripsi_perusahaan: perusahaan.deskripsi_perusahaan,
+        instagram_perusahaan: perusahaan.instagram_perusahaan,
+        facebook_perusahaan: perusahaan.facebook_perusahaan,
+        foto_kantor_perusahaan: null as File | null,
+    });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        put(route('perusahaan.update', perusahaan.id), {});
+        post(route('perusahaan.update', perusahaan.id), {
+            method: 'put',
+            forceFormData: true,
+            onSuccess: () => reset (), 
+        });
     };
 
     return (
@@ -56,11 +69,10 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Label htmlFor="nama_perusahaan">Nama Perusahaan</Label>
                                     <Input
                                         id="nama_perusahaan"
+                                        name="nama_perusahaan"
                                         type="text"
-                                        required
                                         value={data.nama_perusahaan}
                                         onChange={(e) => setData('nama_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.nama_perusahaan} className="mt-2" />
                                 </div>
@@ -70,10 +82,8 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Input
                                         id="alamat_perusahaan"
                                         type="text"
-                                        required
                                         value={data.alamat_perusahaan}
                                         onChange={(e) => setData('alamat_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.alamat_perusahaan} />
                                 </div>
@@ -85,10 +95,8 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Input
                                         id="email_perusahaan"
                                         type="Email"
-                                        required
                                         value={data.email_perusahaan}
                                         onChange={(e) => setData('email_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.email_perusahaan} />
                                 </div>
@@ -98,10 +106,8 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Input
                                         id="no_telp_perusahaan"
                                         type="text"
-                                        required
                                         value={data.no_telp_perusahaan}
                                         onChange={(e) => setData('no_telp_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.no_telp_perusahaan} />
                                 </div>
@@ -113,10 +119,8 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Input
                                         id="whatsapp_perusahaan"
                                         type="text"
-                                        required
                                         value={data.whatsapp_perusahaan}
                                         onChange={(e) => setData('whatsapp_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.whatsapp_perusahaan} />
                                 </div>
@@ -125,10 +129,8 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Input
                                         id="instagram_perusahaan"
                                         type="text"
-                                        required
                                         value={data.instagram_perusahaan}
                                         onChange={(e) => setData('instagram_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.instagram_perusahaan} />
                                 </div>
@@ -137,17 +139,15 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     <Input
                                         id="facebook_perusahaan"
                                         type="text"
-                                        required
                                         value={data.facebook_perusahaan}
                                         onChange={(e) => setData('facebook_perusahaan', e.target.value)}
-                                        disabled={processing}
                                     />
                                     <InputError message={errors.facebook_perusahaan} />
                                 </div>
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="foto_kantor_perusahaan">Foto Kantor</Label>
+                                <Label htmlFor="kantor Image">Foto Kantor</Label>
                                 <input
                                     id="foto_kantor_perusahaan"
                                     name="foto_kantor_perusahaan"
@@ -156,7 +156,11 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                     onChange={(e) => setData('foto_kantor_perusahaan', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
-                                <img src={`/storage/${perusahaan.foto_kantor_perusahaan}`} alt="Preview" className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover" />
+                                <img
+                                    src={`/storage/${perusahaan.foto_kantor_perusahaan}`}
+                                    alt="Preview"
+                                    className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover"
+                                />
                                 <InputError message={errors.foto_kantor_perusahaan} />
                             </div>
 
@@ -164,17 +168,15 @@ export default function EditPerusahaan({ perusahaan }: Props) {
                                 <Label htmlFor="deskripsi_perusahaan">Deskripsi</Label>
                                 <textarea
                                     id="deskripsi_perusahaan"
-                                    required
                                     rows={5}
                                     className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                     value={data.deskripsi_perusahaan}
                                     onChange={(e) => setData('deskripsi_perusahaan', e.target.value)}
-                                    disabled={processing}
                                 />
                                 <InputError message={errors.deskripsi_perusahaan} />
                             </div>
 
-                            <Button type="submit" className="mt-2 w-full" disabled={processing}>
+                            <Button type="submit" className="mt-2 w-full">
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Simpan Perubahan
                             </Button>

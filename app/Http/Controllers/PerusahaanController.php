@@ -13,8 +13,9 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
+        $perusahaan = Perusahaan::firstorfail();
         return Inertia::render('admin/perusahaan/index', [
-            "perusahaan" => Perusahaan::firstorfail()
+            "perusahaan" => $perusahaan
         ]); 
     }
 
@@ -39,7 +40,7 @@ class PerusahaanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -57,21 +58,30 @@ class PerusahaanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $perusahaan = Perusahaan::findOrFail($id);
-    
-    $validated = $request->validate([
-        'nama_perusahaan' => 'required|string|max:255',
-        'alamat_perusahaan' => 'required|string',
-        'email_perusahaan' => 'required|email|max:255',
-        'no_telp_perusahaan' => 'required|string',
-        'whatsapp_perusahaan' => 'required|string',
-        'deskripsi_perusahaan' => 'required|string',
-        'instagram_perusahaan' => 'required|string',
-        'facebook_perusahaan' => 'required|string',
-    ]);
+    public function update(Request $request, Perusahaan $perusahaan)
+    {       
 
+        dd($request->all());
+
+        $perusahaan = Perusahaan::firstorfail();
+
+        $validated = $request->validate([
+        'nama_perusahaan' => 'string|max:255',
+        'alamat_perusahaan' => 'string',
+        'email_perusahaan' => 'email|max:255',
+        'no_telp_perusahaan' => 'string|max:255',
+        'whatsapp_perusahaan' => 'string|max:255',
+        'deskripsi_perusahaan' => 'string|',
+        'instagram_perusahaan' => 'string|max:255',
+        'facebook_perusahaan' => 'string|max:255',
+        'foto_kantor_perusahaan' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+    
+    if ($request->hasFile('foto_kantor_perusahaan')) {
+        $filePath = $request->file('foto_kantor_perusahaan')->store('perusahaan', 'public');
+        $validated['foto_kantor_perusahaan'] = $filePath;
+    }
+    
     $perusahaan->update($validated);
 
     return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
