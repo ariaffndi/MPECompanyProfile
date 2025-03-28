@@ -1,6 +1,10 @@
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Pencil, Trash2 } from 'lucide-react';
+import React, { useState } from "react";
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -16,8 +20,17 @@ type Product = {
     foto_product: string;
 };
 
+
 export default function Product() {
     const { product } = usePage<{ product: Product[] }>().props;
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    
+    const handleDelete = () => {
+        if (selectedProduct) {
+            router.delete(route('product.destroy', selectedProduct.id));
+            setSelectedProduct(null); 
+        }
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -55,9 +68,32 @@ export default function Product() {
                                         />
                                     </td>
                                     <td>
-                                        <Link href={route('product.edit', product.id)} className="btn btn-sm btn-primary w-fit rounded-xl">
-                                            Edit
+                                        <Link href={route('product.edit', product.id)} className="btn btn-sm btn-primary m-2 w-fit rounded-xl">
+                                            <Pencil color="white" size={20} />
                                         </Link>
+                                        {/* modal hapus */}
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <button className="btn btn-sm btn-error m-2 w-fit rounded-xl" onClick={() => setSelectedProduct(product)}>
+                                                    <Trash2 size={20} />
+                                                </button>
+                                            </DialogTrigger>
+
+                                            <DialogContent>
+                                                <DialogTitle>Konfirmasi Hapus</DialogTitle>
+                                                <DialogDescription>
+                                                    Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
+                                                </DialogDescription>
+                                                <DialogFooter>
+                                                    <DialogClose asChild>
+                                                        <button className="btn btn-primary m-1 w-fit rounded-lg">Batal</button>
+                                                    </DialogClose>
+                                                    <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
+                                                        Hapus
+                                                    </button>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
                                     </td>
                                 </tr>
                             ))}

@@ -97,6 +97,10 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //soft delete
+        $data = Product::findOrFail($id);
+        $data->delete();
+        
+        return redirect()->route('product.index')->with('success', 'Product berhasil dihapus.');
     }
 }

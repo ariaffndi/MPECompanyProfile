@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admin/product', ProductController::class);
     Route::put('/admin/product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::post('/admin/product/{product}', [ProductController::class, 'update']);
+    Route::delete('/admin/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 
