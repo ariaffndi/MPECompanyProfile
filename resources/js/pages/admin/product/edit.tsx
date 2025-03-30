@@ -24,7 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function ProductEdit({ product }: { product: ProductForm }) {
-    const { data, setData, post, put, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         nama_product: product.nama_product || '',
         deskripsi_product: product.deskripsi_product || '',
         foto_product: null as File | null,
@@ -63,28 +63,29 @@ export default function ProductEdit({ product }: { product: ProductForm }) {
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="product description">Deskripsi Produuk</Label>
-                                <Input
+                                <textarea
                                     id="deskripsi_product"
-                                    name="deskripsi_product"
-                                    type="text"
+                                    rows={5}
+                                    className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                     value={data.deskripsi_product}
                                     onChange={(e) => setData('deskripsi_product', e.target.value)}
+                                    placeholder="deskripsi produk"
                                 />
-                                <p className='text-red-600 font-light text-[10px]'>*Maksimal 225 karakter</p>
                                 <InputError message={errors.deskripsi_product} />
                             </div>
+
                             <div className="grid gap-2">
                                 <Label htmlFor="product image">Foto Produk</Label>
-                                <Input
+                                <input
                                     id="foto_product"
                                     name="foto_product"
                                     type="file"
                                     accept="image/*"
                                     onChange={(e) => setData('foto_product', e.target.files ? e.target.files[0] : null)}
+                                    className="file-input file-input-ghost"
                                 />
-
-                                <img src={`/storage/${product.foto_product}`} alt="Preview" className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover" />
-                                <InputError message={errors.foto_product} />
+                                {/* <img src={`/storage/${product.foto_product}`} alt="Preview" className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover" />
+                                <InputError message={errors.foto_product} /> */}
                             </div>
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}

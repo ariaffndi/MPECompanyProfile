@@ -3,8 +3,8 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import React, { useState } from "react";
-
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,17 +20,23 @@ type Product = {
     foto_product: string;
 };
 
-
 export default function Product() {
     const { product } = usePage<{ product: Product[] }>().props;
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    
+
     const handleDelete = () => {
         if (selectedProduct) {
             router.delete(route('product.destroy', selectedProduct.id));
-            setSelectedProduct(null); 
+            setSelectedProduct(null);
         }
     };
+
+    const { flash } = usePage().props as { flash?: { success?: string } };
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash.success);
+        }
+    }, [flash]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -74,7 +80,10 @@ export default function Product() {
                                         {/* modal hapus */}
                                         <Dialog>
                                             <DialogTrigger asChild>
-                                                <button className="btn btn-sm btn-error m-2 w-fit rounded-xl" onClick={() => setSelectedProduct(product)}>
+                                                <button
+                                                    className="btn btn-sm btn-error m-2 w-fit rounded-xl"
+                                                    onClick={() => setSelectedProduct(product)}
+                                                >
                                                     <Trash2 size={20} />
                                                 </button>
                                             </DialogTrigger>

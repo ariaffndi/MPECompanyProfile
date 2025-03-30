@@ -76,9 +76,8 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'nama_product' => 'required|string|max:225',
-            'deskripsi_product' => 'required|string|max:225',
-            'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama_product' => 'string|max:225',
+            'deskripsi_product' => 'string|max:225',
         ]);
     
         if ($request->hasFile('foto_product')) {
@@ -88,7 +87,7 @@ class ProductController extends Controller
     
         $product->update($validated);
     
-        return redirect()->route('product.index')->with('success', 'Product berhasil diupdate.');
+        return redirect()->route('product.index')->with('success', 'Produk berhasil diperbarui!');
     }
     
 
