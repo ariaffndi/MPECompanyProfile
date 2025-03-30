@@ -2,6 +2,9 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { Facebook, Instagram, Mail, MessageCircle, Phone } from 'lucide-react';
+import { toast } from 'sonner';
+import { useEffect } from 'react';
+import {usePage} from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,6 +31,14 @@ interface Props {
 }
 
 export default function Perusahaan({ perusahaan }: Props) {
+
+    const { flash } = usePage().props as { flash?: { success?: string } };
+        useEffect(() => {
+            if (flash?.success) {
+                toast.success(flash.success);
+            }
+        }, [flash]);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Perusahaan" />
