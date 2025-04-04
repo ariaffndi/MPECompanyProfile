@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import React, { useState } from "react";
+import { useState } from "react";
 
 
 const breadcrumbs: BreadcrumbItem[] = [
