@@ -40,3 +40,10 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+// types/Perusahaan.ts
+export interface Perusahaan {
+    id: number;
+    nama_perusahaan: string;
+    logo_perusahaan: string;
+}

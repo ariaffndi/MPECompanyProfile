@@ -24,6 +24,7 @@ interface Perusahaan {
     instagram_perusahaan: string;
     facebook_perusahaan: string;
     foto_kantor_perusahaan: string;
+    logo_perusahaan: string;
 }
 
 interface Props {
@@ -47,6 +48,13 @@ export default function Perusahaan({ perusahaan }: Props) {
                     Edit Data
                 </Link>
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                    {/* <div>
+                        <img
+                            src={`/storage/${perusahaan.logo_perusahaan}`}
+                            alt={perusahaan.nama_perusahaan}
+                            className="w-full rounded-lg object-cover"
+                        />
+                    </div> */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative flex aspect-video flex-col overflow-hidden rounded-xl border">
                         <div className="flex w-full flex-1 items-center p-4">
                             <p className="text-3xl font-bold">{perusahaan.nama_perusahaan}</p>

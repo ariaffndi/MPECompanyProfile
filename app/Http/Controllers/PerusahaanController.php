@@ -79,6 +79,11 @@ class PerusahaanController extends Controller
         $validated['foto_kantor_perusahaan'] = $filePath;
     }
     
+    if ($request->hasFile('logo_perusahaan')) {
+        $filePath = $request->file('logo_perusahaan')->store('perusahaan', 'public');
+        $validated['logo_perusahaan'] = $filePath;
+    }
+
     $perusahaan->update($validated);
 
     return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
