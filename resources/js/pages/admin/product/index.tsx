@@ -3,7 +3,8 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -41,6 +42,13 @@ export default function Product() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        const { flash } = usePage().props as { flash?: { success?: string } };
+        useEffect(() => {
+            if (flash?.success) {
+                toast.success(flash.success);
+            }
+        }, [flash]);
     };
 
     return (
