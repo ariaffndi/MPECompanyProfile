@@ -52,7 +52,6 @@ export default function Product() {
                         <thead className="bg-base-200 text-base-content">
                             <tr>
                                 <th>No</th>
-                                <th>Id</th>
                                 <th>Produk</th>
                                 <th>Deskripsi</th>
                                 <th>Foto</th>
@@ -63,14 +62,15 @@ export default function Product() {
                             {product?.map((product, index) => (
                                 <tr key={product.id} className="border-base-content/5 border-1">
                                     <td>{index + 1}</td>
-                                    <th>{product.id}</th>
                                     <td>{product.nama_product}</td>
-                                    <td>{product.deskripsi_product}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap" title={product.deskripsi_product}>
+                                        {product.deskripsi_product}
+                                    </td>
                                     <td>
                                         <img
                                             src={`/storage/${product.foto_product}`}
                                             alt={product.nama_product}
-                                            className="mx-auto h-24 w-24 rounded-lg object-cover"
+                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
                                     <td>
