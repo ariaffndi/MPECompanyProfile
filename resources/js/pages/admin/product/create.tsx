@@ -66,30 +66,26 @@ export default function ProductCreate() {
 
                             <div className="grid gap-2">
                                 <Label htmlFor="product description">Deskripsi Produuk</Label>
-                                <Input
+                                <textarea
                                     id="deskripsi_product"
-                                    type="text"
-                                    required
-                                    tabIndex={2}
+                                    rows={5}
+                                    className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                     value={data.deskripsi_product}
                                     onChange={(e) => setData('deskripsi_product', e.target.value)}
-                                    disabled={processing}
                                     placeholder="deskripsi produk"
                                 />
-                                <p className='text-red-600 font-light text-[10px]'>*Maksimal 225 karakter</p>
                                 <InputError message={errors.deskripsi_product} />
                             </div>
 
-                            <div className="grid gap-2  ">
+                            <div className="grid gap-2">
                                 <Label htmlFor="product image">Foto Produk</Label>
-                                <Input
+                                <input
                                     id="foto_product"
+                                    name="foto_product"
                                     type="file"
-                                    required
-                                    tabIndex={3}
-                                    accept='image/*'
+                                    accept="image/*"
                                     onChange={(e) => setData('foto_product', e.target.files ? e.target.files[0] : null)}
-                                    disabled={processing}
+                                    className="file-input file-input-ghost"
                                 />
                                 <InputError message={errors.foto_product} />
                             </div>

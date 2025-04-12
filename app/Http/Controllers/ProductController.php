@@ -14,7 +14,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
         return Inertia::render('admin/product/index', [
             "product" => Product::all()
         ]);
@@ -35,7 +34,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'nama_product' => 'required|string|max:255',
-            'deskripsi_product' => 'required|string|max:225',
+            'deskripsi_product' => 'required',
             'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -76,21 +75,20 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'nama_product' => 'required|string|max:225',
-            'deskripsi_product' => 'required|string|max:225',
-            'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama_product' => 'string|max:225',
+            'deskripsi_product' => 'max:1000',
         ]);
-    
+
         if ($request->hasFile('foto_product')) {
             $foto = $request->file('foto_product')->store('product', 'public');
             $validated['foto_product'] = $foto;
         }
-    
+
         $product->update($validated);
-    
-        return redirect()->route('product.index')->with('success', 'Product berhasil diupdate.');
+
+        return redirect()->route('product.index')->with('success', 'Produk berhasil diperbarui!');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -100,7 +98,7 @@ class ProductController extends Controller
         //soft delete
         $data = Product::findOrFail($id);
         $data->delete();
-        
+
         return redirect()->route('product.index')->with('success', 'Product berhasil dihapus.');
     }
 }

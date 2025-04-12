@@ -56,7 +56,11 @@
         "lucide-react": "^0.475.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+<<<<<<< HEAD
         "styled-components": "^6.1.17",
+=======
+        "sonner": "^2.0.3",
+>>>>>>> 7fe484a6d5cd7cc0d447a3f77e311bcf08891520
         "tailwind-merge": "^3.0.1",
         "tailwindcss": "^4.0.0",
         "tailwindcss-animate": "^1.0.7",
