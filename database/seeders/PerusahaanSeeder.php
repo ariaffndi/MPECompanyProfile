@@ -21,6 +21,7 @@ class PerusahaanSeeder extends Seeder
             'instagram_perusahaan' => '@mitraprimaenviro',
             'facebook_perusahaan' => 'facebook.com/mitraenviro',
             'foto_kantor_perusahaan' => 'kantor.jpg',
+            'logo_perusahaan' => 'logo.jpg',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

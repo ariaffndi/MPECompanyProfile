@@ -27,6 +27,7 @@ type FormPerusahaan = {
     instagram_perusahaan: string;
     facebook_perusahaan: string;
     foto_kantor_perusahaan: string;
+    logo_perusahaan: string;
 };
 
 export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusahaan }) {
@@ -40,6 +41,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
         instagram_perusahaan: perusahaan.instagram_perusahaan,
         facebook_perusahaan: perusahaan.facebook_perusahaan,
         foto_kantor_perusahaan: null as File | null,
+        logo_perusahaan: null as File | null,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -62,6 +64,19 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
+                            <div className="grid gap-2">
+                                <Label htmlFor="kantor Image">Logo Perusahaan</Label>
+                                <input
+                                    id="logo_perusahaan"
+                                    name="logo_perusahaan"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setData('logo_perusahaan', e.target.files ? e.target.files[0] : null)}
+                                    className="file-input file-input-ghost"
+                                />
+                                <InputError message={errors.logo_perusahaan} />
+                            </div>
+                            
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="nama_perusahaan">Nama Perusahaan</Label>

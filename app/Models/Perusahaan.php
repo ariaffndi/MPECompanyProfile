@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perusahaan extends Model
 {
-    protected $table = 'perusahaan';
+    protected $table = 'perusahaans';
     
     protected $fillable = [
         'nama_perusahaan',
@@ -18,5 +18,6 @@ class Perusahaan extends Model
         'instagram_perusahaan',
         'facebook_perusahaan',
         'foto_kantor_perusahaan',
+        'logo_perusahaan',
     ];
 }
