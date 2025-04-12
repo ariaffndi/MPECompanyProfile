@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,6 +23,10 @@ type Product = {
 export default function Product() {
     const { product } = usePage<{ product: Product[] }>().props;
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [searchVal, setSearchVal] = useState('');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 4;
 
     const handleDelete = () => {
         if (selectedProduct) {
@@ -30,6 +34,24 @@ export default function Product() {
             setSelectedProduct(null);
         }
     };
+
+    const toggleSort = () => {
+        setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    };
+
+    const filteredProducts = product
+        .filter((p) => {
+            const search = searchVal.toLowerCase();
+            return p.nama_product.toLowerCase().includes(search) || p.deskripsi_product.toLowerCase().includes(search);
+        })
+        .sort((a, b) => {
+            return sortOrder === 'asc' ? a.nama_product.localeCompare(b.nama_product) : b.nama_product.localeCompare(a.nama_product);
+        });
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
     const handleExportCSV = () => {
         const headers = ['No', 'Produk', 'Deskripsi'];
@@ -42,48 +64,66 @@ export default function Product() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-
-        const { flash } = usePage().props as { flash?: { success?: string } };
-        useEffect(() => {
-            if (flash?.success) {
-                toast.success(flash.success);
-            }
-        }, [flash]);
     };
+
+    const { flash } = usePage().props as { flash?: { success?: string } };
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash.success);
+        }
+    }, [flash]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 sm:p-4">
+            <div className="w-full max-w-none m-2 flex h-full flex-1 flex-col gap-4 rounded-xl p-4 sm:p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         Tambah Produk
                     </Link>
-                    <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
-                        Export CSV
-                    </button>
+                    <div className="flex flex-col justify-between gap-2 sm:flex-row">
+                        <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
+                            Export CSV
+                        </button>
+
+                        <label className="input h-8 rounded-xl">
+                            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                </g>
+                            </svg>
+                            <input
+                                type="search"
+                                className="grow"
+                                placeholder="Search"
+                                value={searchVal}
+                                onChange={(e) => setSearchVal(e.target.value)}
+                            />
+                        </label>
+                    </div>
                 </div>
 
-                <div className="rounded-box border-base-content/5 overflow-x-auto border">
-                    <table className="table-xs table min-w-[640px] text-center">
+                <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
+                    <table className="table min-w-full text-center">
                         <thead className="bg-base-200 text-base-content">
                             <tr>
                                 <th>No</th>
-                                <th>Produk</th>
+                                <th className="cursor-pointer" onClick={toggleSort}>
+                                    Produk {sortOrder === 'asc' ? '↑' : '↓'}
+                                </th>
                                 <th>Deskripsi</th>
                                 <th>Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {product?.map((product, index) => (
+                            {currentItems.map((product, index) => (
                                 <tr key={product.id} className="border-base-content/5 border-1">
-                                    <td>{index + 1}</td>
+                                    <td>{indexOfFirstItem + index + 1}</td>
                                     <td>{product.nama_product}</td>
                                     <td>
-                                        <div className="break-wordstext-sm p-2o max-w-sm whitespace-pre-wrap md:text-base">
-                                            {product.deskripsi_product}
-                                        </div>
+                                        <div className="line-clamp-3 text-sm whitespace-pre-line">{product.deskripsi_product}</div>
                                     </td>
                                     <td>
                                         <img
@@ -125,6 +165,25 @@ export default function Product() {
                             ))}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Pagination */}
+                <div className="mt-4 flex justify-center gap-2">
+                    <button className="btn btn-sm" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+                        Prev
+                    </button>
+                    {[...Array(totalPages)].map((_, i) => (
+                        <button key={i} className={`btn btn-sm ${currentPage === i + 1 ? 'btn-active' : ''}`} onClick={() => setCurrentPage(i + 1)}>
+                            {i + 1}
+                        </button>
+                    ))}
+                    <button
+                        className="btn btn-sm"
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </AppLayout>
