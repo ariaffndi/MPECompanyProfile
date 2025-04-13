@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm,router } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
@@ -30,12 +30,22 @@ export default function ProductEdit({ product }: { product: ProductForm }) {
         foto_product: null as File | null,
     });
 
+    const param = new URLSearchParams(window.location.search).get('page') ;
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('product.update', product.id), {
             method: 'put',
+            preserveScroll: true,
+            preserveState: true,
             forceFormData: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                router.visit(route('product.index', { page: param }), {
+                    preserveState: true,
+                    preserveScroll: true,
+                });
+            },
         });
     };
 
