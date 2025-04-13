@@ -76,7 +76,7 @@ export default function Product() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Product" />
-            <div className="w-full max-w-none m-2 flex h-full flex-1 flex-col gap-4 rounded-xl p-4 sm:p-4">
+            <div className="m-2 flex h-full w-full max-w-none flex-1 flex-col gap-4 rounded-xl p-4 sm:p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         Tambah Produk
@@ -105,15 +105,15 @@ export default function Product() {
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
-                    <table className="table min-w-full text-center">
+                    <table className="table-pin-rows min-w-full table text-center">
                         <thead className="bg-base-200 text-base-content">
                             <tr>
                                 <th>No</th>
                                 <th className="cursor-pointer" onClick={toggleSort}>
                                     Produk {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
-                                <th>Deskripsi</th>
-                                <th>Foto</th>
+                                <th className="hidden sm:table-cell">Deskripsi</th>
+                                <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -122,24 +122,24 @@ export default function Product() {
                                 <tr key={product.id} className="border-base-content/5 border-1">
                                     <td>{indexOfFirstItem + index + 1}</td>
                                     <td>{product.nama_product}</td>
-                                    <td>
-                                        <div className="line-clamp-3 text-sm whitespace-pre-line">{product.deskripsi_product}</div>
+                                    <td className="max-w-[200px] truncate whitespace-nowrapd hidden sm:table-cell" title={product.deskripsi_product}>
+                                        {product.deskripsi_product}
                                     </td>
-                                    <td>
+                                    <td className="hidden sm:table-cell">
                                         <img
                                             src={`/storage/${product.foto_product}`}
                                             alt={product.nama_product}
-                                            className="mx-auto h-24 w-24 rounded-lg object-cover"
+                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
                                     <td>
-                                        <Link href={route('product.edit', product.id)} className="btn btn-sm btn-primary m-2 w-fit rounded-xl">
-                                            <Pencil color="white" size={20} />
+                                        <Link href={route('product.edit', product.id)} className="btn btn-sm btn-warning m-1 w-fit rounded-xl">
+                                            <Pencil size={20} />
                                         </Link>
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    className="btn btn-sm btn-error m-2 w-fit rounded-xl"
+                                                    className="btn btn-sm btn-error m-1 w-fit rounded-xl"
                                                     onClick={() => setSelectedProduct(product)}
                                                 >
                                                     <Trash2 size={20} />
@@ -152,7 +152,7 @@ export default function Product() {
                                                 </DialogDescription>
                                                 <DialogFooter>
                                                     <DialogClose asChild>
-                                                        <button className="btn btn-primary m-1 w-fit rounded-lg">Batal</button>
+                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
                                                     </DialogClose>
                                                     <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
                                                         Hapus
