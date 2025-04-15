@@ -71,7 +71,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Mail size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-md">{perusahaan.email_perusahaan}</p>
+                                    <p className="text-sm">{perusahaan.email_perusahaan}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Phone size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-md">{perusahaan.no_telp_perusahaan}</p>
+                                    <p className="text-sm">{perusahaan.no_telp_perusahaan}</p>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <MessageCircle size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-md">{perusahaan.whatsapp_perusahaan}</p>
+                                    <p className="text-sm">{perusahaan.whatsapp_perusahaan}</p>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Instagram size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-md">{perusahaan.instagram_perusahaan}</p>
+                                    <p className="text-sm">{perusahaan.instagram_perusahaan}</p>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Facebook size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-md">{perusahaan.facebook_perusahaan}</p>
+                                    <p className="text-sm">{perusahaan.facebook_perusahaan}</p>
                                 </div>
                             </div>
                         </div>

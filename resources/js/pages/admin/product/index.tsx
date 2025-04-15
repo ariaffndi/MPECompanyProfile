@@ -112,8 +112,8 @@ export default function Product() {
                                 <th className="cursor-pointer" onClick={toggleSort}>
                                     Produk {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
-                                <th className="hidden sm:table-cell">Deskripsi</th>
-                                <th className="hidden sm:table-cell">Foto</th>
+                                <th>Deskripsi</th>
+                                <th>Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -122,10 +122,10 @@ export default function Product() {
                                 <tr key={product.id} className="border-base-content/5 border-1">
                                     <td>{indexOfFirstItem + index + 1}</td>
                                     <td>{product.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrapd hidden sm:table-cell" title={product.deskripsi_product}>
+                                    <td className="max-w-[200px] truncate whitespace-nowrapd " title={product.deskripsi_product}>
                                         {product.deskripsi_product}
                                     </td>
-                                    <td className="hidden sm:table-cell">
+                                    <td>
                                         <img
                                             src={`/storage/${product.foto_product}`}
                                             alt={product.nama_product}
