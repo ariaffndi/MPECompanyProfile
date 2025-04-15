@@ -5,6 +5,7 @@ import { Facebook, Instagram, Mail, MessageCircle, Phone } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
 import {usePage} from '@inertiajs/react';
+import { useFlashToast } from '@/hooks/useFlashToast';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -33,12 +34,7 @@ interface Props {
 
 export default function Perusahaan({ perusahaan }: Props) {
 
-    const { flash } = usePage().props as { flash?: { success?: string } };
-        useEffect(() => {
-            if (flash?.success) {
-                toast.success(flash.success);
-            }
-        }, [flash]);
+    useFlashToast();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

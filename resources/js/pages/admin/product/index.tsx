@@ -3,15 +3,13 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { toast } from 'sonner';
+import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Products',
-        href: '/product',
-    },
-];
+import { useFlashToast } from '@/hooks/useFlashToast';
+import { usePaginationParam } from '@/hooks/usePaginationParam';
+import { useSearchSort } from '@/hooks/useSearchSort';
+
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
 
 type Product = {
     id: number;
@@ -23,35 +21,29 @@ type Product = {
 export default function Product() {
     const { product } = usePage<{ product: Product[] }>().props;
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const [searchVal, setSearchVal] = useState('');
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-    const [currentPage, setCurrentPage] = useState(1);
+    const { page: currentPage, setPage: setCurrentPage } = usePaginationParam();
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product, (p) => p.nama_product + ' ' + p.deskripsi_product);
     const itemsPerPage = 4;
+
+    useFlashToast();
 
     const handleDelete = () => {
         if (selectedProduct) {
-            router.delete(route('product.destroy', selectedProduct.id));
-            setSelectedProduct(null);
+            router.delete(route('product.destroy', selectedProduct.id), {
+                preserveScroll: true,
+                preserveState: true,
+                data: { page: currentPage },
+                onSuccess: () => {
+                    setSelectedProduct(null);
+                },
+            });
         }
     };
 
-    const toggleSort = () => {
-        setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-    };
-
-    const filteredProducts = product
-        .filter((p) => {
-            const search = searchVal.toLowerCase();
-            return p.nama_product.toLowerCase().includes(search) || p.deskripsi_product.toLowerCase().includes(search);
-        })
-        .sort((a, b) => {
-            return sortOrder === 'asc' ? a.nama_product.localeCompare(b.nama_product) : b.nama_product.localeCompare(a.nama_product);
-        });
-
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    const currentItems = filtered.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
     const handleExportCSV = () => {
         const headers = ['No', 'Produk', 'Deskripsi'];
@@ -65,13 +57,6 @@ export default function Product() {
         link.click();
         document.body.removeChild(link);
     };
-
-    const { flash } = usePage().props as { flash?: { success?: string } };
-    useEffect(() => {
-        if (flash?.success) {
-            toast.success(flash.success);
-        }
-    }, [flash]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -93,13 +78,7 @@ export default function Product() {
                                     <path d="m21 21-4.3-4.3"></path>
                                 </g>
                             </svg>
-                            <input
-                                type="search"
-                                className="grow"
-                                placeholder="Search"
-                                value={searchVal}
-                                onChange={(e) => setSearchVal(e.target.value)}
-                            />
+                            <input type="search" className="grow" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </label>
                     </div>
                 </div>
@@ -167,9 +146,8 @@ export default function Product() {
                     </table>
                 </div>
 
-                {/* Pagination */}
                 <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+                    <button className="btn btn-sm" onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))} disabled={currentPage === 1}>
                         Prev
                     </button>
                     {[...Array(totalPages)].map((_, i) => (
@@ -179,7 +157,7 @@ export default function Product() {
                     ))}
                     <button
                         className="btn btn-sm"
-                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
                         disabled={currentPage === totalPages}
                     >
                         Next

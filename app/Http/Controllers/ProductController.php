@@ -86,7 +86,7 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('product.index')->with('success', 'Produk berhasil diperbarui!');
+        return redirect()->route('product.index',['page' => request()->get('page',1)])->with('success', 'Produk berhasil diperbarui!');
     }
 
 
@@ -99,6 +99,6 @@ class ProductController extends Controller
         $data = Product::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('product.index')->with('success', 'Product berhasil dihapus.');
+        return redirect()->route('product.index',['page' => request()->get('page',1)])->with('success', 'Product berhasil dihapus.');
     }
 }
