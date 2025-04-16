@@ -9,32 +9,32 @@ import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Layanan', href: '/service' }];
 
-type Product = {
+type Service = {
     id: number;
-    nama_product: string;
-    deskripsi_product: string;
-    foto_product: string;
+    service_name: string;
+    service_description: string;
+    service_image: string;
 };
 
-export default function Product() {
-    const { product } = usePage<{ product: Product[] }>().props;
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const { page: currentPage, setPage: setCurrentPage } = usePaginationParam();
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product, (p) => p.nama_product + ' ' + p.deskripsi_product);
-    const itemsPerPage = 5;
-
+export default function Service() {
     useFlashToast();
 
+    const { service } = usePage<{ service: Service[] }>().props;
+    const [selectedService, setSelectedService] = useState<Service | null>(null);
+    const { page: currentPage, setPage: setCurrentPage } = usePaginationParam();
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(service, (p) => p.service_name + ' ' + p.service_description);
+    const itemsPerPage = 5;
+    
     const handleDelete = () => {
-        if (selectedProduct) {
-            router.delete(route('product.destroy', selectedProduct.id), {
+        if (selectedService) {
+            router.delete(route('service.destroy', selectedService.id), {
                 preserveScroll: true,
                 preserveState: true,
                 data: { page: currentPage },
                 onSuccess: () => {
-                    setSelectedProduct(null);
+                    setSelectedService(null);
                 },
             });
         }
@@ -46,13 +46,13 @@ export default function Product() {
     const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
     const handleExportCSV = () => {
-        const headers = ['No', 'Produk', 'Deskripsi'];
-        const rows = product.map((p, i) => [i + 1, p.nama_product, p.deskripsi_product.replace(/\n/g, ' ')]);
+        const headers = ['No', 'Layanan', 'Deskripsi'];
+        const rows = service.map((p, i) => [i + 1, p.service_name, p.service_description.replace(/\n/g, ' ')]);
         const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'produk.csv');
+        link.setAttribute('download', 'layanan.csv');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -60,11 +60,11 @@ export default function Product() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Produk" />
+            <Head title="Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                    <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        Tambah Produk
+                    <Link href={route('service.create')} className="btn btn-sm btn-info w-fit rounded-xl">
+                        Tambah Layanan
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
@@ -89,7 +89,7 @@ export default function Product() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th className="cursor-pointer" onClick={toggleSort}>
-                                    Produk {sortOrder === 'asc' ? '↑' : '↓'}
+                                    Layanan {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
                                 <th>Deskripsi</th>
                                 <th>Foto</th>
@@ -97,21 +97,19 @@ export default function Product() {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentItems.map((product, index) => (
+                            {currentItems.map((service, index) => (
                                 <tr
-                                    key={product.id}
+                                    key={service.id}
                                     className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
-                                    onClick={() => setSelectedProduct(product)}
+                                    onClick={() => setSelectedService(service)}
                                 >
                                     <td>{indexOfFirstItem + index + 1}</td>
-                                    <td>{product.nama_product}</td>
-                                    <td className="whitespace-nowrapd max-w-[200px] truncate">
-                                        {product.deskripsi_product}
-                                    </td>
+                                    <td>{service.service_name}</td>
+                                    <td className="whitespace-nowrapd max-w-[200px] truncate">{service.service_description}</td>
                                     <td>
                                         <img
-                                            src={`/storage/${product.foto_product}`}
-                                            alt={product.nama_product}
+                                            src={`/storage/${service.service_image}`}
+                                            alt={service.service_name}
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
@@ -119,26 +117,26 @@ export default function Product() {
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Detail Produk"
+                                                    title="Detail Layanan"
                                                     className="btn btn-sm btn-info m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(product)}
+                                                    onClick={() => setSelectedService(service)}
                                                 >
                                                     <Info size={20} />
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>
-                                                <DialogTitle>Detail Produk</DialogTitle>
+                                                <DialogTitle>Detail Layanan</DialogTitle>
                                                 <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                     <figure>
                                                         <img
-                                                            src={`/storage/${product.foto_product}`}
-                                                            alt={product.nama_product}
+                                                            src={`/storage/${service.service_image}`}
+                                                            alt={service.service_name}
                                                             className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
                                                         />
                                                     </figure>
                                                     <div className="card-body">
-                                                        <h2 className="card-title">{product.nama_product}</h2>
-                                                        <p className="whitespace-pre-line">{product.deskripsi_product}</p>
+                                                        <h2 className="card-title">{service.service_name}</h2>
+                                                        <p className="whitespace-pre-line">{service.service_description}</p>
                                                     </div>
                                                 </DialogDescription>
                                                 <DialogFooter>
@@ -149,8 +147,8 @@ export default function Product() {
                                             </DialogContent>
                                         </Dialog>
                                         <Link
-                                            href={route('product.edit', product.id)}
-                                            title="Edit Produk"
+                                            href={route('service.edit', service.id)}
+                                            title="Edit Layanan"
                                             className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
                                         >
                                             <Pencil size={20} />
@@ -158,9 +156,9 @@ export default function Product() {
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Hapus Produk"
+                                                    title="Hapus Layanan"
                                                     className="btn btn-sm btn-error m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(product)}
+                                                    onClick={() => setSelectedService(service)}
                                                 >
                                                     <Trash2 size={20} />
                                                 </button>
@@ -168,7 +166,7 @@ export default function Product() {
                                             <DialogContent>
                                                 <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                 <DialogDescription>
-                                                    Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
+                                                    Apakah Anda yakin ingin menghapus layanan <strong>{selectedService?.service_name}</strong>?
                                                 </DialogDescription>
                                                 <DialogFooter>
                                                     <DialogClose asChild>
