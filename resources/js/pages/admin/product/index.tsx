@@ -2,7 +2,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, Info } from 'lucide-react';
 import { useState } from 'react';
 
 import { useFlashToast } from '@/hooks/useFlashToast';
@@ -105,7 +105,9 @@ export default function Product() {
                                 >
                                     <td>{indexOfFirstItem + index + 1}</td>
                                     <td>{product.nama_product}</td>
-                                    <td className="whitespace-nowrapd max-w-[200px] truncate">{product.deskripsi_product}</td>
+                                    <td className="whitespace-nowrapd max-w-[200px] truncate">
+                                        {product.deskripsi_product}
+                                    </td>
                                     <td>
                                         <img
                                             src={`/storage/${product.foto_product}`}
