@@ -40,7 +40,7 @@ export default function UserCreate() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Add User" />
+            <Head title="Tambah Admin" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Link href={route('users.index')} className="btn btn-sm btn-info w-fit rounded-xl">
                     Kembali

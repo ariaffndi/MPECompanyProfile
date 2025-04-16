@@ -99,6 +99,6 @@ class ProductController extends Controller
         $data = Product::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('product.index',['page' => request()->get('page',1)])->with('success', 'Product berhasil dihapus.');
+        return redirect()->route('product.index',['page' => request()->get('page',1)])->with('success', 'Produk berhasil dihapus.');
     }
 }

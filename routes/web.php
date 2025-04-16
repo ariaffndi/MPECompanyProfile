@@ -33,6 +33,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Service routes
     Route::resource('admin/service', ServiceController::class);
+    Route::put('/admin/service/{service}', [ServiceController::class, 'update'])->name('service.update');
+    Route::post('/admin/service/{service}', [ServiceController::class, 'update']);
+    Route::delete('/admin/service/{service}', [ServiceController::class, 'destroy'])->name('service.destroy');
+    
 });
 
 

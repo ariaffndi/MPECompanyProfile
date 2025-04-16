@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function index()
     {
         return Inertia::render('admin/service/index', [
-            'services' => Service::all()
+            'service' => Service::all()
         ]);
     }
 
@@ -23,7 +23,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('admin/service/create');
     }
 
     /**
@@ -31,7 +31,21 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'service_name' => 'required|string|max:255',
+            'service_description' => 'required',
+            'service_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $path = null;
+        if ($request->hasFile('service_image')) {
+            $path = $request->file('service_image')->store('service_image', 'public');
+            $validated['service_image'] = $path;
+        }
+
+        Service::create($validated);
+
+        return redirect()->route('service.index')->with('success', 'Layanan berhasil ditambahkan');
     }
 
     /**
@@ -47,15 +61,30 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $service = Service::findOrFail($id);
+        return inertia('admin/service/edit', [
+            'service' => $service
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Service $service)
     {
-        //
+        $validated = $request->validate([
+            'service_name' => 'string|max:225',
+            'service_description' => 'max:1000',
+        ]);
+
+        if ($request->hasFile('service_image')) {
+            $foto = $request->file('service_image')->store('service', 'public');
+            $validated['service_image'] = $foto;
+        }
+
+        $service->update($validated);
+
+        return redirect()->route('service.index',['page' => request()->get('page',1)])->with('success', 'Layanan berhasil diperbarui!');
     }
 
     /**
@@ -63,6 +92,10 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //soft delete
+        $data = Service::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('service.index',['page' => request()->get('page',1)])->with('success', 'Layanan berhasil dihapus.');
     }
 }
