@@ -85,8 +85,8 @@ export default function Product() {
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
                     <table className="table-pin-rows table min-w-full text-center">
-                        <thead className="bg-base-200 text-base-content">
-                            <tr>
+                        <thead>
+                            <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th className="cursor-pointer" onClick={toggleSort}>
                                     Produk {sortOrder === 'asc' ? '↑' : '↓'}
@@ -98,7 +98,6 @@ export default function Product() {
                         </thead>
                         <tbody>
                             {currentItems.map((product, index) => (
-                                <>
                                     <Dialog>
                                         <DialogTrigger asChild>
                                             <tr
@@ -108,7 +107,7 @@ export default function Product() {
                                             >
                                                 <td>{indexOfFirstItem + index + 1}</td>
                                                 <td>{product.nama_product}</td>
-                                                <td className="whitespace-nowrapd max-w-[200px] truncate" title={product.deskripsi_product}>
+                                                <td className="whitespace-nowrapd max-w-[200px] truncate">
                                                     {product.deskripsi_product}
                                                 </td>
                                                 <td>
@@ -209,7 +208,6 @@ export default function Product() {
                                             </DialogFooter>
                                         </DialogContent>
                                     </Dialog>
-                                </>
                             ))}
                         </tbody>
                     </table>

@@ -29,8 +29,8 @@ export default function Users() {
                 <div className="rounded-box border-base-content/5 overflow-x-auto border">
                     <table className="table text-center">
                         {/* head */}
-                        <thead className="bg-base-200 text-base-content">
-                            <tr>
+                        <thead>
+                            <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th className="hidden sm:table-cell">Id</th>
                                 <th>Nama</th>
