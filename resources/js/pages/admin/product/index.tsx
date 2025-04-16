@@ -9,7 +9,7 @@ import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Produk', href: '/product' }];
 
 type Product = {
     id: number;
