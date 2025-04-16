@@ -1,13 +1,12 @@
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Pencil, Trash2, Info } from 'lucide-react';
-import { useState } from 'react';
-
 import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Info, Pencil, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
 
@@ -18,36 +17,52 @@ type Product = {
     foto_product: string;
 };
 
+type Paginator<T> = {
+    data: T[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+};
+
 export default function Product() {
-    const { product } = usePage<{ product: Product[] }>().props;
+    const { product } = usePage<{ product: Paginator<Product> }>().props;
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const { page: currentPage, setPage: setCurrentPage } = usePaginationParam();
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product, (p) => p.nama_product + ' ' + p.deskripsi_product);
-    const itemsPerPage = 4;
+    const {page, setPage } = usePaginationParam();
+
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product.data, (item) => item.nama_product);
 
     useFlashToast();
 
     const handleDelete = () => {
-        if (selectedProduct) {
+        if (selectedProduct)
             router.delete(route('product.destroy', selectedProduct.id), {
                 preserveScroll: true,
                 preserveState: true,
-                data: { page: currentPage },
+                data: { page: product.current_page },
                 onSuccess: () => {
                     setSelectedProduct(null);
                 },
             });
-        }
     };
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filtered.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+        router.get(
+            route('product.index'),
+            { page: newPage },
+            {
+                preserveScroll: true,
+                preserveState: true,
+            },
+        );
+    };
 
     const handleExportCSV = () => {
         const headers = ['No', 'Produk', 'Deskripsi'];
-        const rows = product.map((p, i) => [i + 1, p.nama_product, p.deskripsi_product.replace(/\n/g, ' ')]);
+        const rows = product.data.map((item, i) => [i + 1, item.nama_product, item.deskripsi_product.replace(/\n/g, ' ')]);
         const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
@@ -70,7 +85,6 @@ export default function Product() {
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
                             Export CSV
                         </button>
-
                         <label className="input h-8 rounded-xl">
                             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
@@ -97,21 +111,19 @@ export default function Product() {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentItems.map((product, index) => (
+                            {filtered.map((item, index) => (
                                 <tr
-                                    key={product.id}
+                                    key={item.id}
                                     className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
-                                    onClick={() => setSelectedProduct(product)}
+                                    onClick={() => setSelectedProduct(item)}
                                 >
-                                    <td>{indexOfFirstItem + index + 1}</td>
-                                    <td>{product.nama_product}</td>
-                                    <td className="whitespace-nowrapd max-w-[200px] truncate">
-                                        {product.deskripsi_product}
-                                    </td>
+                                    <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
+                                    <td>{item.nama_product}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap">{item.deskripsi_product}</td>
                                     <td>
                                         <img
-                                            src={`/storage/${product.foto_product}`}
-                                            alt={product.nama_product}
+                                            src={`/storage/${item.foto_product}`}
+                                            alt={item.nama_product}
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
@@ -121,7 +133,7 @@ export default function Product() {
                                                 <button
                                                     title="Detail Produk"
                                                     className="btn btn-sm btn-info m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(product)}
+                                                    onClick={() => setSelectedProduct(item)}
                                                 >
                                                     <Info size={20} />
                                                 </button>
@@ -131,14 +143,14 @@ export default function Product() {
                                                 <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                     <figure>
                                                         <img
-                                                            src={`/storage/${product.foto_product}`}
-                                                            alt={product.nama_product}
+                                                            src={`/storage/${item.foto_product}`}
+                                                            alt={item.nama_product}
                                                             className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
                                                         />
                                                     </figure>
                                                     <div className="card-body">
-                                                        <h2 className="card-title">{product.nama_product}</h2>
-                                                        <p className="whitespace-pre-line">{product.deskripsi_product}</p>
+                                                        <h2 className="card-title">{item.nama_product}</h2>
+                                                        <p className="whitespace-pre-line">{item.deskripsi_product}</p>
                                                     </div>
                                                 </DialogDescription>
                                                 <DialogFooter>
@@ -149,7 +161,7 @@ export default function Product() {
                                             </DialogContent>
                                         </Dialog>
                                         <Link
-                                            href={route('product.edit', product.id)}
+                                            href={route('product.edit', { id: item.id }) + `?page=${page}`}
                                             title="Edit Produk"
                                             className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
                                         >
@@ -160,7 +172,7 @@ export default function Product() {
                                                 <button
                                                     title="Hapus Produk"
                                                     className="btn btn-sm btn-error m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(product)}
+                                                    onClick={() => setSelectedProduct(item)}
                                                 >
                                                     <Trash2 size={20} />
                                                 </button>
@@ -168,8 +180,7 @@ export default function Product() {
                                             <DialogContent>
                                                 <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                 <DialogDescription>
-                                                    Apakah Anda yakin ingin menghapus produk{' '}
-                                                    <strong>{selectedProduct?.nama_product}</strong>?
+                                                    Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
                                                 </DialogDescription>
                                                 <DialogFooter>
                                                     <DialogClose asChild>
@@ -188,19 +199,26 @@ export default function Product() {
                     </table>
                 </div>
 
+                {/* paginasi */}
                 <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))} disabled={currentPage === 1}>
+                    <button className="btn btn-sm" onClick={() => handlePageChange(product.current_page - 1)} disabled={product.current_page === 1}>
                         Prev
                     </button>
-                    {[...Array(totalPages)].map((_, i) => (
-                        <button key={i} className={`btn btn-sm ${currentPage === i + 1 ? 'btn-active' : ''}`} onClick={() => setCurrentPage(i + 1)}>
+
+                    {[...Array(product.last_page)].map((_, i) => (
+                        <button
+                            key={i}
+                            className={`btn btn-sm ${product.current_page === i + 1 ? 'btn-active' : ''}`}
+                            onClick={() => handlePageChange(i + 1)}
+                        >
                             {i + 1}
                         </button>
                     ))}
+
                     <button
                         className="btn btn-sm"
-                        onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
-                        disabled={currentPage === totalPages}
+                        onClick={() => handlePageChange(product.current_page + 1)}
+                        disabled={product.current_page === product.last_page}
                     >
                         Next
                     </button>
