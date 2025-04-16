@@ -2,7 +2,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react'; //tambah info jika pakai icon
 import { useState } from 'react';
 
 import { useFlashToast } from '@/hooks/useFlashToast';
@@ -60,8 +60,8 @@ export default function Product() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Product" />
-            <div className="m-2 flex h-full w-full max-w-none flex-1 flex-col gap-4 rounded-xl p-4 sm:p-4">
+            <Head title="Produk" />
+            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         Tambah Produk
@@ -84,7 +84,7 @@ export default function Product() {
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
-                    <table className="table-pin-rows min-w-full table text-center">
+                    <table className="table-pin-rows table min-w-full text-center">
                         <thead className="bg-base-200 text-base-content">
                             <tr>
                                 <th>No</th>
@@ -98,49 +98,118 @@ export default function Product() {
                         </thead>
                         <tbody>
                             {currentItems.map((product, index) => (
-                                <tr key={product.id} className="border-base-content/5 border-1">
-                                    <td>{indexOfFirstItem + index + 1}</td>
-                                    <td>{product.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrapd " title={product.deskripsi_product}>
-                                        {product.deskripsi_product}
-                                    </td>
-                                    <td>
-                                        <img
-                                            src={`/storage/${product.foto_product}`}
-                                            alt={product.nama_product}
-                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
-                                        />
-                                    </td>
-                                    <td>
-                                        <Link href={route('product.edit', product.id)} className="btn btn-sm btn-warning m-1 w-fit rounded-xl">
-                                            <Pencil size={20} />
-                                        </Link>
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button
-                                                    className="btn btn-sm btn-error m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(product)}
-                                                >
-                                                    <Trash2 size={20} />
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogTitle>Konfirmasi Hapus</DialogTitle>
-                                                <DialogDescription>
-                                                    Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
-                                                </DialogDescription>
-                                                <DialogFooter>
-                                                    <DialogClose asChild>
-                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
-                                                    </DialogClose>
-                                                    <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
-                                                        Hapus
-                                                    </button>
-                                                </DialogFooter>
-                                            </DialogContent>
-                                        </Dialog>
-                                    </td>
-                                </tr>
+                                <>
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <tr
+                                                key={product.id}
+                                                className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
+                                                onClick={() => setSelectedProduct(product)}
+                                            >
+                                                <td>{indexOfFirstItem + index + 1}</td>
+                                                <td>{product.nama_product}</td>
+                                                <td className="whitespace-nowrapd max-w-[200px] truncate" title={product.deskripsi_product}>
+                                                    {product.deskripsi_product}
+                                                </td>
+                                                <td>
+                                                    <img
+                                                        src={`/storage/${product.foto_product}`}
+                                                        alt={product.nama_product}
+                                                        className="mx-auto h-16 w-16 rounded-lg object-cover"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    {/* <Dialog>
+                                                        <DialogTrigger asChild>
+                                                            <button
+                                                                title="Detail Produk"
+                                                                className="btn btn-sm btn-info m-1 w-fit rounded-xl"
+                                                                onClick={() => setSelectedProduct(product)}
+                                                            >
+                                                                <Info size={20} />
+                                                            </button>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogTitle>Detail Produk</DialogTitle>
+                                                            <DialogDescription className="max-h-[400px] overflow-y-auto">
+                                                                <figure>
+                                                                    <img
+                                                                        src={`/storage/${product.foto_product}`}
+                                                                        alt={product.nama_product}
+                                                                        className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                                    />
+                                                                </figure>
+                                                                <div className="card-body">
+                                                                    <h2 className="card-title">{product.nama_product}</h2>
+                                                                    <p className="whitespace-pre-line">{product.deskripsi_product}</p>
+                                                                </div>
+                                                            </DialogDescription>
+                                                            <DialogFooter>
+                                                                <DialogClose asChild>
+                                                                    <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
+                                                                </DialogClose>
+                                                            </DialogFooter>
+                                                        </DialogContent>
+                                                    </Dialog> */}
+                                                    <Link
+                                                        href={route('product.edit', product.id)}
+                                                        title="Edit Produk"
+                                                        className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
+                                                    >
+                                                        <Pencil size={20} />
+                                                    </Link>
+                                                    <Dialog>
+                                                        <DialogTrigger asChild>
+                                                            <button
+                                                                title="Hapus Produk"
+                                                                className="btn btn-sm btn-error m-1 w-fit rounded-xl"
+                                                                onClick={() => setSelectedProduct(product)}
+                                                            >
+                                                                <Trash2 size={20} />
+                                                            </button>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogTitle>Konfirmasi Hapus</DialogTitle>
+                                                            <DialogDescription>
+                                                                Apakah Anda yakin ingin menghapus produk{' '}
+                                                                <strong>{selectedProduct?.nama_product}</strong>?
+                                                            </DialogDescription>
+                                                            <DialogFooter>
+                                                                <DialogClose asChild>
+                                                                    <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
+                                                                </DialogClose>
+                                                                <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
+                                                                    Hapus
+                                                                </button>
+                                                            </DialogFooter>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </td>
+                                            </tr>
+                                        </DialogTrigger>
+                                        <DialogContent>
+                                            <DialogTitle>Detail Produk</DialogTitle>
+                                            <DialogDescription className="max-h-[400px] overflow-y-auto">
+                                                <figure>
+                                                    <img
+                                                        src={`/storage/${product.foto_product}`}
+                                                        alt={product.nama_product}
+                                                        className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                    />
+                                                </figure>
+                                                <div className="card-body">
+                                                    <h2 className="card-title">{product.nama_product}</h2>
+                                                    <p className="whitespace-pre-line">{product.deskripsi_product}</p>
+                                                </div>
+                                            </DialogDescription>
+                                            <DialogFooter>
+                                                <DialogClose asChild>
+                                                    <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
+                                                </DialogClose>
+                                            </DialogFooter>
+                                        </DialogContent>
+                                    </Dialog>
+                                </>
                             ))}
                         </tbody>
                     </table>

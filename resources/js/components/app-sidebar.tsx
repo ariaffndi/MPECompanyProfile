@@ -20,12 +20,12 @@ const mainNavItems: NavItem[] = [
         icon: Building,
     },
     {
-        title: 'Users',
+        title: 'Admin',
         href: '/admin/users',
         icon: Users,
     },
     {
-        title: 'Products',
+        title: 'Produk',
         href: '/admin/product',
         icon: FileBox,
     },

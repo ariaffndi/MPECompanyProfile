@@ -4,7 +4,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Users',
+        title: 'Admin',
         href: '/users',
     },
 ];
@@ -20,10 +20,10 @@ export default function Users() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Users" />
+            <Head title="Admin" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Link href={route('register')} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Tambah Data
+                    Tambah Admin
                 </Link>
 
                 <div className="rounded-box border-base-content/5 overflow-x-auto border">
@@ -33,13 +33,13 @@ export default function Users() {
                             <tr>
                                 <th>No</th>
                                 <th className="hidden sm:table-cell">Id</th>
-                                <th>Name</th>
-                                <th>Email Address</th>
+                                <th>Nama</th>
+                                <th>Email</th>
                             </tr>
                         </thead>
                         <tbody>
                             {users?.map((user, index) => (
-                                <tr key={user.id} className="border-base-content/5 border-1">
+                                <tr key={user.id} className="border-base-content/5 hover:bg-base-200 border-1">
                                     <td>{index + 1}</td>
                                     <th className="hidden sm:table-cell">{user.id}</th>
                                     <td>{user.name}</td>
