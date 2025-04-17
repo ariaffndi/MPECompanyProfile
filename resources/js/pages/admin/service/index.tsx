@@ -2,7 +2,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Pencil, Trash2, Info } from 'lucide-react';
+import { PlusCircle,Pencil, Trash2, Info } from 'lucide-react';
 import { useState } from 'react';
 
 import { useFlashToast } from '@/hooks/useFlashToast';
@@ -64,7 +64,7 @@ export default function Service() {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <Link href={route('service.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        Tambah Layanan
+                        <PlusCircle size={16} /> Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
@@ -100,7 +100,7 @@ export default function Service() {
                             {currentItems.map((service, index) => (
                                 <tr
                                     key={service.id}
-                                    className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
+                                    className="border-base-content/5 hover:bg-base-200 border-1"
                                     onClick={() => setSelectedService(service)}
                                 >
                                     <td>{indexOfFirstItem + index + 1}</td>
@@ -113,15 +113,15 @@ export default function Service() {
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
-                                    <td>
+                                    <td className="flex flex-nowrap justify-center">
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Detail Layanan"
-                                                    className="btn btn-sm btn-info m-1 w-fit rounded-xl"
+                                                    title="Detail"
+                                                    className="btn btn-sm btn-square btn-soft btn-info m-0.5"
                                                     onClick={() => setSelectedService(service)}
                                                 >
-                                                    <Info size={20} />
+                                                    <Info/>
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>
@@ -148,19 +148,19 @@ export default function Service() {
                                         </Dialog>
                                         <Link
                                             href={route('service.edit', service.id)}
-                                            title="Edit Layanan"
-                                            className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
+                                            title="Edit Data"
+                                            className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                         >
-                                            <Pencil size={20} />
+                                            <Pencil/>
                                         </Link>
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Hapus Layanan"
-                                                    className="btn btn-sm btn-error m-1 w-fit rounded-xl"
+                                                    title="Hapus Data"
+                                                    className="btn btn-sm btn-square btn-soft btn-error m-0.5"
                                                     onClick={() => setSelectedService(service)}
                                                 >
-                                                    <Trash2 size={20} />
+                                                    <Trash2/>
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>

@@ -1,6 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { PlusCircle } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,7 +24,7 @@ export default function Users() {
             <Head title="Admin" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Link href={route('register')} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Tambah Admin
+                    <PlusCircle size={16} /> Tambah Data
                 </Link>
 
                 <div className="rounded-box border-base-content/5 overflow-x-auto border">
