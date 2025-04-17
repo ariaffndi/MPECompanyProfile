@@ -32,6 +32,13 @@ interface Props {
     perusahaan: Perusahaan;
 }
 
+const getUsernameFromUrl = (url: string) => {
+    if (!url) return '-';
+    const parsed = url.split('/').filter(Boolean);
+    const lastPart = parsed[parsed.length - 1];
+    return lastPart.startsWith('@') ? lastPart.slice(1) : lastPart;
+};
+
 export default function Perusahaan({ perusahaan }: Props) {
 
     const { flash } = usePage().props as { flash?: { success?: string } };
@@ -95,7 +102,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Instagram size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-sm">{perusahaan.instagram_perusahaan}</p>
+                                    <p className="text-sm">{getUsernameFromUrl(perusahaan.instagram_perusahaan)}</p>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +112,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Facebook size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-sm">{perusahaan.facebook_perusahaan}</p>
+                                    <p className="text-sm">{getUsernameFromUrl(perusahaan.facebook_perusahaan)}</p>
                                 </div>
                             </div>
                         </div>

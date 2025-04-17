@@ -135,7 +135,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     <InputError message={errors.whatsapp_perusahaan} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="instagram_perusahaan">Instagram</Label>
+                                    <Label htmlFor="instagram_perusahaan">Instagram *url</Label>
                                     <Input
                                         id="instagram_perusahaan"
                                         type="text"
@@ -145,7 +145,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     <InputError message={errors.instagram_perusahaan} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="facebook_perusahaan">Facebook</Label>
+                                    <Label htmlFor="facebook_perusahaan">Facebook *url</Label>
                                     <Input
                                         id="facebook_perusahaan"
                                         type="text"
