@@ -41,10 +41,6 @@ export default function ServiceCreate() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tambah Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                {/* <Link href={route('service.index')} className="btn w-fit border-0">
-                    <ArrowLeft size={20} />
-                </Link> */}
-
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
@@ -89,7 +85,7 @@ export default function ServiceCreate() {
                                 />
                                 <InputError message={errors.service_image} />
                             </div>
-                            <Button type="submit" className="btn btn-info mt-2 w-full" tabIndex={4} disabled={processing}>
+                            <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Tambah Layanan
                             </Button>
