@@ -5,7 +5,7 @@ import { useSearchSort } from '@/hooks/useSearchSort';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, Trash2 } from 'lucide-react';
+import { PlusCircle,Info, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
@@ -91,7 +91,7 @@ export default function Product() {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        Tambah Data
+                        <PlusCircle size={16} /> Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
@@ -127,7 +127,7 @@ export default function Product() {
                                     Produk {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
                                 <th>Deskripsi</th>
-                                <th className='hidden sm:table-cell'>Foto</th>
+                                <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -135,13 +135,13 @@ export default function Product() {
                             {filtered.map((products, index) => (
                                 <tr
                                     key={products.id}
-                                    className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
+                                    className="border-base-content/5 hover:bg-base-200 border-1"
                                     onClick={() => setSelectedProduct(products)}
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
-                                    <td>{item.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{item.deskripsi_product}</td>
-                                    <td className='hidden sm:table-cell'>
+                                    <td>{products.nama_product}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.deskripsi_product}</td>
+                                    <td className="hidden sm:table-cell">
                                         <img
                                             src={`/storage/${products.foto_product}`}
                                             alt={products.nama_product}
@@ -150,70 +150,70 @@ export default function Product() {
                                     </td>
                                     <td>
                                         <div className="flex flex-nowrap items-center justify-center gap-1">
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button
-                                                    title="Detail Produk"
-                                                    className="btn btn-sm btn-info m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(products)}
-                                                >
-                                                    <Info size={20} />
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogTitle>Detail Produk</DialogTitle>
-                                                <DialogDescription className="max-h-[400px] overflow-y-auto">
-                                                    <figure>
-                                                        <img
-                                                            src={`/storage/${products.foto_product}`}
-                                                            alt={products.nama_product}
-                                                            className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
-                                                        />
-                                                    </figure>
-                                                    <div className="card-body">
-                                                        <h2 className="card-title">{products.nama_product}</h2>
-                                                        <p className="whitespace-pre-line">{products.deskripsi_product}</p>
-                                                    </div>
-                                                </DialogDescription>
-                                                <DialogFooter>
-                                                    <DialogClose asChild>
-                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
-                                                    </DialogClose>
-                                                </DialogFooter>
-                                            </DialogContent>
-                                        </Dialog>
-                                        <Link
-                                            href={route('product.edit', { id: products.id }) + `?page=${page}`}
-                                            title="Edit Produk"
-                                            className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
-                                        >
-                                            <Pencil size={20} />
-                                        </Link>
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button
-                                                    title="Hapus Produk"
-                                                    className="btn btn-sm btn-error m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(products)}
-                                                >
-                                                    <Trash2 size={20} />
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogTitle>Konfirmasi Hapus</DialogTitle>
-                                                <DialogDescription>
-                                                    Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
-                                                </DialogDescription>
-                                                <DialogFooter>
-                                                    <DialogClose asChild>
-                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
-                                                    </DialogClose>
-                                                    <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
-                                                        Hapus
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <button
+                                                        title="Detail"
+                                                        className="btn btn-sm btn-square btn-soft btn-info m-0.5"
+                                                        onClick={() => setSelectedProduct(products)}
+                                                    >
+                                                        <Info size={20} />
                                                     </button>
-                                                </DialogFooter>
-                                            </DialogContent>
-                                        </Dialog>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogTitle>Detail Produk</DialogTitle>
+                                                    <DialogDescription className="max-h-[400px] overflow-y-auto">
+                                                        <figure>
+                                                            <img
+                                                                src={`/storage/${products.foto_product}`}
+                                                                alt={products.nama_product}
+                                                                className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                            />
+                                                        </figure>
+                                                        <div className="card-body">
+                                                            <h2 className="card-title">{products.nama_product}</h2>
+                                                            <p className="whitespace-pre-line">{products.deskripsi_product}</p>
+                                                        </div>
+                                                    </DialogDescription>
+                                                    <DialogFooter>
+                                                        <DialogClose asChild>
+                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
+                                                        </DialogClose>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
+                                            <Link
+                                                href={route('product.edit', { id: products.id }) + `?page=${page}`}
+                                                title="Edit Data"
+                                                className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
+                                            >
+                                                <Pencil size={20} />
+                                            </Link>
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <button
+                                                        title="Hapus Data"
+                                                        className="btn btn-sm btn-square btn-soft btn-error m-0.5"
+                                                        onClick={() => setSelectedProduct(products)}
+                                                    >
+                                                        <Trash2 size={20} />
+                                                    </button>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogTitle>Konfirmasi Hapus</DialogTitle>
+                                                    <DialogDescription>
+                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
+                                                    </DialogDescription>
+                                                    <DialogFooter>
+                                                        <DialogClose asChild>
+                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
+                                                        </DialogClose>
+                                                        <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
+                                                            Hapus
+                                                        </button>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
                                         </div>
                                     </td>
                                 </tr>
