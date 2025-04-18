@@ -32,7 +32,7 @@ export default function Product() {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const { page, setPage } = usePaginationParam();
 
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product.data, (item) => item.nama_product);
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product.data, (products) => products.nama_product);
 
     useFlashToast();
 
@@ -60,9 +60,21 @@ export default function Product() {
         );
     };
 
+    const handleSearch = (setSearch: string) => {
+        router.get(
+            route('product.index'),
+            { search: setSearch },
+            {
+                preserveScroll: true,
+                preserveState: true,
+                replace: true,
+            },
+        );
+    };
+
     const handleExportCSV = () => {
         const headers = ['No', 'Produk', 'Deskripsi'];
-        const rows = product.data.map((item, i) => [i + 1, item.nama_product, item.deskripsi_product.replace(/\n/g, ' ')]);
+        const rows = product.data.map((products, i) => [i + 1, products.nama_product, products.deskripsi_product.replace(/\n/g, ' ')]);
         const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
@@ -92,7 +104,16 @@ export default function Product() {
                                     <path d="m21 21-4.3-4.3"></path>
                                 </g>
                             </svg>
-                            <input type="search" className="grow" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            <input
+                                type="search"
+                                className="grow"
+                                placeholder="Search"
+                                value={search}
+                                onChange={(e) => {
+                                    setSearch(e.target.value);
+                                    handleSearch(e.target.value);
+                                }}
+                            />
                         </label>
                     </div>
                 </div>
@@ -111,19 +132,19 @@ export default function Product() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map((item, index) => (
+                            {filtered.map((products, index) => (
                                 <tr
-                                    key={item.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
-                                    onClick={() => setSelectedProduct(item)}
+                                    key={products.id}
+                                    className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
+                                    onClick={() => setSelectedProduct(products)}
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
                                     <td>{item.nama_product}</td>
                                     <td className="max-w-[200px] truncate whitespace-nowrap">{item.deskripsi_product}</td>
                                     <td className='hidden sm:table-cell'>
                                         <img
-                                            src={`/storage/${item.foto_product}`}
-                                            alt={item.nama_product}
+                                            src={`/storage/${products.foto_product}`}
+                                            alt={products.nama_product}
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
@@ -132,9 +153,9 @@ export default function Product() {
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Detail"
-                                                    className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                    onClick={() => setSelectedProduct(item)}
+                                                    title="Detail Produk"
+                                                    className="btn btn-sm btn-info m-1 w-fit rounded-xl"
+                                                    onClick={() => setSelectedProduct(products)}
                                                 >
                                                     <Info size={20} />
                                                 </button>
@@ -144,14 +165,14 @@ export default function Product() {
                                                 <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                     <figure>
                                                         <img
-                                                            src={`/storage/${item.foto_product}`}
-                                                            alt={item.nama_product}
+                                                            src={`/storage/${products.foto_product}`}
+                                                            alt={products.nama_product}
                                                             className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
                                                         />
                                                     </figure>
                                                     <div className="card-body">
-                                                        <h2 className="card-title">{item.nama_product}</h2>
-                                                        <p className="whitespace-pre-line">{item.deskripsi_product}</p>
+                                                        <h2 className="card-title">{products.nama_product}</h2>
+                                                        <p className="whitespace-pre-line">{products.deskripsi_product}</p>
                                                     </div>
                                                 </DialogDescription>
                                                 <DialogFooter>
@@ -162,18 +183,18 @@ export default function Product() {
                                             </DialogContent>
                                         </Dialog>
                                         <Link
-                                            href={route('product.edit', { id: item.id }) + `?page=${page}`}
-                                            title="Edit Data"
-                                            className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
+                                            href={route('product.edit', { id: products.id }) + `?page=${page}`}
+                                            title="Edit Produk"
+                                            className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
                                         >
                                             <Pencil size={20} />
                                         </Link>
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Hapus Data"
-                                                    className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                    onClick={() => setSelectedProduct(item)}
+                                                    title="Hapus Produk"
+                                                    className="btn btn-sm btn-error m-1 w-fit rounded-xl"
+                                                    onClick={() => setSelectedProduct(products)}
                                                 >
                                                     <Trash2 size={20} />
                                                 </button>
