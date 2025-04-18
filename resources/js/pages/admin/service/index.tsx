@@ -4,7 +4,6 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { PlusCircle,Pencil, Trash2, Info } from 'lucide-react';
 import { useState } from 'react';
-
 import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';

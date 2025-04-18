@@ -6,18 +6,36 @@ use App\Models\Product;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
+use function Termwind\render;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Product::query();
+
+        if ($request->has('search')) {
+            $query->where('nama_product', 'like', '%' . $request->search . '%');
+        }
+
+        $sort = $request->get('sort', 'asc');
+        $query->orderBy('nama_product', $sort);
+
+        $products = $query->paginate(4)->withQueryString();
+
         return Inertia::render('admin/product/index', [
-            "product" => Product::all()
+            'product' => $products,
+            'filters' => [
+                'search' => $request->search,
+                'sort' => $sort,
+            ],
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -61,13 +79,16 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
-        return inertia('admin/product/edit', [
-            'product' => $product
+        $page = request('page');
+        return Inertia::render('admin/product/edit', [
+            'product' => $product,
+            'page' => $page,
         ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -86,7 +107,10 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return redirect()->route('product.index',['page' => request()->get('page',1)])->with('success', 'Produk berhasil diperbarui!');
+        $currentPage = $request->get('page', 1);
+
+        return redirect()->route('product.index', ['page' => $currentPage])
+            ->with('success', 'Product berhasil diupdate.');
     }
 
 
@@ -98,7 +122,9 @@ class ProductController extends Controller
         //soft delete
         $data = Product::findOrFail($id);
         $data->delete();
+        $currentPage = request()->get('page', 1);
 
-        return redirect()->route('product.index',['page' => request()->get('page',1)])->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('product.index', ['page' => $currentPage])
+            ->with('success', 'Product berhasil dihapus.');
     }
 }

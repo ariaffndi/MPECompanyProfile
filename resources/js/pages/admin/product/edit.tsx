@@ -1,9 +1,8 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm,router } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
-
+import { FormEventHandler, useState } from 'react';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,17 +22,22 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function ProductEdit({ product }: { product: ProductForm }) {
+export default function ProductEdit({ product,page }: { product: ProductForm,page:number }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         nama_product: product.nama_product || '',
         deskripsi_product: product.deskripsi_product || '',
         foto_product: null as File | null,
     });
 
-    const param = new URLSearchParams(window.location.search).get('page') ;
+    const [previewImage, setPreviewImage] = useState<string>(`/storage/${product.foto_product}`);
+    const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        const currentPage = page;
+        console.log(currentPage);
+
         post(route('product.update', product.id), {
             method: 'put',
             preserveScroll: true,
@@ -41,24 +45,35 @@ export default function ProductEdit({ product }: { product: ProductForm }) {
             forceFormData: true,
             onSuccess: () => {
                 reset();
-                router.visit(route('product.index', { page: param }), {
+                const redirectUrl = route('product.index', { page: currentPage });
+                router.visit(redirectUrl, {
                     preserveState: true,
                     preserveScroll: true,
                 });
-            },
+            }
         });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        setData('foto_product', file);
+
+        if (file) {
+            setPreviewImage(URL.createObjectURL(file));
+            setSelectedFileName(file.name);
+        }
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Add User" />
+            <Head title="Edit Produk" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
 
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="product name">Nama Produk</Label>
+                                <Label htmlFor="nama_product">Nama Produk</Label>
                                 <Input
                                     id="nama_product"
                                     name="nama_product"
@@ -68,8 +83,9 @@ export default function ProductEdit({ product }: { product: ProductForm }) {
                                 />
                                 <InputError message={errors.nama_product} className="mt-2" />
                             </div>
+
                             <div className="grid gap-2">
-                                <Label htmlFor="product description">Deskripsi Produuk</Label>
+                                <Label htmlFor="deskripsi_product">Deskripsi Produk</Label>
                                 <textarea
                                     id="deskripsi_product"
                                     rows={5}
@@ -82,16 +98,28 @@ export default function ProductEdit({ product }: { product: ProductForm }) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="product image">Foto Produk</Label>
+                                <Label htmlFor="foto_product">Foto Produk</Label>
                                 <input
                                     id="foto_product"
                                     name="foto_product"
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) => setData('foto_product', e.target.files ? e.target.files[0] : null)}
+                                    onChange={handleFileChange}
                                     className="file-input file-input-ghost"
                                 />
+                                <InputError message={errors.foto_product} />
+                                {selectedFileName && (
+                                    <p className="text-sm text-gray-500">File dipilih: {selectedFileName}</p>
+                                )}
+                                {previewImage && (
+                                    <img
+                                        src={previewImage}
+                                        alt="Preview"
+                                        className="mt-2 h-24 w-24 rounded-lg object-cover"
+                                    />
+                                )}
                             </div>
+
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Edit Produk
