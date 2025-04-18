@@ -127,7 +127,7 @@ export default function Product() {
                                     Produk {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
                                 <th>Deskripsi</th>
-                                <th>Foto</th>
+                                <th className='hidden sm:table-cell'>Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -139,9 +139,9 @@ export default function Product() {
                                     onClick={() => setSelectedProduct(products)}
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
-                                    <td>{products.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.deskripsi_product}</td>
-                                    <td>
+                                    <td>{item.nama_product}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap">{item.deskripsi_product}</td>
+                                    <td className='hidden sm:table-cell'>
                                         <img
                                             src={`/storage/${products.foto_product}`}
                                             alt={products.nama_product}
@@ -149,6 +149,7 @@ export default function Product() {
                                         />
                                     </td>
                                     <td>
+                                        <div className="flex flex-nowrap items-center justify-center gap-1">
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
@@ -213,6 +214,7 @@ export default function Product() {
                                                 </DialogFooter>
                                             </DialogContent>
                                         </Dialog>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}

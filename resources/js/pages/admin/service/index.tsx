@@ -91,7 +91,7 @@ export default function Service() {
                                     Layanan {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
                                 <th>Deskripsi</th>
-                                <th>Foto</th>
+                                <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -105,78 +105,80 @@ export default function Service() {
                                     <td>{indexOfFirstItem + index + 1}</td>
                                     <td>{service.service_name}</td>
                                     <td className="whitespace-nowrapd max-w-[200px] truncate">{service.service_description}</td>
-                                    <td>
+                                    <td className="hidden sm:table-cell">
                                         <img
                                             src={`/storage/${service.service_image}`}
                                             alt={service.service_name}
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
-                                    <td className="flex flex-nowrap justify-center">
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button
-                                                    title="Detail"
-                                                    className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                    onClick={() => setSelectedService(service)}
-                                                >
-                                                    <Info size={20}/>
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogTitle>Detail Layanan</DialogTitle>
-                                                <DialogDescription className="max-h-[400px] overflow-y-auto">
-                                                    <figure>
-                                                        <img
-                                                            src={`/storage/${service.service_image}`}
-                                                            alt={service.service_name}
-                                                            className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
-                                                        />
-                                                    </figure>
-                                                    <div className="card-body">
-                                                        <h2 className="card-title">{service.service_name}</h2>
-                                                        <p className="whitespace-pre-line">{service.service_description}</p>
-                                                    </div>
-                                                </DialogDescription>
-                                                <DialogFooter>
-                                                    <DialogClose asChild>
-                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
-                                                    </DialogClose>
-                                                </DialogFooter>
-                                            </DialogContent>
-                                        </Dialog>
-                                        <Link
-                                            href={route('service.edit', service.id)}
-                                            title="Edit Data"
-                                            className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
-                                        >
-                                            <Pencil size={20}/>
-                                        </Link>
-                                        <Dialog>
-                                            <DialogTrigger asChild>
-                                                <button
-                                                    title="Hapus Data"
-                                                    className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                    onClick={() => setSelectedService(service)}
-                                                >
-                                                    <Trash2 size={20}/>
-                                                </button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogTitle>Konfirmasi Hapus</DialogTitle>
-                                                <DialogDescription>
-                                                    Apakah Anda yakin ingin menghapus layanan <strong>{selectedService?.service_name}</strong>?
-                                                </DialogDescription>
-                                                <DialogFooter>
-                                                    <DialogClose asChild>
-                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
-                                                    </DialogClose>
-                                                    <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
-                                                        Hapus
+                                    <td>
+                                        <div className="flex flex-nowrap items-center justify-center gap-1">
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <button
+                                                        title="Detail"
+                                                        className="btn btn-sm btn-square btn-soft btn-info m-0.5"
+                                                        onClick={() => setSelectedService(service)}
+                                                    >
+                                                        <Info size={20} />
                                                     </button>
-                                                </DialogFooter>
-                                            </DialogContent>
-                                        </Dialog>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogTitle>Detail Layanan</DialogTitle>
+                                                    <DialogDescription className="max-h-[400px] overflow-y-auto">
+                                                        <figure>
+                                                            <img
+                                                                src={`/storage/${service.service_image}`}
+                                                                alt={service.service_name}
+                                                                className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                            />
+                                                        </figure>
+                                                        <div className="card-body">
+                                                            <h2 className="card-title">{service.service_name}</h2>
+                                                            <p className="whitespace-pre-line">{service.service_description}</p>
+                                                        </div>
+                                                    </DialogDescription>
+                                                    <DialogFooter>
+                                                        <DialogClose asChild>
+                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
+                                                        </DialogClose>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
+                                            <Link
+                                                href={route('service.edit', service.id)}
+                                                title="Edit Data"
+                                                className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
+                                            >
+                                                <Pencil size={20} />
+                                            </Link>
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <button
+                                                        title="Hapus Data"
+                                                        className="btn btn-sm btn-square btn-soft btn-error m-0.5"
+                                                        onClick={() => setSelectedService(service)}
+                                                    >
+                                                        <Trash2 size={20} />
+                                                    </button>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogTitle>Konfirmasi Hapus</DialogTitle>
+                                                    <DialogDescription>
+                                                        Apakah Anda yakin ingin menghapus layanan <strong>{selectedService?.service_name}</strong>?
+                                                    </DialogDescription>
+                                                    <DialogFooter>
+                                                        <DialogClose asChild>
+                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
+                                                        </DialogClose>
+                                                        <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
+                                                            Hapus
+                                                        </button>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
