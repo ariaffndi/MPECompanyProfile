@@ -120,7 +120,7 @@ export default function Service() {
                                                     className="btn btn-sm btn-square btn-soft btn-info m-0.5"
                                                     onClick={() => setSelectedService(service)}
                                                 >
-                                                    <Info/>
+                                                    <Info size={20}/>
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>
@@ -150,7 +150,7 @@ export default function Service() {
                                             title="Edit Data"
                                             className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                         >
-                                            <Pencil/>
+                                            <Pencil size={20}/>
                                         </Link>
                                         <Dialog>
                                             <DialogTrigger asChild>
@@ -159,7 +159,7 @@ export default function Service() {
                                                     className="btn btn-sm btn-square btn-soft btn-error m-0.5"
                                                     onClick={() => setSelectedService(service)}
                                                 >
-                                                    <Trash2/>
+                                                    <Trash2 size={20}/>
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>

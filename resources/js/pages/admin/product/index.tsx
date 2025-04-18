@@ -5,7 +5,7 @@ import { useSearchSort } from '@/hooks/useSearchSort';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, Trash2, PlusCircle } from 'lucide-react';
+import { Info, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
@@ -30,7 +30,7 @@ type Paginator<T> = {
 export default function Product() {
     const { product } = usePage<{ product: Paginator<Product> }>().props;
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const {page, setPage } = usePaginationParam();
+    const { page, setPage } = usePaginationParam();
 
     const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product.data, (item) => item.nama_product);
 
@@ -79,7 +79,7 @@ export default function Product() {
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        <PlusCircle size={16} /> Tambah Data
+                        Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
@@ -127,7 +127,7 @@ export default function Product() {
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
-                                    <td className="flex flex-nowrap justify-center">
+                                    <td>
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
@@ -135,7 +135,7 @@ export default function Product() {
                                                     className="btn btn-sm btn-square btn-soft btn-info m-0.5"
                                                     onClick={() => setSelectedProduct(item)}
                                                 >
-                                                    <Info />
+                                                    <Info size={20} />
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>
@@ -165,7 +165,7 @@ export default function Product() {
                                             title="Edit Data"
                                             className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                         >
-                                            <Pencil />
+                                            <Pencil size={20} />
                                         </Link>
                                         <Dialog>
                                             <DialogTrigger asChild>
@@ -174,7 +174,7 @@ export default function Product() {
                                                     className="btn btn-sm btn-square btn-soft btn-error m-0.5"
                                                     onClick={() => setSelectedProduct(item)}
                                                 >
-                                                    <Trash2 />
+                                                    <Trash2 size={20} />
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>

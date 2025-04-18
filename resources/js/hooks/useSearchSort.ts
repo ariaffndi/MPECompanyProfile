@@ -1,5 +1,5 @@
 // src/hooks/useSearchSort.ts
-import { useState } from 'react';
+import { useState, } from 'react';
 
 export function useSearchSort<T>(data: T[], getKey: (item: T) => string) {
     const [search, setSearch] = useState('');
