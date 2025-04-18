@@ -139,8 +139,8 @@ export default function Product() {
                                     onClick={() => setSelectedProduct(products)}
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
-                                    <td>{item.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{item.deskripsi_product}</td>
+                                    <td>{products.nama_product}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.deskripsi_product}</td>
                                     <td className='hidden sm:table-cell'>
                                         <img
                                             src={`/storage/${products.foto_product}`}

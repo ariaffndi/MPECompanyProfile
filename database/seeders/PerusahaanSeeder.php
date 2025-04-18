@@ -20,6 +20,7 @@ class PerusahaanSeeder extends Seeder
                 Dengan beberapa pengalaman proyek baik dalam instansi pemerintah maupun swasta, PT Mitra Prima Enviro senantiasa berkomitmen untuk dapat berkonstribusi dalam permasalahan lingkungan dan selalu meningkatkan kinerja dan jasa layanan, baik melalui profesionalisme kerja maupun inovatif dalam setiap kemajuan teknologi di bidang Teknik Lingkungan',
             'instagram_perusahaan' => 'https://www.instagram.com/mitraprimaenviro',
             'facebook_perusahaan' => 'https://www.facebook.com/mitraenviro/',
+            'youtube_perusahaan' => 'https://www.youtube.com/@MITRAPRIMAENVIRO',
             'foto_kantor_perusahaan' => 'kantor.jpg',
             'logo_perusahaan' => 'logo.jpg',
             'created_at' => now(),
