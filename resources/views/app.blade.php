@@ -31,7 +31,16 @@
         </style>
 
         <title inertia>{{ config('app.name', 'Mitra Prima Enviro') }}</title>
-        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        @php
+            $logoPath = $page['props']['perusahaan']['logo_perusahaan'] ?? null;
+        @endphp
+
+        @if ($logoPath)
+            <link rel="icon" href="{{ asset('storage/' . $logoPath) }}" type="image/png">
+            <meta property="og:image" content="{{ asset('storage/' . $logoPath) }}">
+        @else
+            <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        @endif
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 

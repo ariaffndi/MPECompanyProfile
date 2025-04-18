@@ -5,6 +5,7 @@ import { Facebook, Instagram, Mail, MessageCircle, Phone } from 'lucide-react';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
 import {usePage} from '@inertiajs/react';
+import { Pencil } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -31,6 +32,13 @@ interface Props {
     perusahaan: Perusahaan;
 }
 
+const getUsernameFromUrl = (url: string) => {
+    if (!url) return '-';
+    const parsed = url.split('/').filter(Boolean);
+    const lastPart = parsed[parsed.length - 1];
+    return lastPart.startsWith('@') ? lastPart.slice(1) : lastPart;
+};
+
 export default function Perusahaan({ perusahaan }: Props) {
 
     const { flash } = usePage().props as { flash?: { success?: string } };
@@ -44,17 +52,10 @@ export default function Perusahaan({ perusahaan }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Perusahaan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Link href={route('perusahaan.edit', perusahaan.id)} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Edit Data
+                <Link href={route('perusahaan.edit', perusahaan.id)} className="btn btn-sm btn-warning w-fit rounded-xl">
+                    <Pencil size={16} /> Edit Data
                 </Link>
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    {/* <div>
-                        <img
-                            src={`/storage/${perusahaan.logo_perusahaan}`}
-                            alt={perusahaan.nama_perusahaan}
-                            className="w-full rounded-lg object-cover"
-                        />
-                    </div> */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative flex aspect-video flex-col overflow-hidden rounded-xl border">
                         <div className="flex w-full flex-1 items-center p-4">
                             <p className="text-3xl font-bold">{perusahaan.nama_perusahaan}</p>
@@ -101,7 +102,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Instagram size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-sm">{perusahaan.instagram_perusahaan}</p>
+                                    <p className="text-sm">{getUsernameFromUrl(perusahaan.instagram_perusahaan)}</p>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +112,7 @@ export default function Perusahaan({ perusahaan }: Props) {
                                     <Facebook size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-sm">{perusahaan.facebook_perusahaan}</p>
+                                    <p className="text-sm">{getUsernameFromUrl(perusahaan.facebook_perusahaan)}</p>
                                 </div>
                             </div>
                         </div>

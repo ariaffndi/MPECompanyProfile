@@ -122,7 +122,6 @@ class ProductController extends Controller
         //soft delete
         $data = Product::findOrFail($id);
         $data->delete();
-
         $currentPage = request()->get('page', 1);
 
         return redirect()->route('product.index', ['page' => $currentPage])

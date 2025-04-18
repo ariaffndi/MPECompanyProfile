@@ -1,9 +1,8 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,10 +56,6 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Edit Perusahaan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Link href={route('perusahaan.index')} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Kembali
-                </Link>
-
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
@@ -74,9 +69,10 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     onChange={(e) => setData('logo_perusahaan', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 1:1</p>
                                 <InputError message={errors.logo_perusahaan} />
                             </div>
-                            
+
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="nama_perusahaan">Nama Perusahaan</Label>
@@ -138,7 +134,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     <InputError message={errors.whatsapp_perusahaan} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="instagram_perusahaan">Instagram</Label>
+                                    <Label htmlFor="instagram_perusahaan">Instagram *url</Label>
                                     <Input
                                         id="instagram_perusahaan"
                                         type="text"
@@ -148,7 +144,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     <InputError message={errors.instagram_perusahaan} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="facebook_perusahaan">Facebook</Label>
+                                    <Label htmlFor="facebook_perusahaan">Facebook *url</Label>
                                     <Input
                                         id="facebook_perusahaan"
                                         type="text"
@@ -169,12 +165,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
                                     onChange={(e) => setData('foto_kantor_perusahaan', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
-                                {/* <img
-                                    src={`/storage/${perusahaan.foto_kantor_perusahaan}`}
-                                    alt="Preview"
-                                    className="mt-2 ml-5 h-24 w-24 rounded-lg object-cover"
-                                /> */}
-                                <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 16:9</p>
+                                <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 2:3</p>
                                 <InputError message={errors.foto_kantor_perusahaan} />
                             </div>
 

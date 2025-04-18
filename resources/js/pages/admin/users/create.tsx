@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
@@ -40,11 +40,8 @@ export default function UserCreate() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Add User" />
+            <Head title="Tambah Admin" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Link href={route('users.index')} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Kembali
-                </Link>
 
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>

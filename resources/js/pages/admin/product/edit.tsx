@@ -1,9 +1,8 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler, useEffect, useState } from 'react';
-
+import { FormEventHandler, useState } from 'react';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,14 +68,10 @@ export default function ProductEdit({ product,page }: { product: ProductForm,pag
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Edit Produk" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <Link href={route('product.index')} className="btn btn-sm btn-info w-fit rounded-xl">
-                    Kembali
-                </Link>
 
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
-                            {/* Nama Produk */}
                             <div className="grid gap-2">
                                 <Label htmlFor="nama_product">Nama Produk</Label>
                                 <Input
@@ -89,7 +84,6 @@ export default function ProductEdit({ product,page }: { product: ProductForm,pag
                                 <InputError message={errors.nama_product} className="mt-2" />
                             </div>
 
-                            {/* Deskripsi Produk */}
                             <div className="grid gap-2">
                                 <Label htmlFor="deskripsi_product">Deskripsi Produk</Label>
                                 <textarea
@@ -103,7 +97,6 @@ export default function ProductEdit({ product,page }: { product: ProductForm,pag
                                 <InputError message={errors.deskripsi_product} />
                             </div>
 
-                            {/* Foto Produk */}
                             <div className="grid gap-2">
                                 <Label htmlFor="foto_product">Foto Produk</Label>
                                 <input
@@ -127,7 +120,6 @@ export default function ProductEdit({ product,page }: { product: ProductForm,pag
                                 )}
                             </div>
 
-                            {/* Tombol Submit */}
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Edit Produk

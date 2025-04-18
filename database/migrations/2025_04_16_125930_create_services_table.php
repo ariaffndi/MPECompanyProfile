@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('perusahaans', function (Blueprint $table) {
-            $table->dropColumn('youtube_perusahaan');
+        Schema::create('services', function (Blueprint $table) {
+            $table->id();
+            $table->string('service_name');
+            $table->string('service_description');
+            $table->string('service_image');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('perusahaans', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('services');
     }
 };

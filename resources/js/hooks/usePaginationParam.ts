@@ -1,5 +1,5 @@
 // usePaginationParam.ts
-import { router, usePage } from '@inertiajs/react';
+import { router } from '@inertiajs/react';
 
 export function usePaginationParam() {
     const urlParams = new URLSearchParams(window.location.search);

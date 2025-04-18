@@ -1,85 +1,57 @@
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useFlashToast } from '@/hooks/useFlashToast';
-import { usePaginationParam } from '@/hooks/usePaginationParam';
-import { useSearchSort } from '@/hooks/useSearchSort';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, Trash2 } from 'lucide-react';
+import { PlusCircle,Pencil, Trash2, Info } from 'lucide-react';
 import { useState } from 'react';
+import { useFlashToast } from '@/hooks/useFlashToast';
+import { usePaginationParam } from '@/hooks/usePaginationParam';
+import { useSearchSort } from '@/hooks/useSearchSort';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Layanan', href: '/service' }];
 
-type Product = {
+type Service = {
     id: number;
-    nama_product: string;
-    deskripsi_product: string;
-    foto_product: string;
+    service_name: string;
+    service_description: string;
+    service_image: string;
 };
 
-type Paginator<T> = {
-    data: T[];
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    next_page_url: string | null;
-    prev_page_url: string | null;
-};
-
-export default function Product() {
-    const { product } = usePage<{ product: Paginator<Product> }>().props;
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-    const { page, setPage } = usePaginationParam();
-
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product.data, (products) => products.nama_product);
-
+export default function Service() {
     useFlashToast();
 
+    const { service } = usePage<{ service: Service[] }>().props;
+    const [selectedService, setSelectedService] = useState<Service | null>(null);
+    const { page: currentPage, setPage: setCurrentPage } = usePaginationParam();
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(service, (p) => p.service_name + ' ' + p.service_description);
+    const itemsPerPage = 5;
+    
     const handleDelete = () => {
-        if (selectedProduct)
-            router.delete(route('product.destroy', selectedProduct.id), {
+        if (selectedService) {
+            router.delete(route('service.destroy', selectedService.id), {
                 preserveScroll: true,
                 preserveState: true,
-                data: { page: product.current_page },
+                data: { page: currentPage },
                 onSuccess: () => {
-                    setSelectedProduct(null);
+                    setSelectedService(null);
                 },
             });
+        }
     };
 
-    const handlePageChange = (newPage: number) => {
-        setPage(newPage);
-        router.get(
-            route('product.index'),
-            { page: newPage },
-            {
-                preserveScroll: true,
-                preserveState: true,
-            },
-        );
-    };
-
-    const handleSearch = (setSearch: string) => {
-        router.get(
-            route('product.index'),
-            { search: setSearch },
-            {
-                preserveScroll: true,
-                preserveState: true,
-                replace: true,
-            },
-        );
-    };
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filtered.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
     const handleExportCSV = () => {
-        const headers = ['No', 'Produk', 'Deskripsi'];
-        const rows = product.data.map((products, i) => [i + 1, products.nama_product, products.deskripsi_product.replace(/\n/g, ' ')]);
+        const headers = ['No', 'Layanan', 'Deskripsi'];
+        const rows = service.map((p, i) => [i + 1, p.service_name, p.service_description.replace(/\n/g, ' ')]);
         const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'produk.csv');
+        link.setAttribute('download', 'layanan.csv');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -87,16 +59,17 @@ export default function Product() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Produk" />
+            <Head title="Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                    <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        Tambah Data
+                    <Link href={route('service.create')} className="btn btn-sm btn-info w-fit rounded-xl">
+                        <PlusCircle size={16} /> Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
                             Export CSV
                         </button>
+
                         <label className="input h-8 rounded-xl">
                             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
@@ -104,16 +77,7 @@ export default function Product() {
                                     <path d="m21 21-4.3-4.3"></path>
                                 </g>
                             </svg>
-                            <input
-                                type="search"
-                                className="grow"
-                                placeholder="Search"
-                                value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                    handleSearch(e.target.value);
-                                }}
-                            />
+                            <input type="search" className="grow" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                         </label>
                     </div>
                 </div>
@@ -124,7 +88,7 @@ export default function Product() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th className="cursor-pointer" onClick={toggleSort}>
-                                    Produk {sortOrder === 'asc' ? '↑' : '↓'}
+                                    Layanan {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
                                 <th>Deskripsi</th>
                                 <th>Foto</th>
@@ -132,46 +96,46 @@ export default function Product() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map((products, index) => (
+                            {currentItems.map((service, index) => (
                                 <tr
-                                    key={products.id}
-                                    className="border-base-content/5 hover:bg-base-200 cursor-pointer border-1"
-                                    onClick={() => setSelectedProduct(products)}
+                                    key={service.id}
+                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    onClick={() => setSelectedService(service)}
                                 >
-                                    <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
-                                    <td>{products.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.deskripsi_product}</td>
+                                    <td>{indexOfFirstItem + index + 1}</td>
+                                    <td>{service.service_name}</td>
+                                    <td className="whitespace-nowrapd max-w-[200px] truncate">{service.service_description}</td>
                                     <td>
                                         <img
-                                            src={`/storage/${products.foto_product}`}
-                                            alt={products.nama_product}
+                                            src={`/storage/${service.service_image}`}
+                                            alt={service.service_name}
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
-                                    <td>
+                                    <td className="flex flex-nowrap justify-center">
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Detail Produk"
-                                                    className="btn btn-sm btn-info m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(products)}
+                                                    title="Detail"
+                                                    className="btn btn-sm btn-square btn-soft btn-info m-0.5"
+                                                    onClick={() => setSelectedService(service)}
                                                 >
-                                                    <Info size={20} />
+                                                    <Info size={20}/>
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>
-                                                <DialogTitle>Detail Produk</DialogTitle>
+                                                <DialogTitle>Detail Layanan</DialogTitle>
                                                 <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                     <figure>
                                                         <img
-                                                            src={`/storage/${products.foto_product}`}
-                                                            alt={products.nama_product}
+                                                            src={`/storage/${service.service_image}`}
+                                                            alt={service.service_name}
                                                             className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
                                                         />
                                                     </figure>
                                                     <div className="card-body">
-                                                        <h2 className="card-title">{products.nama_product}</h2>
-                                                        <p className="whitespace-pre-line">{products.deskripsi_product}</p>
+                                                        <h2 className="card-title">{service.service_name}</h2>
+                                                        <p className="whitespace-pre-line">{service.service_description}</p>
                                                     </div>
                                                 </DialogDescription>
                                                 <DialogFooter>
@@ -182,26 +146,26 @@ export default function Product() {
                                             </DialogContent>
                                         </Dialog>
                                         <Link
-                                            href={route('product.edit', { id: products.id }) + `?page=${page}`}
-                                            title="Edit Produk"
-                                            className="btn btn-sm btn-warning m-1 w-fit rounded-xl"
+                                            href={route('service.edit', service.id)}
+                                            title="Edit Data"
+                                            className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                         >
-                                            <Pencil size={20} />
+                                            <Pencil size={20}/>
                                         </Link>
                                         <Dialog>
                                             <DialogTrigger asChild>
                                                 <button
-                                                    title="Hapus Produk"
-                                                    className="btn btn-sm btn-error m-1 w-fit rounded-xl"
-                                                    onClick={() => setSelectedProduct(products)}
+                                                    title="Hapus Data"
+                                                    className="btn btn-sm btn-square btn-soft btn-error m-0.5"
+                                                    onClick={() => setSelectedService(service)}
                                                 >
-                                                    <Trash2 size={20} />
+                                                    <Trash2 size={20}/>
                                                 </button>
                                             </DialogTrigger>
                                             <DialogContent>
                                                 <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                 <DialogDescription>
-                                                    Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
+                                                    Apakah Anda yakin ingin menghapus layanan <strong>{selectedService?.service_name}</strong>?
                                                 </DialogDescription>
                                                 <DialogFooter>
                                                     <DialogClose asChild>
@@ -220,26 +184,19 @@ export default function Product() {
                     </table>
                 </div>
 
-                {/* paginasi */}
                 <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(product.current_page - 1)} disabled={product.current_page === 1}>
+                    <button className="btn btn-sm" onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))} disabled={currentPage === 1}>
                         Prev
                     </button>
-
-                    {[...Array(product.last_page)].map((_, i) => (
-                        <button
-                            key={i}
-                            className={`btn btn-sm ${product.current_page === i + 1 ? 'btn-active' : ''}`}
-                            onClick={() => handlePageChange(i + 1)}
-                        >
+                    {[...Array(totalPages)].map((_, i) => (
+                        <button key={i} className={`btn btn-sm ${currentPage === i + 1 ? 'btn-active' : ''}`} onClick={() => setCurrentPage(i + 1)}>
                             {i + 1}
                         </button>
                     ))}
-
                     <button
                         className="btn btn-sm"
-                        onClick={() => handlePageChange(product.current_page + 1)}
-                        disabled={product.current_page === product.last_page}
+                        onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+                        disabled={currentPage === totalPages}
                     >
                         Next
                     </button>
