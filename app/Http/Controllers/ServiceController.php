@@ -2,21 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\Service;
+use Inertia\Inertia;
+use Illuminate\Http\Request;
+
+use function Termwind\render;
 
 class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Service::query();
+
+        if ($request->has('search')) {
+            $query->where('service_name', 'like', '%' . $request->search . '%');
+        }
+
+        $sort = $request->get('sort', 'asc');
+        $query->orderBy('service_name', $sort);
+
+        $services = $query->paginate(5)->withQueryString();
+
         return Inertia::render('admin/service/index', [
-            'service' => Service::all()
+            'service' => $services,
+            'filters' => [
+                'search' => $request->search,
+                'sort' => $sort,
+            ],
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -48,6 +67,7 @@ class ServiceController extends Controller
         return redirect()->route('service.index')->with('success', 'Layanan berhasil ditambahkan');
     }
 
+
     /**
      * Display the specified resource.
      */
@@ -59,13 +79,16 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Service $service)
     {
-        $service = Service::findOrFail($id);
-        return inertia('admin/service/edit', [
-            'service' => $service
+        $page = request('page');
+        return Inertia::render('admin/service/edit', [
+            'service' => $service,
+            'page' => $page,
         ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -84,8 +107,12 @@ class ServiceController extends Controller
 
         $service->update($validated);
 
-        return redirect()->route('service.index',['page' => request()->get('page',1)])->with('success', 'Layanan berhasil diperbarui!');
+        $currentPage = $request->get('page', 1);
+
+        return redirect()->route('service.index', ['page' => $currentPage])
+            ->with('success', 'Layanan berhasil diupdate.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -95,7 +122,9 @@ class ServiceController extends Controller
         //soft delete
         $data = Service::findOrFail($id);
         $data->delete();
+        $currentPage = request()->get('page', 1);
 
-        return redirect()->route('service.index',['page' => request()->get('page',1)])->with('success', 'Layanan berhasil dihapus.');
+        return redirect()->route('service.index', ['page' => $currentPage])
+            ->with('success', 'Layanan berhasil dihapus.');
     }
 }
