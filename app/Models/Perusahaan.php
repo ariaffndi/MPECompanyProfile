@@ -17,6 +17,7 @@ class Perusahaan extends Model
         'deskripsi_perusahaan',
         'instagram_perusahaan',
         'facebook_perusahaan',
+        'youtube_perusahaan',
         'foto_kantor_perusahaan',
         'logo_perusahaan',
     ];

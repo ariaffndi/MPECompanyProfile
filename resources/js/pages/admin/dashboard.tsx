@@ -3,7 +3,7 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { TrendingUp } from 'lucide-react';
+import { TrendingDown, TrendingUp } from 'lucide-react';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
@@ -18,20 +18,21 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Dashboard() {
 
     const chartData = [
-        { month: 'January', desktop: 186, mobile: 80 },
-        { month: 'February', desktop: 305, mobile: 200 },
-        { month: 'March', desktop: 237, mobile: 120 },
-        { month: 'April', desktop: 73, mobile: 190 },
-        { month: 'May', desktop: 209, mobile: 130 },
-        { month: 'June', desktop: 214, mobile: 140 },
+        { year: '2020', pemerintah: 3, swasta: 13 },
+        { year: '2021', pemerintah: 6, swasta: 15 },
+        { year: '2022', pemerintah: 10, swasta: 17 },
+        { year: '2023', pemerintah: 15, swasta: 20 },
+        { year: '2024', pemerintah: 10, swasta: 15 },
+        { year: '2025', pemerintah: 9, swasta: 11 },
     ];
+
     const chartConfig = {
-        desktop: {
-            label: 'Desktop',
+        pemerintah: {
+            label: 'Pemerintah  ',
             color: 'hsl(var(--chart-1))',
         },
-        mobile: {
-            label: 'Mobile',
+        swasta: {
+            label: 'Swasta',
             color: 'hsl(var(--chart-2))',
         },
     } satisfies ChartConfig;
@@ -57,8 +58,8 @@ export default function Dashboard() {
                 </div>
                 <Card>
                     <CardHeader>
-                        <CardTitle>Area Chart - Stacked</CardTitle>
-                        <CardDescription>Showing total visitors for the last 6 months</CardDescription>
+                        <CardTitle>Total Project</CardTitle>
+                        <CardDescription>Menunjukkan total proyek selesai selama 6 tahun terakhir</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <ChartContainer config={chartConfig} className="h-[280px] w-full">
@@ -72,27 +73,27 @@ export default function Dashboard() {
                             >
                                 <CartesianGrid vertical={false} />
                                 <XAxis
-                                    dataKey="month"
+                                    dataKey="year"
                                     tickLine={false}
                                     axisLine={false}
                                     tickMargin={8}
-                                    tickFormatter={(value) => value.slice(0, 3)}
+                                    tickFormatter={(value) => value.slice(0, 4)}
                                 />
                                 <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
                                 <Area
-                                    dataKey="mobile"
+                                    dataKey="swasta"
                                     type="natural"
-                                    fill="var(--color-mobile)"
+                                    fill="var(--color-swasta)"
                                     fillOpacity={0.4}
-                                    stroke="var(--color-mobile)"
+                                    stroke="var(--color-swasta)"
                                     stackId="a"
                                 />
                                 <Area
-                                    dataKey="desktop"
+                                    dataKey="pemerintah"
                                     type="natural"
-                                    fill="var(--color-desktop)"
+                                    fill="var(--color-pemerintah)"
                                     fillOpacity={0.4}
-                                    stroke="var(--color-desktop)"
+                                    stroke="var(--color-pemerintah)"
                                     stackId="a"
                                 />
                             </AreaChart>
@@ -102,9 +103,9 @@ export default function Dashboard() {
                         <div className="flex w-full items-start gap-2 text-sm">
                             <div className="grid gap-2">
                                 <div className="flex items-center gap-2 leading-none font-medium">
-                                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                                    Tahun 2024 Mengalami peningkatan / penurunan dari tahun 2023 <TrendingUp className="h-4 w-4" /> <TrendingDown className="h-4 w-4" />
                                 </div>
-                                <div className="text-muted-foreground flex items-center gap-2 leading-none">January - June 2024</div>
+                                <div className="text-muted-foreground flex items-center gap-2 leading-none">2020 - 2025</div>
                             </div>
                         </div>
                     </CardFooter>

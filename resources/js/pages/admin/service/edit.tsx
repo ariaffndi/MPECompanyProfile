@@ -1,12 +1,12 @@
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head, useForm,router } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+import { Head, router, useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+import { FormEventHandler, useState } from 'react';
 
 type ServiceForm = {
     id: number;
@@ -22,17 +22,22 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function ServiceEdit({ service }: { service: ServiceForm }) {
+export default function ServiceEdit({ service, page }: { service: ServiceForm; page: number }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         service_name: service.service_name || '',
         service_description: service.service_description || '',
         service_image: null as File | null,
     });
 
-    const param = new URLSearchParams(window.location.search).get('page') ;
+    const [previewImage, setPreviewImage] = useState<string>(`/storage/${service.service_image}`);
+    const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        const currentPage = page;
+        console.log(currentPage);
+
         post(route('service.update', service.id), {
             method: 'put',
             preserveScroll: true,
@@ -40,7 +45,8 @@ export default function ServiceEdit({ service }: { service: ServiceForm }) {
             forceFormData: true,
             onSuccess: () => {
                 reset();
-                router.visit(route('service.index', { page: param }), {
+                const redirectUrl = route('service.index', { page: currentPage });
+                router.visit(redirectUrl, {
                     preserveState: true,
                     preserveScroll: true,
                 });
@@ -48,11 +54,19 @@ export default function ServiceEdit({ service }: { service: ServiceForm }) {
         });
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        setData('service_image', file);
+
+        if (file) {
+            setPreviewImage(URL.createObjectURL(file));
+            setSelectedFileName(file.name);
+        }
+    };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Edit Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
@@ -81,16 +95,20 @@ export default function ServiceEdit({ service }: { service: ServiceForm }) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="service image">Foto Layanan</Label>
+                                <Label htmlFor="service_image">Foto Layanan</Label>
                                 <input
                                     id="service_image"
                                     name="service_image"
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) => setData('service_image', e.target.files ? e.target.files[0] : null)}
+                                    onChange={handleFileChange}
                                     className="file-input file-input-ghost"
                                 />
+                                <InputError message={errors.service_image} />
+                                {selectedFileName && <p className="text-sm text-gray-500">File dipilih: {selectedFileName}</p>}
+                                {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}
                             </div>
+
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Edit Layanan
