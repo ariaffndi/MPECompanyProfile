@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\ProjectController;
 
 
 Route::get('/', function () {
@@ -43,6 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/admin/partner/{partner}', [PartnerController::class, 'update'])->name('partner.update');
     Route::post('/admin/partner/{partner}', [PartnerController::class, 'update']);
     Route::delete('/admin/partner/{partner}', [PartnerController::class, 'destroy'])->name('partner.destroy');
+
+    //Project routes
+    Route::resource('admin/project', ProjectController::class);
 });
 
 
