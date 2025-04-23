@@ -100,7 +100,7 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email_perusahaan">Email_perusahaan</Label>
+                                    <Label htmlFor="email_perusahaan">Email Perusahaan</Label>
                                     <Input
                                         id="email_perusahaan"
                                         type="Email"

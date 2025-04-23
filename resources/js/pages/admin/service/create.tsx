@@ -44,7 +44,7 @@ export default function ServiceCreate() {
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="product name">Nama Layanan</Label>
+                                <Label htmlFor="service name">Nama Layanan</Label>
                                 <Input
                                     id="service_name"
                                     type="text"
@@ -60,7 +60,7 @@ export default function ServiceCreate() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="product description">Deskripsi Layanan</Label>
+                                <Label htmlFor="service description">Deskripsi Layanan</Label>
                                 <textarea
                                     id="service_description"
                                     rows={5}
