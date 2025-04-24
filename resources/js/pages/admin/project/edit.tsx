@@ -4,11 +4,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 
 type ProjectForm = {
+    id: number;
     project_name: string;
     client_id: number;
     category_id: number;
@@ -31,38 +32,65 @@ type Category = {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Tambah Project',
+        title: 'Edit Project',
         href: '/project',
     },
 ];
 
-export default function ProjectCreate() {
-    const { data, setData, post, processing, errors, reset } = useForm<ProjectForm>({
-        project_name: '',
-        client_id: 0,
-        category_id: 0,
-        location: '',
-        year: new Date().getFullYear(),
-        value: 0,
-        description: '',
-        project_image: null,
+export default function ProjectEdit({ project, page }: { project: ProjectForm; page: number }) {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        project_name: project.project_name || '',
+        client_id: project.client_id || 0,
+        category_id: project.category_id || 0,
+        location: project.location || '',
+        year: project.year || new Date().getFullYear(),
+        value: project.value || 0,
+        description: project.description || '',
+        project_image: null as File | null,
     });
+
     const { clients, categories } = usePage<{
         clients: Client[];
         categories: Category[];
     }>().props;
 
+    const [previewImage, setPreviewImage] = useState<string>(`/storage/${project.project_image}`);
+    const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('project.store'), {
+
+        const currentPage = page;
+        console.log(currentPage);
+
+        post(route('project.update', project.id), {
+            method: 'put',
+            preserveScroll: true,
+            preserveState: true,
             forceFormData: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                const redirectUrl = route('project.index', { page: currentPage });
+                router.visit(redirectUrl, {
+                    preserveState: true,
+                    preserveScroll: true,
+                });
+            },
         });
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        setData('project_image', file);
+
+        if (file) {
+            setPreviewImage(URL.createObjectURL(file));
+            setSelectedFileName(file.name);
+        }
+    };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Tambah Layanan" />
+            <Head title="Edit Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
@@ -141,10 +169,12 @@ export default function ProjectCreate() {
                                     name="project_image"
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) => setData('project_image', e.target.files ? e.target.files[0] : null)}
+                                    onChange={handleFileChange}
                                     className="file-input file-input-ghost"
                                 />
                                 <InputError message={errors.project_image} />
+                                {selectedFileName && <p className="text-sm text-gray-500">File dipilih: {selectedFileName}</p>}
+                                {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}
                             </div>
 
                             <div className="grid gap-2">
@@ -158,9 +188,10 @@ export default function ProjectCreate() {
                                 />
                                 <InputError message={errors.description} />
                             </div>
+
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Tambah Project
+                                Edit Layanan
                             </Button>
                         </div>
                     </form>

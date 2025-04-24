@@ -47,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Project routes
     Route::resource('admin/project', ProjectController::class);
+    Route::put('/admin/project/{project}', [ProjectController::class, 'update'])->name('project.update');
+    Route::post('/admin/project/{project}', [ProjectController::class, 'update']);
+    Route::delete('/admin/project/{project}', [ProjectController::class, 'destroy'])->name('project.destroy');
 });
 
 

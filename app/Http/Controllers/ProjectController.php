@@ -100,17 +100,43 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        $page = request('page');
+        return Inertia::render('admin/project/edit', [
+            'project' => $project,
+            'page' => $page,
+            'clients' => Client::all(['id', 'client_type']),
+            'categories' => Category::all(['id', 'category_name']),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $validated = $request->validate([
+            'project_name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'year' => 'required|integer|min:1900|max:2100',
+            'value' => 'required|numeric|min:0',
+            'description' => 'required',
+        ]);
+        $validated['client_id'] = $request->input('client_id');
+        $validated['category_id'] = $request->input('category_id');
+
+        if ($request->hasFile('project_image')) {
+            $foto = $request->file('project_image')->store('project', 'public');
+            $validated['project_image'] = $foto;
+        }
+
+        $project->update($validated);
+
+        $currentPage = $request->get('page', 1);
+
+        return redirect()->route('project.index', ['page' => $currentPage])
+            ->with('success', 'Project berhasil diupdate.');
     }
 
     /**
@@ -118,6 +144,12 @@ class ProjectController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //soft delete
+        $data = Project::findOrFail($id);
+        $data->delete();
+        $currentPage = request()->get('page', 1);
+
+        return redirect()->route('project.index', ['page' => $currentPage])
+            ->with('success', 'Project berhasil dihapus.');
     }
 }
