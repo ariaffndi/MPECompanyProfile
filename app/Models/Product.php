@@ -11,4 +11,8 @@ class Product extends Model
     
     protected $fillable = ['nama_product', 'deskripsi_product','foto_product'];
     protected $dates = ['delete_at_'];
+
+    public function inquiry() {
+        return $this->hasMany(Inquiry::class);
+    }
 }

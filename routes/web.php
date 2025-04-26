@@ -8,6 +8,7 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\InquiryController;
 
 
 Route::get('/', function () {
@@ -50,6 +51,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/admin/project/{project}', [ProjectController::class, 'update'])->name('project.update');
     Route::post('/admin/project/{project}', [ProjectController::class, 'update']);
     Route::delete('/admin/project/{project}', [ProjectController::class, 'destroy'])->name('project.destroy');
+
+    //Inquiry routes
+    Route::resource('admin/inquiry', InquiryController::class);
 });
 
 
