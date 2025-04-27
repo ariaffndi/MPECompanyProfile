@@ -5,7 +5,7 @@ import { useSearchSort } from '@/hooks/useSearchSort';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, PlusCircle, Trash2 } from 'lucide-react';
+import { Pencil, PlusCircle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Team', href: '/team' }];
@@ -146,38 +146,6 @@ export default function Team() {
                                     </td>
                                     <td>
                                         <div className="flex flex-nowrap items-center justify-center gap-1">
-                                            <Dialog>
-                                                <DialogTrigger asChild>
-                                                    <button
-                                                        title="Detail"
-                                                        className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                        onClick={() => setSelectedProduct(teams)}
-                                                    >
-                                                        <Info size={20} />
-                                                    </button>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <DialogTitle>Detail Produk</DialogTitle>
-                                                    <DialogDescription className="max-h-[400px] overflow-y-auto">
-                                                        <figure>
-                                                            <img
-                                                                src={`/storage/${teams.image}`}
-                                                                alt={teams.name}
-                                                                className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
-                                                            />
-                                                        </figure>
-                                                        <div className="card-body">
-                                                            <h2 className="card-title">{teams.name}</h2>
-                                                            <p className="whitespace-pre-line">{teams.position}</p>
-                                                        </div>
-                                                    </DialogDescription>
-                                                    <DialogFooter>
-                                                        <DialogClose asChild>
-                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
-                                                        </DialogClose>
-                                                    </DialogFooter>
-                                                </DialogContent>
-                                            </Dialog>
                                             <Link
                                                 href={route('team.edit', { id: teams.id }) + `?page=${page}`}
                                                 title="Edit Data"
