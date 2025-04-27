@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\PartnerController;
+
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -42,6 +44,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/admin/team/{team}', [TeamController::class, 'update'])->name('team.update');
     Route::post('/admin/team/{team}', [TeamController::class, 'update']);
     Route::delete('/admin/team/{team}', [TeamController::class, 'destroy'])->name('team.destroy');
+
+    //Partner routes
+    Route::resource('admin/partner', PartnerController::class);
+    Route::put('/admin/partner/{partner}', [PartnerController::class, 'update'])->name('partner.update');
+    Route::post('/admin/partner/{partner}', [PartnerController::class, 'update']);
+    Route::delete('/admin/partner/{partner}', [PartnerController::class, 'destroy'])->name('partner.destroy');
 });
 
 

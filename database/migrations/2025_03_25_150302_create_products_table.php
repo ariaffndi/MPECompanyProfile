@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('deskripsi_product');
             $table->string('foto_product');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
