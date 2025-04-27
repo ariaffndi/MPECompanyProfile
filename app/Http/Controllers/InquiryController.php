@@ -89,4 +89,18 @@ class InquiryController extends Controller
     {
         //
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,progress,finished,cancelled',
+        ]);
+
+        $inquiry = Inquiry::findOrFail($id);
+        $inquiry->status = $request->status;
+        $inquiry->save();
+
+        return back()->with('success', 'Status berhasil diperbarui.');
+
+    }
 }

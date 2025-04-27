@@ -54,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Inquiry routes
     Route::resource('admin/inquiry', InquiryController::class);
+    Route::put('/admin/inquiry/{inquiry}/update-status', [InquiryController::class, 'updateStatus'])->name('inquiry.update-status');
 });
 
 

@@ -4,8 +4,8 @@ import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, PlusCircle, Trash2 } from 'lucide-react';
+import { Head, router, usePage } from '@inertiajs/react';
+import { Info } from 'lucide-react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Pemesanan', href: '/inquiry' }];
@@ -40,25 +40,13 @@ type Paginator<T> = {
 export default function Inquiry() {
     const { inquiry, filters } = usePage<{ inquiry: Paginator<Inquiry>; filters: { search: string; sort: string; status: string } }>().props;
     const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
-    const { page, setPage } = usePaginationParam();
+    const pagination = usePaginationParam();
     const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(inquiry.data, (inquiryItem) => inquiryItem.name);
 
     useFlashToast();
 
-    const handleDelete = () => {
-        if (selectedInquiry)
-            router.delete(route('inquiry.destroy', selectedInquiry.id), {
-                preserveScroll: true,
-                preserveState: true,
-                data: { page: inquiry.current_page },
-                onSuccess: () => {
-                    setSelectedInquiry(null);
-                },
-            });
-    };
-
     const handlePageChange = (newPage: number) => {
-        setPage(newPage);
+        pagination.setPage(newPage);
         router.get(
             route('inquiry.index'),
             { page: newPage },
@@ -93,6 +81,19 @@ export default function Inquiry() {
         );
     };
 
+    const handleStatusChange = (id: number, newStatus: string) => {
+        router.put(
+            route('inquiry.update-status', id),
+            { status: newStatus },
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    router.reload({ only: ['inquiry'] });
+                },
+            },
+        );
+    };
+
     const handleExportCSV = () => {
         const headers = ['No', 'Nama', 'Email', 'Telepon', 'Layanan', 'Produk', 'Deskripsi', 'Status'];
         const rows = inquiry.data.map((inquiryItem, i) => [
@@ -119,10 +120,7 @@ export default function Inquiry() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                    <Link href={route('inquiry.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        <PlusCircle size={16} /> Tambah Data
-                    </Link>
+                <div className="flex flex-col justify-end gap-2 sm:flex-row">
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
                             Export CSV
@@ -162,11 +160,7 @@ export default function Inquiry() {
                                 <th>Produk</th>
                                 <th>Deskripsi</th>
                                 <th>
-                                    <select
-                                        value={filters.status || ''}
-                                        onChange={(e) => handleStatusFilter(e.target.value)}
-                                        className=""
-                                    >
+                                    <select value={filters.status || ''} onChange={(e) => handleStatusFilter(e.target.value)}>
                                         <option value="">Status</option>
                                         <option value="pending">Pending</option>
                                         <option value="progress">Progress</option>
@@ -192,101 +186,80 @@ export default function Inquiry() {
                                     <td>{inquiryItem.product.nama_product}</td>
                                     <td className="max-w-[150px] truncate whitespace-nowrap">{inquiryItem.detail}</td>
                                     <td>
-                                        <span
-                                            className={`badge badge-soft px-2 ${
+                                        <select
+                                            value={inquiryItem.status}
+                                            onChange={(e) => handleStatusChange(inquiryItem.id, e.target.value)}
+                                            className={`badge badge-soft cursor-pointer px-2 ${
                                                 inquiryItem.status === 'pending'
                                                     ? 'badge-info'
                                                     : inquiryItem.status === 'progress'
-                                                      ? 'badge-warning'
-                                                      : inquiryItem.status === 'finished'
+                                                    ? 'badge-warning'
+                                                    : inquiryItem.status === 'finished'
                                                         ? 'badge-success'
                                                         : inquiryItem.status === 'cancelled'
-                                                          ? 'badge-error'
-                                                          : 'badge-neutral'
+                                                        ? 'badge-error'
+                                                        : 'badge-neutral'
                                             }`}
                                         >
-                                            {inquiryItem.status}
-                                        </span>
+                                            <option value="pending" className="badge badge-soft badge-info">
+                                                Pending
+                                            </option>
+                                            <option value="progress" className="badge badge-soft badge-warning">
+                                                Progress
+                                            </option>
+                                            <option value="finished" className="badge badge-soft badge-success">
+                                                Finished
+                                            </option>
+                                            <option value="cancelled" className="badge badge-soft badge-error">
+                                                Cancelled
+                                            </option>
+                                        </select>
                                     </td>
                                     <td>
-                                        <div className="flex flex-nowrap items-center justify-center gap-1">
-                                            <Dialog>
-                                                <DialogTrigger asChild>
-                                                    <button
-                                                        title="Detail"
-                                                        className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                        onClick={() => setSelectedInquiry(inquiryItem)}
-                                                    >
-                                                        <Info size={20} />
-                                                    </button>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <DialogTitle>Detail Pemesanan</DialogTitle>
-                                                    <DialogDescription className="max-h-[400px] overflow-y-auto">
-                                                        <div className="card-body">
-                                                            <h2 className="card-title">{inquiryItem.name}</h2>
-                                                            <p>Email: {inquiryItem.email}</p>
-                                                            <p>Telepon: {inquiryItem.phone}</p>
-                                                            <p>Layanan: {inquiryItem.service.service_name}</p>
-                                                            <p>Produk: {inquiryItem.product.nama_product}</p>
-                                                            <span
-                                                                className={`badge badge-soft px-2 ${
-                                                                    inquiryItem.status === 'pending'
-                                                                        ? 'badge-info'
-                                                                        : inquiryItem.status === 'progress'
-                                                                          ? 'badge-warning'
-                                                                          : inquiryItem.status === 'finished'
-                                                                            ? 'badge-success'
-                                                                            : inquiryItem.status === 'cancelled'
-                                                                              ? 'badge-error'
-                                                                              : 'badge-neutral'
-                                                                }`}
-                                                            >
-                                                                {inquiryItem.status}
-                                                            </span>
-                                                            <p className="whitespace-pre-line">{inquiryItem.detail}</p>
-                                                        </div>
-                                                    </DialogDescription>
-                                                    <DialogFooter>
-                                                        <DialogClose asChild>
-                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
-                                                        </DialogClose>
-                                                    </DialogFooter>
-                                                </DialogContent>
-                                            </Dialog>
-                                            <Link
-                                                href={route('inquiry.edit', { id: inquiryItem.id }) + `?page=${page}`}
-                                                title="Edit Data"
-                                                className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
-                                            >
-                                                <Pencil size={20} />
-                                            </Link>
-                                            <Dialog>
-                                                <DialogTrigger asChild>
-                                                    <button
-                                                        title="Hapus Data"
-                                                        className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                        onClick={() => setSelectedInquiry(inquiryItem)}
-                                                    >
-                                                        <Trash2 size={20} />
-                                                    </button>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <DialogTitle>Konfirmasi Hapus</DialogTitle>
-                                                    <DialogDescription>
-                                                        Apakah Anda yakin ingin menghapus Pemesanan <strong>{selectedInquiry?.name}</strong>?
-                                                    </DialogDescription>
-                                                    <DialogFooter>
-                                                        <DialogClose asChild>
-                                                            <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
-                                                        </DialogClose>
-                                                        <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
-                                                            Hapus
-                                                        </button>
-                                                    </DialogFooter>
-                                                </DialogContent>
-                                            </Dialog>
-                                        </div>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <button
+                                                    title="Detail"
+                                                    className="btn btn-sm btn-square btn-soft btn-info m-0.5"
+                                                    onClick={() => setSelectedInquiry(inquiryItem)}
+                                                >
+                                                    <Info size={20} />
+                                                </button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogTitle>Detail Pemesanan</DialogTitle>
+                                                <DialogDescription className="max-h-[400px] overflow-y-auto">
+                                                    <div className="card-body">
+                                                        <h2 className="card-title">{selectedInquiry?.name}</h2>
+                                                        <p>Email: {selectedInquiry?.email}</p>
+                                                        <p>Telepon: {selectedInquiry?.phone}</p>
+                                                        <p>Layanan: {selectedInquiry?.service.service_name}</p>
+                                                        <p>Produk: {selectedInquiry?.product.nama_product}</p>
+                                                        <span
+                                                            className={`badge badge-soft px-2 ${
+                                                                inquiryItem.status === 'pending'
+                                                                    ? 'badge-info'
+                                                                    : inquiryItem.status === 'progress'
+                                                                      ? 'badge-warning'
+                                                                      : inquiryItem.status === 'finished'
+                                                                        ? 'badge-success'
+                                                                        : inquiryItem.status === 'cancelled'
+                                                                          ? 'badge-error'
+                                                                          : 'badge-neutral'
+                                                            }`}
+                                                        >
+                                                            {selectedInquiry?.status}
+                                                        </span>
+                                                        <p className="whitespace-pre-line">{inquiryItem.detail}</p>
+                                                    </div>
+                                                </DialogDescription>
+                                                <DialogFooter>
+                                                    <DialogClose asChild>
+                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
+                                                    </DialogClose>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
                                     </td>
                                 </tr>
                             ))}
