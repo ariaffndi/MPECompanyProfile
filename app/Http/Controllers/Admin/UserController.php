@@ -1,6 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+
+
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -14,7 +18,7 @@ class UserController extends Controller
     {
         return Inertia::render('admin/users/index', [
             "users" => User::all()
-        ]); 
+        ]);
     }
 
     /**

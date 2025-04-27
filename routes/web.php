@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PerusahaanController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\TeamController;
-use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PerusahaanController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\PartnerController;
 
 
 Route::get('/', function () {
