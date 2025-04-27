@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, LayoutGrid, Users, Building, Package, HandPlatter } from 'lucide-react';
+import { BookOpen, Building, Contact, HandPlatter, LayoutGrid, Package, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -33,6 +33,11 @@ const mainNavItems: NavItem[] = [
         title: 'Layanan',
         href: '/admin/service',
         icon: HandPlatter,
+    },
+    {
+        title: 'Team',
+        href: '/admin/team',
+        icon: Contact,
     },
 ];
 

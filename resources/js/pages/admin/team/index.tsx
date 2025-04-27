@@ -8,14 +8,13 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Info, Pencil, PlusCircle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Team', href: '/team' }];
 
-type Product = {
+type Team = {
     id: number;
-    nama_product: string;
-
-    deskripsi_product: string;
-    foto_product: string;
+    name: string;
+    position: string;
+    image: string;
 };
 
 type Paginator<T> = {
@@ -28,21 +27,21 @@ type Paginator<T> = {
     prev_page_url: string | null;
 };
 
-export default function Product() {
-    const { product } = usePage<{ product: Paginator<Product> }>().props;
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+export default function Team() {
+    const { team } = usePage<{ team: Paginator<Team> }>().props;
+    const [selectedProduct, setSelectedProduct] = useState<Team | null>(null);
     const { page, setPage } = usePaginationParam();
 
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(product.data, (products) => products.nama_product);
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(team.data, (teams) => teams.name);
 
     useFlashToast();
 
     const handleDelete = () => {
         if (selectedProduct)
-            router.delete(route('product.destroy', selectedProduct.id), {
+            router.delete(route('team.destroy', selectedProduct.id), {
                 preserveScroll: true,
                 preserveState: true,
-                data: { page: product.current_page },
+                data: { page: team.current_page },
                 onSuccess: () => {
                     setSelectedProduct(null);
                 },
@@ -52,7 +51,7 @@ export default function Product() {
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
         router.get(
-            route('product.index'),
+            route('team.index'),
             { page: newPage },
             {
                 preserveScroll: true,
@@ -63,7 +62,7 @@ export default function Product() {
 
     const handleSearch = (setSearch: string) => {
         router.get(
-            route('product.index'),
+            route('team.index'),
             { search: setSearch },
             {
                 preserveScroll: true,
@@ -74,8 +73,8 @@ export default function Product() {
     };
 
     const handleExportCSV = () => {
-        const headers = ['No', 'Produk', 'Deskripsi'];
-        const rows = product.data.map((products, i) => [i + 1, products.nama_product, products.deskripsi_product.replace(/\n/g, ' ')]);
+        const headers = ['No', 'Nama', 'Foto Team'];
+        const rows = team.data.map((team, i) => [i + 1, team.name, team.position.replace(/\n/g, ' ')]);
         const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
@@ -88,10 +87,10 @@ export default function Product() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Produk" />
+            <Head title="Team" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                    <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
+                    <Link href={route('team.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         <PlusCircle size={16} /> Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
@@ -125,29 +124,25 @@ export default function Product() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th className="cursor-pointer" onClick={toggleSort}>
-                                    Produk {sortOrder === 'asc' ? '↑' : '↓'}
+                                    Team {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
-                                <th>Deskripsi</th>
+                                <th>Posisi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map((products, index) => (
+                            {filtered.map((teams, index) => (
                                 <tr
-                                    key={products.id}
+                                    key={teams.id}
                                     className="border-base-content/5 hover:bg-base-200 border-1"
-                                    onClick={() => setSelectedProduct(products)}
+                                    onClick={() => setSelectedProduct(teams)}
                                 >
-                                    <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
-                                    <td>{products.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.deskripsi_product}</td>
+                                    <td>{(team.current_page - 1) * team.per_page + index + 1}</td>
+                                    <td>{teams.name}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap">{teams.position}</td>
                                     <td className="hidden sm:table-cell">
-                                        <img
-                                            src={`/storage/${products.foto_product}`}
-                                            alt={products.nama_product}
-                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
-                                        />
+                                        <img src={`/storage/${teams.image}`} alt={teams.name} className="mx-auto h-16 w-16 rounded-lg object-cover" />
                                     </td>
                                     <td>
                                         <div className="flex flex-nowrap items-center justify-center gap-1">
@@ -156,7 +151,7 @@ export default function Product() {
                                                     <button
                                                         title="Detail"
                                                         className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                        onClick={() => setSelectedProduct(products)}
+                                                        onClick={() => setSelectedProduct(teams)}
                                                     >
                                                         <Info size={20} />
                                                     </button>
@@ -166,14 +161,14 @@ export default function Product() {
                                                     <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                         <figure>
                                                             <img
-                                                                src={`/storage/${products.foto_product}`}
-                                                                alt={products.nama_product}
+                                                                src={`/storage/${teams.image}`}
+                                                                alt={teams.name}
                                                                 className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
                                                             />
                                                         </figure>
                                                         <div className="card-body">
-                                                            <h2 className="card-title">{products.nama_product}</h2>
-                                                            <p className="whitespace-pre-line">{products.deskripsi_product}</p>
+                                                            <h2 className="card-title">{teams.name}</h2>
+                                                            <p className="whitespace-pre-line">{teams.position}</p>
                                                         </div>
                                                     </DialogDescription>
                                                     <DialogFooter>
@@ -184,7 +179,7 @@ export default function Product() {
                                                 </DialogContent>
                                             </Dialog>
                                             <Link
-                                                href={route('product.edit', { id: products.id }) + `?page=${page}`}
+                                                href={route('team.edit', { id: teams.id }) + `?page=${page}`}
                                                 title="Edit Data"
                                                 className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                             >
@@ -195,7 +190,7 @@ export default function Product() {
                                                     <button
                                                         title="Hapus Data"
                                                         className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                        onClick={() => setSelectedProduct(products)}
+                                                        onClick={() => setSelectedProduct(teams)}
                                                     >
                                                         <Trash2 size={20} />
                                                     </button>
@@ -203,7 +198,7 @@ export default function Product() {
                                                 <DialogContent>
                                                     <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                     <DialogDescription>
-                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
+                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.name}</strong>?
                                                     </DialogDescription>
                                                     <DialogFooter>
                                                         <DialogClose asChild>
@@ -225,14 +220,14 @@ export default function Product() {
 
                 {/* paginasi */}
                 <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(product.current_page - 1)} disabled={product.current_page === 1}>
+                    <button className="btn btn-sm" onClick={() => handlePageChange(team.current_page - 1)} disabled={team.current_page === 1}>
                         Prev
                     </button>
 
-                    {[...Array(product.last_page)].map((_, i) => (
+                    {[...Array(team.last_page)].map((_, i) => (
                         <button
                             key={i}
-                            className={`btn btn-sm ${product.current_page === i + 1 ? 'btn-active' : ''}`}
+                            className={`btn btn-sm ${team.current_page === i + 1 ? 'btn-active' : ''}`}
                             onClick={() => handlePageChange(i + 1)}
                         >
                             {i + 1}
@@ -241,8 +236,8 @@ export default function Product() {
 
                     <button
                         className="btn btn-sm"
-                        onClick={() => handlePageChange(product.current_page + 1)}
-                        disabled={product.current_page === product.last_page}
+                        onClick={() => handlePageChange(team.current_page + 1)}
+                        disabled={team.current_page === team.last_page}
                     >
                         Next
                     </button>
