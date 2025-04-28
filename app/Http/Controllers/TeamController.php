@@ -20,8 +20,7 @@ class TeamController extends Controller
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $sort = $request->get('sort', 'asc');
-        $query->orderBy('name', $sort);
+        $query->orderBy('name');
 
         $teams = $query->paginate(5)->withQueryString();
 
@@ -29,7 +28,6 @@ class TeamController extends Controller
             'team' => $teams,
             'filter' => [
                 'search' => $request->search,
-                'sort' => $sort
             ]
         ]);
     }

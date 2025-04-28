@@ -21,8 +21,7 @@ class InquiryController extends Controller
             }
 
     
-            $sort = $request->get('sort', 'asc');
-            $query->orderBy('name', $sort);
+            $query->orderBy('created_at');
     
             $inquiries = $query->paginate(5)->withQueryString();
     
@@ -30,7 +29,6 @@ class InquiryController extends Controller
                 'inquiry' => $inquiries,
                 'filters' => [
                     'search' => $request->search,
-                    'sort' => $sort,
                     'status' => $request->status,
                 ],
             ]);

@@ -41,7 +41,7 @@ export default function Inquiry() {
     const { inquiry, filters } = usePage<{ inquiry: Paginator<Inquiry>; filters: { search: string; sort: string; status: string } }>().props;
     const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
     const pagination = usePaginationParam();
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(inquiry.data, (inquiryItem) => inquiryItem.name);
+    const { search, setSearch, filtered } = useSearchSort(inquiry.data, (inquiryItem) => inquiryItem.name);
 
     useFlashToast();
 
@@ -94,56 +94,29 @@ export default function Inquiry() {
         );
     };
 
-    const handleExportCSV = () => {
-        const headers = ['No', 'Nama', 'Email', 'Telepon', 'Layanan', 'Produk', 'Deskripsi', 'Status'];
-        const rows = inquiry.data.map((inquiryItem, i) => [
-            i + 1,
-            inquiryItem.name,
-            inquiryItem.email,
-            inquiryItem.phone,
-            inquiryItem.service.service_name,
-            inquiryItem.product.nama_product,
-            inquiryItem.status,
-            inquiryItem.detail.replace(/\n/g, ' '),
-        ]);
-        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'layanan.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-end gap-2 sm:flex-row">
-                    <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
-                            Export CSV
-                        </button>
-                        <label className="input h-8 rounded-xl">
-                            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <path d="m21 21-4.3-4.3"></path>
-                                </g>
-                            </svg>
-                            <input
-                                type="search"
-                                className="grow"
-                                placeholder="Search"
-                                value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                    handleSearch(e.target.value);
-                                }}
-                            />
-                        </label>
-                    </div>
+                    <label className="input input-sm w-fit rounded-xl border-1">
+                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
+                        </svg>
+                        <input
+                            type="search"
+                            className="grow"
+                            placeholder="Search"
+                            value={search}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                handleSearch(e.target.value);
+                            }}
+                        />
+                    </label>
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
@@ -151,9 +124,7 @@ export default function Inquiry() {
                         <thead>
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
-                                <th className="cursor-pointer" onClick={toggleSort}>
-                                    Nama {sortOrder === 'asc' ? '↑' : '↓'}
-                                </th>
+                                <th>Nama</th>
                                 <th>Email</th>
                                 <th>Telepon</th>
                                 <th>Layanan</th>
@@ -193,12 +164,12 @@ export default function Inquiry() {
                                                 inquiryItem.status === 'pending'
                                                     ? 'badge-info'
                                                     : inquiryItem.status === 'progress'
-                                                    ? 'badge-warning'
-                                                    : inquiryItem.status === 'finished'
+                                                      ? 'badge-warning'
+                                                      : inquiryItem.status === 'finished'
                                                         ? 'badge-success'
                                                         : inquiryItem.status === 'cancelled'
-                                                        ? 'badge-error'
-                                                        : 'badge-neutral'
+                                                          ? 'badge-error'
+                                                          : 'badge-neutral'
                                             }`}
                                         >
                                             <option value="pending" className="badge badge-soft badge-info">

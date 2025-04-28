@@ -191,7 +191,7 @@ export default function ProjectEdit({ project, page }: { project: ProjectForm; p
 
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Edit Layanan
+                                Edit Project
                             </Button>
                         </div>
                     </form>

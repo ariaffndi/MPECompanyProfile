@@ -26,38 +26,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //product routes
     Route::resource('admin/product', ProductController::class);
-    Route::put('/admin/product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::post('/admin/product/{product}', [ProductController::class, 'update']);
-    Route::delete('/admin/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
 
     //Company routes
     Route::resource('admin/perusahaan', PerusahaanController::class);
-    Route::put('/admin/perusahaan/{perusahaan}', [PerusahaanController::class, 'update'])->name('perusahaan.update');
     Route::post('/admin/perusahaan/{perusahaan}', [PerusahaanController::class, 'update']);
 
     //Service routes
     Route::resource('admin/service', ServiceController::class);
-    Route::put('/admin/service/{service}', [ServiceController::class, 'update'])->name('service.update');
     Route::post('/admin/service/{service}', [ServiceController::class, 'update']);
-    Route::delete('/admin/service/{service}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
     //Team routes
     Route::resource('admin/team', TeamController::class);
-    Route::put('/admin/team/{team}', [TeamController::class, 'update'])->name('team.update');
     Route::post('/admin/team/{team}', [TeamController::class, 'update']);
-    Route::delete('/admin/team/{team}', [TeamController::class, 'destroy'])->name('team.destroy');
 
     //Partner routes
     Route::resource('admin/partner', PartnerController::class);
-    Route::put('/admin/partner/{partner}', [PartnerController::class, 'update'])->name('partner.update');
     Route::post('/admin/partner/{partner}', [PartnerController::class, 'update']);
-    Route::delete('/admin/partner/{partner}', [PartnerController::class, 'destroy'])->name('partner.destroy');
 
     //Project routes
     Route::resource('admin/project', ProjectController::class);
-    Route::put('/admin/project/{project}', [ProjectController::class, 'update'])->name('project.update');
     Route::post('/admin/project/{project}', [ProjectController::class, 'update']);
-    Route::delete('/admin/project/{project}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
     //Inquiry routes
     Route::resource('admin/inquiry', InquiryController::class);

@@ -21,8 +21,7 @@ class ServiceController extends Controller
             $query->where('service_name', 'like', '%' . $request->search . '%');
         }
 
-        $sort = $request->get('sort', 'asc');
-        $query->orderBy('service_name', $sort);
+        $query->orderBy('service_name');
 
         $services = $query->paginate(5)->withQueryString();
 
@@ -30,7 +29,6 @@ class ServiceController extends Controller
             'service' => $services,
             'filters' => [
                 'search' => $request->search,
-                'sort' => $sort,
             ],
         ]);
     }

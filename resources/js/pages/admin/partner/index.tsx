@@ -71,18 +71,6 @@ export default function Partner() {
         );
     };
 
-    const handleExportCSV = () => {
-        const headers = ['No', 'Layanan', 'Deskripsi'];
-        const rows = partner.data.map((partnerItem, i) => [i + 1, partnerItem.company_name]);
-        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'layanan.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -92,29 +80,24 @@ export default function Partner() {
                     <Link href={route('partner.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         <PlusCircle size={16} /> Tambah Data
                     </Link>
-                    <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
-                            Export CSV
-                        </button>
-                        <label className="input h-8 rounded-xl">
-                            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <path d="m21 21-4.3-4.3"></path>
-                                </g>
-                            </svg>
-                            <input
-                                type="search"
-                                className="grow"
-                                placeholder="Search"
-                                value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                    handleSearch(e.target.value);
-                                }}
-                            />
-                        </label>
-                    </div>
+                    <label className="input input-sm w-fit rounded-xl border-1">
+                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
+                        </svg>
+                        <input
+                            type="search"
+                            className="grow"
+                            placeholder="Search"
+                            value={search}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                handleSearch(e.target.value);
+                            }}
+                        />
+                    </label>
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">

@@ -21,8 +21,7 @@ class ProductController extends Controller
             $query->where('nama_product', 'like', '%' . $request->search . '%');
         }
 
-        $sort = $request->get('sort', 'asc');
-        $query->orderBy('nama_product', $sort);
+        $query->orderBy('nama_product');
 
         $products = $query->paginate(4)->withQueryString();
 
@@ -30,7 +29,6 @@ class ProductController extends Controller
             'product' => $products,
             'filters' => [
                 'search' => $request->search,
-                'sort' => $sort,
             ],
         ]);
     }
