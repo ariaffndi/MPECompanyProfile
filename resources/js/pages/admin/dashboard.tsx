@@ -1,12 +1,11 @@
 'use client';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
-import { TrendingDown, TrendingUp } from 'lucide-react';
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Package, HandPlatter, Handshake,Users } from 'lucide-react';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+import { Head, usePage } from '@inertiajs/react';
+import { HandPlatter, Handshake, Package, TrendingDown, TrendingUp, Users } from 'lucide-react';
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,16 +14,22 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+interface DashboardProps {
+    productsCount: number;
+    servicesCount: number;
+    teamsCount: number;
+    partnersCount: number;
+    chartData: {
+        year: string;
+        pemerintah: number;
+        swasta: number;
+    }[];
+}
 
-    const chartData = [
-        { year: '2020', pemerintah: 3, swasta: 13 },
-        { year: '2021', pemerintah: 6, swasta: 15 },
-        { year: '2022', pemerintah: 10, swasta: 17 },
-        { year: '2023', pemerintah: 15, swasta: 20 },
-        { year: '2024', pemerintah: 10, swasta: 15 },
-        { year: '2025', pemerintah: 9, swasta: 11 },
-    ];
+export default function Dashboard() {
+    const { productsCount, servicesCount, teamsCount, partnersCount, chartData } = usePage<{ props: DashboardProps }>().props;
+
+
 
     const chartConfig = {
         pemerintah: {
@@ -37,38 +42,43 @@ export default function Dashboard() {
         },
     } satisfies ChartConfig;
 
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="grid auto-rows-min grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border stats shadow">
-                            <div className="stat">
-                                <div className="stat-title flex gap-2"><Package size={20}/> Total Produk</div>
-                                <div className="stat-value">000</div>
+                    <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
+                        <div className="stat">
+                            <div className="stat-title flex gap-2">
+                                <Package size={20} /> Total Produk
                             </div>
+                            <div className="stat-value">{productsCount}</div>
+                        </div>
                     </div>
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border stats shadow">
-                            <div className="stat">
-                                <div className="stat-title flex gap-2"><HandPlatter size={20}/> Total Layanan</div>
-                                <div className="stat-value">000</div>
+                    <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
+                        <div className="stat">
+                            <div className="stat-title flex gap-2">
+                                <HandPlatter size={20} /> Total Layanan
                             </div>
+                            <div className="stat-value">{servicesCount}</div>
+                        </div>
                     </div>
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border stats shadow">
-                            <div className="stat">
-                                <div className="stat-title flex gap-2"><Users size={20}/> Total Karyawan</div>
-                                <div className="stat-value">000</div>
+                    <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
+                        <div className="stat">
+                            <div className="stat-title flex gap-2">
+                                <Users size={20} /> Total Karyawan
                             </div>
+                            <div className="stat-value">{teamsCount}</div>
+                        </div>
                     </div>
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border stats shadow">
-                            <div className="stat">
-                                <div className="stat-title flex gap-2"><Handshake size={20}/> Total Partner</div>
-                                <div className="stat-value">000</div>
+                    <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
+                        <div className="stat">
+                            <div className="stat-title flex gap-2">
+                                <Handshake size={20} /> Total Partner
                             </div>
+                            <div className="stat-value">{partnersCount}</div>
+                        </div>
                     </div>
-                    
-                    
                 </div>
                 <Card>
                     <CardHeader>

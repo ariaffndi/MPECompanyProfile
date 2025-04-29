@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\UserController;
@@ -18,9 +19,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('admin/dashboard', function () {
-        return Inertia::render('admin/dashboard');
-    })->name('dashboard');
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     //user routes
     Route::resource('admin/users', UserController::class);
@@ -40,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Team routes
     Route::resource('admin/team', TeamController::class);
     Route::post('/admin/team/{team}', [TeamController::class, 'update']);
-    
+
     //Gallery routes
     Route::resource('admin/gallery', GalleryController::class);
     Route::post('/admin/gallery/{gallery}', [GalleryController::class, 'update']);
