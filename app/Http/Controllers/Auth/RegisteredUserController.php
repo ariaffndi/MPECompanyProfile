@@ -46,6 +46,6 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
-        return to_route('users.index')->with('success', 'User created successfully.');
+        return to_route('users.index')->with('success', 'Admin baru berhasil ditambahkan');
     }
 }

@@ -14,13 +14,16 @@ class InquiryController extends Controller
     public function index(Request $request)
     {
         try {     
-            $query = Inquiry::with(['service', 'product']);
+            $query = Inquiry::query()->with(['service', 'product']);
+
+            if ($request->has('search')) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            }
     
             if ($request->has('status') && $request->status !== null) {
                 $query->where('status', $request->status);
             }
 
-    
             $query->orderBy('created_at');
     
             $inquiries = $query->paginate(5)->withQueryString();

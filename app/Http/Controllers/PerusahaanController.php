@@ -13,7 +13,7 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-        $perusahaan = Perusahaan::firstorfail();
+        $perusahaan = Perusahaan::firstOrFail();
         return Inertia::render('admin/perusahaan/index', [
             "perusahaan" => $perusahaan
         ]); 
@@ -48,7 +48,7 @@ class PerusahaanController extends Controller
      */
     public function edit(string $id)
     {
-        $perusahaan = Perusahaan::findorfail($id);
+        $perusahaan = Perusahaan::findOrFail($id);
 
         return Inertia::render('admin/perusahaan/edit', [
             'perusahaan' => $perusahaan
@@ -61,32 +61,27 @@ class PerusahaanController extends Controller
     public function update(Request $request, Perusahaan $perusahaan)
     {       
 
-        $perusahaan = Perusahaan::firstorfail();
+        $perusahaan = Perusahaan::firstOrFail();
 
         $validated = $request->validate([
-        'nama_perusahaan' => 'string|max:255',
-        'alamat_perusahaan' => 'string',
-        'email_perusahaan' => 'email|max:255',
-        'no_telp_perusahaan' => 'string|max:255',
-        'whatsapp_perusahaan' => 'string|max:255',
-        'deskripsi_perusahaan' => 'string|',
-        'instagram_perusahaan' => 'string|max:255',
-        'facebook_perusahaan' => 'string|max:255',
-    ]);
+            'nama_perusahaan' => 'string|max:255',
+            'alamat_perusahaan' => 'string',
+            'email_perusahaan' => 'email|max:255',
+            'no_telp_perusahaan' => 'string|max:255',
+            'whatsapp_perusahaan' => 'string|max:255',
+            'deskripsi_perusahaan' => 'string|',
+            'instagram_perusahaan' => 'string|max:255',
+            'facebook_perusahaan' => 'string|max:255',
+        ]);
     
-    if ($request->hasFile('foto_kantor_perusahaan')) {
-        $filePath = $request->file('foto_kantor_perusahaan')->store('perusahaan', 'public');
-        $validated['foto_kantor_perusahaan'] = $filePath;
-    }
-    
-    if ($request->hasFile('logo_perusahaan')) {
-        $filePath = $request->file('logo_perusahaan')->store('perusahaan', 'public');
-        $validated['logo_perusahaan'] = $filePath;
-    }
+        $validated = array_merge($validated, [
+                'foto_kantor_perusahaan' => $request->file('foto_kantor_perusahaan')?->store('perusahaan', 'public') ?? $perusahaan->foto_kantor_perusahaan,
+                'logo_perusahaan' => $request->file('logo_perusahaan')?->store('perusahaan', 'public') ?? $perusahaan->logo_perusahaan,
+            ]);
 
-    $perusahaan->update($validated);
+        $perusahaan->update($validated);
 
-    return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
+        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
     }
 
     /**
