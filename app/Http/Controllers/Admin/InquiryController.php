@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Inquiry;
 use Illuminate\Http\Request;
@@ -27,7 +29,7 @@ class InquiryController extends Controller
             $query->orderBy('created_at');
     
             $inquiries = $query->paginate(5)->withQueryString();
-    
+
             return Inertia::render('admin/inquiry/index', [
                 'inquiry' => $inquiries,
                 'filters' => [
@@ -35,12 +37,9 @@ class InquiryController extends Controller
                     'status' => $request->status,
                 ],
             ]);
-        } 
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
-        
     }
 
     /**
@@ -102,6 +101,5 @@ class InquiryController extends Controller
         $inquiry->save();
 
         return back()->with('success', 'Status berhasil diperbarui.');
-
     }
 }

@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -16,7 +19,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::firstOrFail();
         return Inertia::render('admin/perusahaan/index', [
             "perusahaan" => $perusahaan
-        ]); 
+        ]);
     }
 
     /**
@@ -38,10 +41,7 @@ class PerusahaanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +59,7 @@ class PerusahaanController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Perusahaan $perusahaan)
-    {       
+    {
 
         $perusahaan = Perusahaan::firstOrFail();
 

@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             ClientSeeder::class,
-            InquirySeeder::class,
             PartnerSeeder::class,
             PerusahaanSeeder::class,
             ProductSeeder::class,
@@ -23,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             TeamSeeder::class,
             UserSeeder::class,
+            GallerySeeder::class,
+            InquirySeeder::class,
         ]);
     }
 }

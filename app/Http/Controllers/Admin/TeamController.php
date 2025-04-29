@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+
 
 use App\Models\Team;
 use Inertia\Inertia;
@@ -94,6 +97,7 @@ class TeamController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('team', 'public');
+            $validated['image'] = $image;
         }
 
         $team->update($validated);

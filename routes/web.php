@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PerusahaanController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\TeamController;
-use App\Http\Controllers\PartnerController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PerusahaanController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\GalleryController;
 
 
 Route::get('/', function () {
@@ -39,6 +40,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Team routes
     Route::resource('admin/team', TeamController::class);
     Route::post('/admin/team/{team}', [TeamController::class, 'update']);
+    
+    //Gallery routes
+    Route::resource('admin/gallery', GalleryController::class);
+    Route::post('/admin/gallery/{gallery}', [GalleryController::class, 'update']);
 
     //Partner routes
     Route::resource('admin/partner', PartnerController::class);
