@@ -1,4 +1,3 @@
-'use client';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import AppLayout from '@/layouts/app-layout';
@@ -24,12 +23,12 @@ type DashboardProps = {
         pemerintah: number;
         swasta: number;
     }[];
-}
+};
 
 export default function Dashboard() {
-    const { productsCount , servicesCount, teamsCount, partnersCount, chartData } = usePage<{ props: DashboardProps }>().props;
+    const { productsCount, servicesCount, teamsCount, partnersCount, chartData } = usePage<{ props: DashboardProps }>().props;
 
-   
+    console.log(chartData); // Cek apakah data sudah benar
 
     const chartConfig = {
         pemerintah: {
@@ -47,6 +46,7 @@ export default function Dashboard() {
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="grid auto-rows-min grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    {/* Statistik Cards */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
                         <div className="stat">
                             <div className="stat-title flex gap-2">
@@ -76,7 +76,7 @@ export default function Dashboard() {
                             <div className="stat-title flex gap-2">
                                 <Handshake size={20} /> Total Partner
                             </div>
-                            <div className="stat-value">{ typeof partnersCount === 'number' ? partnersCount : 0}</div>
+                            <div className="stat-value">{typeof partnersCount === 'number' ? partnersCount : 0}</div>
                         </div>
                     </div>
                 </div>
@@ -89,14 +89,21 @@ export default function Dashboard() {
                         <ChartContainer config={chartConfig} className="h-[280px] w-full">
                             <AreaChart
                                 accessibilityLayer
-                                data={chartData as any[]}
+                                data={Array.isArray(chartData) ? chartData : []}
                                 margin={{
                                     left: 12,
                                     right: 12,
                                 }}
                             >
                                 <CartesianGrid vertical={false} />
-                                <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 4)} />
+                                <XAxis
+                                    dataKey="year"
+                                    tickLine={false}
+                                    axisLine={false}
+                                    tickMargin={6}
+                                    interval={0}
+                                    tickFormatter={(value) => `${value}`}
+                                />
                                 <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
                                 <Area
                                     dataKey="swasta"
