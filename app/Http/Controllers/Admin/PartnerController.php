@@ -22,8 +22,7 @@ class PartnerController extends Controller
             $query->where('company_name', 'like', '%' . $request->search . '%');
         }
 
-        $sort = $request->get('sort', 'asc');
-        $query->orderBy('company_name', $sort);
+        $query->orderBy('company_name');
 
         $partners = $query->paginate(5)->withQueryString();
 
@@ -31,7 +30,6 @@ class PartnerController extends Controller
             'partner' => $partners,
             'filters' => [
                 'search' => $request->search,
-                'sort' => $sort,
             ],
         ]);
     }

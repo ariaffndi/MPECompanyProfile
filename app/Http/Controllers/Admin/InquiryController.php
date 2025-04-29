@@ -15,24 +15,25 @@ class InquiryController extends Controller
      */
     public function index(Request $request)
     {
-        try {
-            $query = Inquiry::with(['service', 'product']);
+        try {     
+            $query = Inquiry::query()->with(['service', 'product']);
 
+            if ($request->has('search')) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            }
+    
             if ($request->has('status') && $request->status !== null) {
                 $query->where('status', $request->status);
             }
 
-
-            $sort = $request->get('sort', 'asc');
-            $query->orderBy('name', $sort);
-
+            $query->orderBy('created_at');
+    
             $inquiries = $query->paginate(5)->withQueryString();
 
             return Inertia::render('admin/inquiry/index', [
                 'inquiry' => $inquiries,
                 'filters' => [
                     'search' => $request->search,
-                    'sort' => $sort,
                     'status' => $request->status,
                 ],
             ]);

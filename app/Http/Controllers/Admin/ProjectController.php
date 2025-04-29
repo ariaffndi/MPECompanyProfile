@@ -24,17 +24,21 @@ class ProjectController extends Controller
             if ($request->has('search')) {
                 $query->where('project_name', 'like', '%' . $request->search . '%');
             }
+    
+            $sortField = $request->get('sortField', 'created_at'); // default sort by created_at
+            $sortDirection = $request->get('sort', 'desc');
 
-            $sort = $request->get('sort', 'desc');
-            $query->orderBy('project_name', $sort);
-
+            $query->orderBy($sortField, $sortDirection);
+    
+            $all_projects = $query->get();
             $projects = $query->paginate(5)->withQueryString();
 
             return Inertia::render('admin/project/index', [
+                'all_project' => $all_projects,
                 'project' => $projects,
                 'filters' => [
                     'search' => $request->search,
-                    'sort' => $sort,
+                    'sort' => $sortDirection,
                 ],
             ]);
         } catch (\Exception $e) {

@@ -32,7 +32,7 @@ export default function Team() {
     const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
     const { page, setPage } = usePaginationParam();
 
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(team.data, (teams) => teams.name);
+    const { search, setSearch, filtered } = useSearchSort(team.data, (teams) => teams.name);
 
     useFlashToast();
 
@@ -72,18 +72,6 @@ export default function Team() {
         );
     };
 
-    const handleExportCSV = () => {
-        const headers = ['No', 'Nama', 'Foto Team'];
-        const rows = team.data.map((team, i) => [i + 1, team.name, team.position.replace(/\n/g, ' ')]);
-        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'produk.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -93,29 +81,24 @@ export default function Team() {
                     <Link href={route('team.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         <PlusCircle size={16} /> Tambah Data
                     </Link>
-                    <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
-                            Export CSV
-                        </button>
-                        <label className="input h-8 rounded-xl">
-                            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <path d="m21 21-4.3-4.3"></path>
-                                </g>
-                            </svg>
-                            <input
-                                type="search"
-                                className="grow"
-                                placeholder="Search"
-                                value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                    handleSearch(e.target.value);
-                                }}
-                            />
-                        </label>
-                    </div>
+                    <label className="input input-sm w-fit rounded-xl border-1">
+                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
+                        </svg>
+                        <input
+                            type="search"
+                            className="grow"
+                            placeholder="Search"
+                            value={search}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                handleSearch(e.target.value);
+                            }}
+                        />
+                    </label>
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
@@ -123,9 +106,7 @@ export default function Team() {
                         <thead>
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
-                                <th className="cursor-pointer" onClick={toggleSort}>
-                                    Team {sortOrder === 'asc' ? '↑' : '↓'}
-                                </th>
+                                <th>Team</th>
                                 <th>Posisi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>

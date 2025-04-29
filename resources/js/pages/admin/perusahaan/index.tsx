@@ -34,19 +34,17 @@ interface Props {
 
 const getUsernameFromUrl = (url: string) => {
     if (!url) return '-';
-    const parsed = url.split('/').filter(Boolean);
-    const lastPart = parsed[parsed.length - 1];
-    return lastPart.startsWith('@') ? lastPart.slice(1) : lastPart;
+    const last = url.split('/').filter(Boolean).pop();
+    return last?.startsWith('@') ? last.slice(1) : (last ?? '-');
 };
 
 export default function Perusahaan({ perusahaan }: Props) {
 
     const { flash } = usePage().props as { flash?: { success?: string } };
-        useEffect(() => {
-            if (flash?.success) {
-                toast.success(flash.success);
-            }
-        }, [flash]);
+    
+    useEffect(() => {
+        if (flash?.success) toast.success(flash.success);
+    }, [flash]);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

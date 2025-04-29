@@ -14,11 +14,31 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('admin/users/index', [
-            "users" => User::all()
-        ]);
+        try {     
+            $query = User::query();
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $query->orderBy('name');
+
+        $users = $query->paginate(5)->withQueryString();
+    
+            return Inertia::render('admin/users/index', [
+                'user' => $users,
+                'filters' => [
+                    'search' => $request->search,
+                ],
+            ]);
+        } 
+        
+        catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+        
     }
 
     /**
