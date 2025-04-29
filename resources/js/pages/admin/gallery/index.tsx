@@ -8,13 +8,12 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, PlusCircle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Team', href: '/team' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gallery', href: '/gallery' }];
 
-type Team = {
+type Gallery = {
     id: number;
-    name: string;
-    position: string;
-    image: string;
+    activity_name: string;
+    activity_image: string;
 };
 
 type Paginator<T> = {
@@ -27,23 +26,23 @@ type Paginator<T> = {
     prev_page_url: string | null;
 };
 
-export default function Team() {
-    const { team } = usePage<{ team: Paginator<Team> }>().props;
-    const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+export default function Gallery() {
+    const { gallery } = usePage<{ gallery: Paginator<Gallery> }>().props;
+    const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
     const { page, setPage } = usePaginationParam();
 
-    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(team.data, (teams) => teams.name);
+    const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort(gallery.data, (galleries) => galleries.activity_name);
 
     useFlashToast();
 
     const handleDelete = () => {
-        if (selectedTeam)
-            router.delete(route('team.destroy', selectedTeam.id), {
+        if (selectedGallery)
+            router.delete(route('gallery.destroy', selectedGallery.id), {
                 preserveScroll: true,
                 preserveState: true,
-                data: { page: team.current_page },
+                data: { page: gallery.current_page },
                 onSuccess: () => {
-                    setSelectedTeam(null);
+                    setSelectedGallery(null);
                 },
             });
     };
@@ -51,7 +50,7 @@ export default function Team() {
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
         router.get(
-            route('team.index'),
+            route('gallery.index'),
             { page: newPage },
             {
                 preserveScroll: true,
@@ -62,7 +61,7 @@ export default function Team() {
 
     const handleSearch = (setSearch: string) => {
         router.get(
-            route('team.index'),
+            route('gallery.index'),
             { search: setSearch },
             {
                 preserveScroll: true,
@@ -72,32 +71,17 @@ export default function Team() {
         );
     };
 
-    const handleExportCSV = () => {
-        const headers = ['No', 'Nama', 'Foto Team'];
-        const rows = team.data.map((team, i) => [i + 1, team.name, team.position.replace(/\n/g, ' ')]);
-        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'produk.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Team" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                    <Link href={route('team.create')} className="btn btn-sm btn-info w-fit rounded-xl">
+                    <Link href={route('gallery.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         <PlusCircle size={16} /> Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
-                            Export CSV
-                        </button>
-                        <label className="input h-8 rounded-xl">
+                        <label className="input input-sm w-fit border-1 rounded-xl">
                             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
                                     <circle cx="11" cy="11" r="8"></circle>
@@ -124,30 +108,32 @@ export default function Team() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th className="cursor-pointer" onClick={toggleSort}>
-                                    Team {sortOrder === 'asc' ? '↑' : '↓'}
+                                    Nama Kegiatan {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
-                                <th>Posisi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map((teams, index) => (
+                            {filtered.map((galleries, index) => (
                                 <tr
-                                    key={teams.id}
+                                    key={galleries.id}
                                     className="border-base-content/5 hover:bg-base-200 border-1"
-                                    onClick={() => setSelectedTeam(teams)}
+                                    onClick={() => setSelectedGallery(galleries)}
                                 >
-                                    <td>{(team.current_page - 1) * team.per_page + index + 1}</td>
-                                    <td>{teams.name}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{teams.position}</td>
+                                    <td>{(gallery.current_page - 1) * gallery.per_page + index + 1}</td>
+                                    <td>{galleries.activity_name}</td>
                                     <td className="hidden sm:table-cell">
-                                        <img src={`/storage/${teams.image}`} alt={teams.name} className="mx-auto h-16 w-16 rounded-lg object-cover" />
+                                        <img
+                                            src={`/storage/${galleries.activity_image}`}
+                                            alt={galleries.activity_name}
+                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
+                                        />
                                     </td>
                                     <td>
                                         <div className="flex flex-nowrap items-center justify-center gap-1">
                                             <Link
-                                                href={route('team.edit', { id: teams.id }) + `?page=${page}`}
+                                                href={route('gallery.edit', { id: galleries.id }) + `?page=${page}`}
                                                 title="Edit Data"
                                                 className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                             >
@@ -158,7 +144,7 @@ export default function Team() {
                                                     <button
                                                         title="Hapus Data"
                                                         className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                        onClick={() => setSelectedTeam(teams)}
+                                                        onClick={() => setSelectedGallery(galleries)}
                                                     >
                                                         <Trash2 size={20} />
                                                     </button>
@@ -166,7 +152,7 @@ export default function Team() {
                                                 <DialogContent>
                                                     <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                     <DialogDescription>
-                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedTeam?.name}</strong>?
+                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedGallery?.activity_name}</strong>?
                                                     </DialogDescription>
                                                     <DialogFooter>
                                                         <DialogClose asChild>
@@ -188,14 +174,14 @@ export default function Team() {
 
                 {/* paginasi */}
                 <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(team.current_page - 1)} disabled={team.current_page === 1}>
+                    <button className="btn btn-sm" onClick={() => handlePageChange(gallery.current_page - 1)} disabled={gallery.current_page === 1}>
                         Prev
                     </button>
 
-                    {[...Array(team.last_page)].map((_, i) => (
+                    {[...Array(gallery.last_page)].map((_, i) => (
                         <button
                             key={i}
-                            className={`btn btn-sm ${team.current_page === i + 1 ? 'btn-active' : ''}`}
+                            className={`btn btn-sm ${gallery.current_page === i + 1 ? 'btn-active' : ''}`}
                             onClick={() => handlePageChange(i + 1)}
                         >
                             {i + 1}
@@ -204,8 +190,8 @@ export default function Team() {
 
                     <button
                         className="btn btn-sm"
-                        onClick={() => handlePageChange(team.current_page + 1)}
-                        disabled={team.current_page === team.last_page}
+                        onClick={() => handlePageChange(gallery.current_page + 1)}
+                        disabled={gallery.current_page === gallery.last_page}
                     >
                         Next
                     </button>

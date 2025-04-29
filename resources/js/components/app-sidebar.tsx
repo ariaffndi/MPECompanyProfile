@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Building, Contact, HandPlatter, Handshake, Images, LayoutGrid, Package, Users } from 'lucide-react';
+import { BookOpen, Building, Hammer, HandPlatter, Handshake, Images, LayoutGrid, NotebookPen, Package, UserRoundCog, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -22,7 +22,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Admin',
         href: '/admin/users',
-        icon: Users,
+        icon: UserRoundCog,
     },
     {
         title: 'Produk',
@@ -37,17 +37,27 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Team',
         href: '/admin/team',
-        icon: Contact,
+        icon: Users,
     },
     {
         title: 'Galeri',
-        href: '/admin/galer',
+        href: '/admin/gallery',
         icon: Images,
     },
     {
         title: 'Partner',
         href: '/admin/partner',
         icon: Handshake,
+    },
+    {
+        title: 'Project',
+        href: '/admin/project',
+        icon: Hammer,
+    },
+    {
+        title: 'Pemesanan',
+        href: '/admin/inquiry',
+        icon: NotebookPen,
     },
 ];
 

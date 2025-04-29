@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\PerusahaanController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\GalleryController;
 
 
 Route::get('/', function () {
@@ -44,12 +47,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/admin/team/{team}', [TeamController::class, 'update'])->name('team.update');
     Route::post('/admin/team/{team}', [TeamController::class, 'update']);
     Route::delete('/admin/team/{team}', [TeamController::class, 'destroy'])->name('team.destroy');
+    
+    //Gallery routes
+    Route::resource('admin/gallery', GalleryController::class);
+    Route::put('/admin/gallery/{gallery}', [GalleryController::class, 'update'])->name('gallery.update');
+    Route::post('/admin/gallery/{gallery}', [GalleryController::class, 'update']);
+    Route::delete('/admin/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 
     //Partner routes
     Route::resource('admin/partner', PartnerController::class);
     Route::put('/admin/partner/{partner}', [PartnerController::class, 'update'])->name('partner.update');
     Route::post('/admin/partner/{partner}', [PartnerController::class, 'update']);
     Route::delete('/admin/partner/{partner}', [PartnerController::class, 'destroy'])->name('partner.destroy');
+
+    //Project routes
+    Route::resource('admin/project', ProjectController::class);
+    Route::put('/admin/project/{project}', [ProjectController::class, 'update'])->name('project.update');
+    Route::post('/admin/project/{project}', [ProjectController::class, 'update']);
+    Route::delete('/admin/project/{project}', [ProjectController::class, 'destroy'])->name('project.destroy');
+
+    //Inquiry routes
+    Route::resource('admin/inquiry', InquiryController::class);
+    Route::put('/admin/inquiry/{inquiry}/update-status', [InquiryController::class, 'updateStatus'])->name('inquiry.update-status');
 });
 
 
