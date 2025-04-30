@@ -12,81 +12,83 @@ import { useState } from 'react';
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Project', href: '/project' }];
 
 type Project = {
-   id: number;
-   project_name: string;
-   client: {
+  id: number;
+  project_name: string;
+  client: {
       id: number;
       client_type: string;
-   };
-   category: {
+  };
+  category: {
       id: number;
       category_name: string;
-   };
-   location: string;
-   year: number;
-   value: number;
-   description: string;
-   project_image: string;
+  };
+  location: string;
+  year: number;
+  value: number;
+  description: string;
+  project_image: string;
 };
 
 type Paginator<T> = {
-   data: T[];
-   current_page: number;
-   last_page: number;
-   per_page: number;
-   total: number;
-   next_page_url: string | null;
-   prev_page_url: string | null;
+  data: T[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  next_page_url: string | null;
+  prev_page_url: string | null;
 };
 
 export default function Project() {
-   const { project, all_project } = usePage<{ project: Paginator<Project>; all_project: Project[] }>().props;
-   const [selectedProject, setSelectedproject] = useState<Project | null>(null);
-   const { page, setPage } = usePaginationParam();
-   const { search, setSearch, sortOrder, toggleSort } = useSearchSort(all_project, (projectItem) => projectItem.year.toString());
+  const { project, all_project } = usePage<{ project: Paginator<Project>; all_project: Project[] }>().props;
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { page, setPage } = usePaginationParam();
+  const { search, setSearch, sortOrder, toggleSort } = useSearchSort(all_project, (projectItem) => projectItem.year.toString());
+  const [currentSortField, setCurrentSortField] = useState<string>('year');
 
-   useFlashToast();
+  useFlashToast();
 
-   const handleDelete = () => {
+  const handleDelete = () => {
       if (selectedProject)
             router.delete(route('project.destroy', selectedProject.id), {
-               preserveScroll: true,
-               preserveState: true,
-               data: { page: project.current_page },
-               onSuccess: () => {
-                  setSelectedproject(null);
-               },
+              preserveScroll: true,
+              preserveState: true,
+              data: { page: project.current_page },
+              onSuccess: () => {
+                  setSelectedProject(null);
+              },
             });
-   };
+  };
 
-   const handlePageChange = (newPage: number) => {
+  const handlePageChange = (newPage: number) => {
       setPage(newPage);
       router.get(
             route('project.index'),
-            { page: newPage },
+            { page: newPage, sort: sortOrder, sortField: currentSortField, search },
             {
-               preserveScroll: true,
-               preserveState: true,
+              preserveScroll: true,
+              preserveState: true,
             },
       );
-   };
+  };
 
-   const handleSearch = (setSearch: string) => {
+  const handleSearch = (setSearch: string) => {
       router.get(
             route('project.index'),
             { search: setSearch },
             {
-               preserveScroll: true,
-               preserveState: true,
-               replace: true,
+              preserveScroll: true,
+              preserveState: true,
+              replace: true,
             },
       );
-   };
+  };
 
-   const handleSort = (field: string) => {
+  const handleSort = (field: string) => {
       const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+      setCurrentSortField(field);
       toggleSort();
       router.get(
+<<<<<<< HEAD
             route('project.index'),
             { search, sort: newSortOrder, sortField: field, page: 1 },
             {
@@ -94,10 +96,24 @@ export default function Project() {
                preserveState: true,
                replace: true,
             },
+=======
+        route('project.index'),
+        { search, sort: newSortOrder, sortField: field, page: 1 },
+        {
+              preserveScroll: true,
+              preserveState: true,
+              replace: true,
+        },
+>>>>>>> bd29ca8af37fe6aabfe575d3159ea97316e90bf7
       );
-   };
+  };
 
+<<<<<<< HEAD
    const handleExportCSV = () => {
+=======
+
+  const handleExportCSV = () => {
+>>>>>>> bd29ca8af37fe6aabfe575d3159ea97316e90bf7
       const headers = ['No', 'Nama Project', 'Klien', 'Kategori', 'Lokasi', 'Tahun', 'Harga', 'Deskripsi'];
       const rows = all_project.map((projectItem, i) => [
             i + 1,
@@ -118,9 +134,9 @@ export default function Project() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-   };
+  };
 
-   return (
+  return (
       <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Project" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -138,8 +154,8 @@ export default function Project() {
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <path d="m21 21-4.3-4.3"></path>
                               </g>
-                           </svg>
-                           <input
+                          </svg>
+                          <input
                               type="search"
                               className="grow"
                               placeholder="Search"
@@ -151,9 +167,9 @@ export default function Project() {
                            />
                         </label>
                   </div>
-               </div>
+              </div>
 
-               <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
+              <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
                   <table className="table-pin-rows table min-w-full text-center">
                         <thead>
                            <tr className="bg-base-300 text-base-content">
@@ -200,8 +216,8 @@ export default function Project() {
                                                    <button
                                                       title="Detail"
                                                       className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                      onClick={() => setSelectedproject(projectItem)}
-                                                   >
+                                                      onClick={() => setSelectedProject(projectItem)}
+                                                  >
                                                       <Info size={20} />
                                                    </button>
                                                 </DialogTrigger>
@@ -224,8 +240,8 @@ export default function Project() {
                                                             <p>Nilai Proyek: {projectItem.value}</p>
                                                             <p className="whitespace-pre-line">{projectItem.description}</p>
                                                       </div>
-                                                   </DialogDescription>
-                                                   <DialogFooter>
+                                                  </DialogDescription>
+                                                  <DialogFooter>
                                                       <DialogClose asChild>
                                                             <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
                                                       </DialogClose>
@@ -244,8 +260,8 @@ export default function Project() {
                                                    <button
                                                       title="Hapus Data"
                                                       className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                      onClick={() => setSelectedproject(projectItem)}
-                                                   >
+                                                      onClick={() => setSelectedProject(projectItem)}
+                                                  >
                                                       <Trash2 size={20} />
                                                    </button>
                                                 </DialogTrigger>
@@ -253,8 +269,8 @@ export default function Project() {
                                                    <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                    <DialogDescription>
                                                       Apakah Anda yakin ingin menghapus layanan <strong>{selectedProject?.project_name}</strong>?
-                                                   </DialogDescription>
-                                                   <DialogFooter>
+                                                  </DialogDescription>
+                                                  <DialogFooter>
                                                       <DialogClose asChild>
                                                             <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
                                                       </DialogClose>
@@ -270,11 +286,11 @@ export default function Project() {
                            ))}
                         </tbody>
                   </table>
-               </div>
+              </div>
 
                {/* paginasi */}
                <Pagination currentPage={project.current_page} lastPage={project.last_page} onPageChange={handlePageChange} />
             </div>
       </AppLayout>
-   );
+  );
 }
