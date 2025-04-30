@@ -55,6 +55,7 @@
         "globals": "^15.14.0",
         "laravel-vite-plugin": "^1.0",
         "lucide-react": "^0.475.0",
+        "motion": "^12.9.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "rechart": "^0.0.1",

@@ -1,3 +1,4 @@
+import AnimatedNumber from '@/components/animate-number';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import AppLayout from '@/layouts/app-layout';
@@ -26,7 +27,7 @@ type DashboardProps = {
 };
 
 export default function Dashboard() {
-    const { productsCount, servicesCount, teamsCount, partnersCount, projectChartData} = usePage<{ props: DashboardProps }>().props;
+    const { productsCount, servicesCount, teamsCount, partnersCount, projectChartData } = usePage<{ props: DashboardProps }>().props;
     const { currentYear, startYear, performance } = usePage().props;
 
     const chartConfig = {
@@ -40,8 +41,7 @@ export default function Dashboard() {
         },
     } satisfies ChartConfig;
 
-    console.log({projectChartData});
-
+    console.log({ projectChartData });
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -54,7 +54,9 @@ export default function Dashboard() {
                             <div className="stat-title flex gap-2">
                                 <Package size={20} /> Total Produk
                             </div>
-                            <div className="stat-value">{typeof productsCount === 'number' ? productsCount : 0}</div>
+                            <div className="stat-value">
+                                <AnimatedNumber value={typeof productsCount === 'number' ? productsCount : 0} />
+                            </div>
                         </div>
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
@@ -62,7 +64,9 @@ export default function Dashboard() {
                             <div className="stat-title flex gap-2">
                                 <HandPlatter size={20} /> Total Layanan
                             </div>
-                            <div className="stat-value">{typeof servicesCount === 'number' ? servicesCount : 0}</div>
+                            <div className="stat-value">
+                                <AnimatedNumber value={typeof servicesCount === 'number' ? servicesCount : 0} />
+                            </div>
                         </div>
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
@@ -70,7 +74,9 @@ export default function Dashboard() {
                             <div className="stat-title flex gap-2">
                                 <Users size={20} /> Total Karyawan
                             </div>
-                            <div className="stat-value">{typeof teamsCount === 'number' ? teamsCount : 0}</div>
+                            <div className="stat-value">
+                                <AnimatedNumber value={typeof teamsCount === 'number' ? teamsCount : 0} />
+                            </div>
                         </div>
                     </div>
                     <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
@@ -78,7 +84,9 @@ export default function Dashboard() {
                             <div className="stat-title flex gap-2">
                                 <Handshake size={20} /> Total Partner
                             </div>
-                            <div className="stat-value">{typeof partnersCount === 'number' ? partnersCount : 0}</div>
+                            <div className="stat-value">
+                                <AnimatedNumber value={typeof partnersCount === 'number' ? partnersCount : 0} />
+                            </div>
                         </div>
                     </div>
                 </div>
