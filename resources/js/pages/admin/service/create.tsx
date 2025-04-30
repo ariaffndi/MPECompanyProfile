@@ -64,6 +64,7 @@ export default function ServiceCreate() {
                                 <textarea
                                     id="service_description"
                                     rows={5}
+                                    required
                                     className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                     value={data.service_description}
                                     onChange={(e) => setData('service_description', e.target.value)}
@@ -78,6 +79,7 @@ export default function ServiceCreate() {
                                     id="service_image"
                                     name="service_image"
                                     type="file"
+                                    required
                                     accept="image/*"
                                     onChange={(e) => setData('service_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"

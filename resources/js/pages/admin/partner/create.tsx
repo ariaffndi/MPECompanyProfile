@@ -63,6 +63,7 @@ export default function PartnerCreate() {
                                     id="logo"
                                     name="logo"
                                     type="file"
+                                    required
                                     accept="image/*"
                                     onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"

@@ -116,11 +116,11 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'project_name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'year' => 'required|integer|min:1900|max:2100',
-            'value' => 'required|numeric|min:0',
-            'description' => 'required',
+            'project_name' => 'string|max:255',
+            'location' => 'string|max:255',
+            'year' => 'integer|min:1900|max:2100',
+            'value' => 'numeric|min:0',
+            'description' => 'max:1000',
         ]);
         $validated['client_id'] = $request->input('client_id');
         $validated['category_id'] = $request->input('category_id');

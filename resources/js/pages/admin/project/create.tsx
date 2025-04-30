@@ -73,6 +73,7 @@ export default function ProjectCreate() {
                                     id="project_name"
                                     name="project_name"
                                     type="text"
+                                    required
                                     value={data.project_name}
                                     onChange={(e) => setData('project_name', e.target.value)}
                                 />
@@ -85,6 +86,7 @@ export default function ProjectCreate() {
                                     <select
                                         id="client_id"
                                         value={data.client_id}
+                                        required
                                         onChange={(e) => setData('client_id', parseInt(e.target.value))}
                                         className="rounded-md border border-gray-300 p-2"
                                     >
@@ -102,6 +104,7 @@ export default function ProjectCreate() {
                                     <select
                                         id="category_id"
                                         value={data.category_id}
+                                        required
                                         onChange={(e) => setData('category_id', parseInt(e.target.value))}
                                         className="rounded-md border border-gray-300 p-2"
                                     >
@@ -119,17 +122,17 @@ export default function ProjectCreate() {
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="location">Lokasi</Label>
-                                    <Input id="location" type="text" value={data.location} onChange={(e) => setData('location', e.target.value)} />
+                                    <Input id="location" type="text" required value={data.location} onChange={(e) => setData('location', e.target.value)} />
                                     <InputError message={errors.location} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="year">Tahun Project</Label>
-                                    <Input id="year" type="number" value={data.year} onChange={(e) => setData('year', parseInt(e.target.value))} />
+                                    <Input id="year" type="number" required value={data.year} onChange={(e) => setData('year', parseInt(e.target.value))} />
                                     <InputError message={errors.year} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="value">Nilai Project</Label>
-                                    <Input id="value" type="number" value={data.value} onChange={(e) => setData('value', parseInt(e.target.value))} />
+                                    <Input id="value" type="number" required value={data.value} onChange={(e) => setData('value', parseInt(e.target.value))} />
                                     <InputError message={errors.value} />
                                 </div>
                             </div>
@@ -140,6 +143,7 @@ export default function ProjectCreate() {
                                     id="project_image"
                                     name="project_image"
                                     type="file"
+                                    required
                                     accept="image/*"
                                     onChange={(e) => setData('project_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
@@ -152,6 +156,7 @@ export default function ProjectCreate() {
                                 <textarea
                                     id="description"
                                     rows={5}
+                                    required
                                     className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}

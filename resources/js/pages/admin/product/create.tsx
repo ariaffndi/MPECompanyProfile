@@ -66,6 +66,7 @@ export default function ProductCreate() {
                                     rows={5}
                                     className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                     value={data.product_description}
+                                    required
                                     onChange={(e) => setData('product_description', e.target.value)}
                                     placeholder="deskripsi produk"
                                 />
@@ -79,6 +80,7 @@ export default function ProductCreate() {
                                     name="product_image"
                                     type="file"
                                     accept="image/*"
+                                    required
                                     onChange={(e) => setData('product_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />

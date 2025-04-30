@@ -80,6 +80,7 @@ export default function TeamCreate() {
                                     id="image"
                                     name="image"
                                     type="file"
+                                    required
                                     accept="image/*"
                                     onChange={(e) => setData('image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
