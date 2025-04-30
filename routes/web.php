@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\PerusahaanController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\PartnerController;
@@ -29,8 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/product/{product}', [ProductController::class, 'update']);
 
     //Company routes
-    Route::resource('admin/perusahaan', PerusahaanController::class);
-    Route::post('/admin/perusahaan/{perusahaan}', [PerusahaanController::class, 'update']);
+    Route::resource('admin/perusahaan', CompanyController::class);
+    Route::post('/admin/perusahaan/{perusahaan}', [CompanyController::class, 'update']);
 
     //Service routes
     Route::resource('admin/service', ServiceController::class);

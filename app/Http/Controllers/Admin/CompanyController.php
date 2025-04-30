@@ -7,16 +7,16 @@ use App\Http\Controllers\Controller;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Models\Perusahaan;
+use App\Models\Company;
 
-class PerusahaanController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $perusahaan = Perusahaan::firstOrFail();
+        $perusahaan = Company::firstOrFail();
         return Inertia::render('admin/perusahaan/index', [
             "perusahaan" => $perusahaan
         ]);
@@ -48,7 +48,7 @@ class PerusahaanController extends Controller
      */
     public function edit(string $id)
     {
-        $perusahaan = Perusahaan::findOrFail($id);
+        $perusahaan = Company::findOrFail($id);
 
         return Inertia::render('admin/perusahaan/edit', [
             'perusahaan' => $perusahaan
@@ -58,25 +58,25 @@ class PerusahaanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Perusahaan $perusahaan)
+    public function update(Request $request, Company $perusahaan)
     {
 
-        $perusahaan = Perusahaan::firstOrFail();
+        $perusahaan = Company::firstOrFail();
 
         $validated = $request->validate([
-            'nama_perusahaan' => 'string|max:255',
-            'alamat_perusahaan' => 'string',
-            'email_perusahaan' => 'email|max:255',
-            'no_telp_perusahaan' => 'string|max:255',
-            'whatsapp_perusahaan' => 'string|max:255',
-            'deskripsi_perusahaan' => 'string|',
-            'instagram_perusahaan' => 'string|max:255',
-            'facebook_perusahaan' => 'string|max:255',
+            'name' => 'string|max:255',
+            'address' => 'string',
+            'email' => 'email|max:255',
+            'phone' => 'string|max:255',
+            'whatsapp' => 'string|max:255',
+            'description' => 'string|',
+            'instagram' => 'string|max:255',
+            'facebook' => 'string|max:255',
         ]);
     
         $validated = array_merge($validated, [
-                'foto_kantor_perusahaan' => $request->file('foto_kantor_perusahaan')?->store('perusahaan', 'public') ?? $perusahaan->foto_kantor_perusahaan,
-                'logo_perusahaan' => $request->file('logo_perusahaan')?->store('perusahaan', 'public') ?? $perusahaan->logo_perusahaan,
+                'office_image' => $request->file('office_image')?->store('perusahaan', 'public') ?? $perusahaan->office_image,
+                'logo' => $request->file('logo')?->store('perusahaan', 'public') ?? $perusahaan->logo,
             ]);
 
         $perusahaan->update($validated);

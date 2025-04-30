@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-use App\Models\Perusahaan;
+use App\Models\Company;
 use Inertia\Inertia;
 
 use Illuminate\Support\ServiceProvider;
@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Inertia::share([
-            'perusahaan' => fn () => Perusahaan::firstorfail(),
+            'perusahaan' => fn () => Company::firstorfail(),
         ]);
     }
 }

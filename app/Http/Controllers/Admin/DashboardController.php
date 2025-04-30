@@ -50,14 +50,15 @@ class DashboardController extends Controller
 
         $chartData = array_values($chartData);
 
-        $countofProjectLastYear = Project::whereBetween('year', [$currentYear-1, $currentYear])->count();
-        $countofProjectLast2Year = Project::whereBetween('year', [$currentYear-2, $currentYear])->count();
+        $countofProjectLastYear = Project::whereBetween('year', [$currentYear-1, $currentYear-1])->count();
+        $countofProjectLast2Year = Project::whereBetween('year', [$currentYear-2, $currentYear-2])->count();
 
         if ($countofProjectLastYear > $countofProjectLast2Year) {
             $performance = 'peningkatan';
         } else {
             $performance = 'penurunan';
         }
+
 
         return Inertia::render('admin/dashboard', [
             'productsCount' => Product::count(),

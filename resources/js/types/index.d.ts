@@ -41,9 +41,9 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-// types/Perusahaan.ts
-export interface Perusahaan {
+// types/Company.ts
+export interface Company {
     id: number;
-    nama_perusahaan: string;
-    logo_perusahaan: string;
+    name: string;
+    logo: string;
 }

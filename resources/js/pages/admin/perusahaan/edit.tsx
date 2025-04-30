@@ -1,46 +1,46 @@
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Edit Data Perusahaan',
+        title: 'Edit Data Company',
         href: '/perusahaan',
     },
 ];
 
-type FormPerusahaan = {
+type FormCompany = {
     id: number;
-    nama_perusahaan: string;
-    alamat_perusahaan: string;
-    email_perusahaan: string;
-    no_telp_perusahaan: string;
-    whatsapp_perusahaan: string;
-    deskripsi_perusahaan: string;
-    instagram_perusahaan: string;
-    facebook_perusahaan: string;
-    foto_kantor_perusahaan: string;
-    logo_perusahaan: string;
+    name: string;
+    address: string;
+    email: string;
+    phone: string;
+    whatsapp: string;
+    description: string;
+    instagram: string;
+    facebook: string;
+    office_image: string;
+    logo: string;
 };
 
-export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusahaan }) {
+export default function EditCompany({ perusahaan }: { perusahaan: FormCompany }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        nama_perusahaan: perusahaan.nama_perusahaan,
-        alamat_perusahaan: perusahaan.alamat_perusahaan,
-        email_perusahaan: perusahaan.email_perusahaan,
-        no_telp_perusahaan: perusahaan.no_telp_perusahaan,
-        whatsapp_perusahaan: perusahaan.whatsapp_perusahaan,
-        deskripsi_perusahaan: perusahaan.deskripsi_perusahaan,
-        instagram_perusahaan: perusahaan.instagram_perusahaan,
-        facebook_perusahaan: perusahaan.facebook_perusahaan,
-        foto_kantor_perusahaan: null as File | null,
-        logo_perusahaan: null as File | null,
+        name: perusahaan.name,
+        address: perusahaan.address,
+        email: perusahaan.email,
+        phone: perusahaan.phone,
+        whatsapp: perusahaan.whatsapp,
+        description: perusahaan.description,
+        instagram: perusahaan.instagram,
+        facebook: perusahaan.facebook,
+        office_image: null as File | null,
+        logo: null as File | null,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -54,131 +54,95 @@ export default function EditPerusahaan({ perusahaan }: { perusahaan: FormPerusah
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Perusahaan" />
+            <Head title="Edit Company" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="rounded-box border-base-content/5 overflow-x-auto">
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="kantor Image">Logo Perusahaan</Label>
+                                <Label htmlFor="kantor Image">Logo Company</Label>
                                 <input
-                                    id="logo_perusahaan"
-                                    name="logo_perusahaan"
+                                    id="logo"
+                                    name="logo"
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) => setData('logo_perusahaan', e.target.files ? e.target.files[0] : null)}
+                                    onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
                                 <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 1:1</p>
-                                <InputError message={errors.logo_perusahaan} />
+                                <InputError message={errors.logo} />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="nama_perusahaan">Nama Perusahaan</Label>
-                                    <Input
-                                        id="nama_perusahaan"
-                                        name="nama_perusahaan"
-                                        type="text"
-                                        value={data.nama_perusahaan}
-                                        onChange={(e) => setData('nama_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.nama_perusahaan} className="mt-2" />
+                                    <Label htmlFor="name">Nama Company</Label>
+                                    <Input id="name" name="name" type="text" value={data.name} onChange={(e) => setData('name', e.target.value)} />
+                                    <InputError message={errors.name} className="mt-2" />
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="alamat_perusahaan">Alamat</Label>
-                                    <Input
-                                        id="alamat_perusahaan"
-                                        type="text"
-                                        value={data.alamat_perusahaan}
-                                        onChange={(e) => setData('alamat_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.alamat_perusahaan} />
+                                    <Label htmlFor="address">Alamat</Label>
+                                    <Input id="address" type="text" value={data.address} onChange={(e) => setData('address', e.target.value)} />
+                                    <InputError message={errors.address} />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email_perusahaan">Email Perusahaan</Label>
-                                    <Input
-                                        id="email_perusahaan"
-                                        type="Email"
-                                        value={data.email_perusahaan}
-                                        onChange={(e) => setData('email_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.email_perusahaan} />
+                                    <Label htmlFor="email">Email Company</Label>
+                                    <Input id="email" type="Email" value={data.email} onChange={(e) => setData('email', e.target.value)} />
+                                    <InputError message={errors.email} />
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="no_telp_perusahaan">No Telepon</Label>
-                                    <Input
-                                        id="no_telp_perusahaan"
-                                        type="text"
-                                        value={data.no_telp_perusahaan}
-                                        onChange={(e) => setData('no_telp_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.no_telp_perusahaan} />
+                                    <Label htmlFor="phone">No Telepon</Label>
+                                    <Input id="phone" type="text" value={data.phone} onChange={(e) => setData('phone', e.target.value)} />
+                                    <InputError message={errors.phone} />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="whatsapp_perusahaan">No Whatsapp</Label>
-                                    <Input
-                                        id="whatsapp_perusahaan"
-                                        type="text"
-                                        value={data.whatsapp_perusahaan}
-                                        onChange={(e) => setData('whatsapp_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.whatsapp_perusahaan} />
+                                    <Label htmlFor="whatsapp">No Whatsapp</Label>
+                                    <Input id="whatsapp" type="text" value={data.whatsapp} onChange={(e) => setData('whatsapp', e.target.value)} />
+                                    <InputError message={errors.whatsapp} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="instagram_perusahaan">Instagram *url</Label>
-                                    <Input
-                                        id="instagram_perusahaan"
-                                        type="text"
-                                        value={data.instagram_perusahaan}
-                                        onChange={(e) => setData('instagram_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.instagram_perusahaan} />
+                                    <Label htmlFor="instagram">Instagram *url</Label>
+                                    <Input id="instagram" type="text" value={data.instagram} onChange={(e) => setData('instagram', e.target.value)} />
+                                    <InputError message={errors.instagram} />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="facebook_perusahaan">Facebook *url</Label>
-                                    <Input
-                                        id="facebook_perusahaan"
-                                        type="text"
-                                        value={data.facebook_perusahaan}
-                                        onChange={(e) => setData('facebook_perusahaan', e.target.value)}
-                                    />
-                                    <InputError message={errors.facebook_perusahaan} />
+                                    <Label htmlFor="facebook">Facebook *url</Label>
+                                    <Input id="facebook" type="text" value={data.facebook} onChange={(e) => setData('facebook', e.target.value)} />
+                                    <InputError message={errors.facebook} />
                                 </div>
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="kantor Image">Foto Kantor</Label>
                                 <input
-                                    id="foto_kantor_perusahaan"
-                                    name="foto_kantor_perusahaan"
+                                    id="office_image"
+                                    name="office_image"
                                     type="file"
                                     accept="image/*"
-                                    onChange={(e) => setData('foto_kantor_perusahaan', e.target.files ? e.target.files[0] : null)}
+                                    onChange={(e) => setData('office_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
                                 <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 2:3</p>
-                                <InputError message={errors.foto_kantor_perusahaan} />
+                                <InputError message={errors.office_image} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="deskripsi_perusahaan">Deskripsi</Label>
+                                <Label htmlFor="description">Deskripsi</Label>
                                 <textarea
-                                    id="deskripsi_perusahaan"
+                                    id="description"
                                     rows={5}
                                     className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-                                    value={data.deskripsi_perusahaan}
-                                    onChange={(e) => setData('deskripsi_perusahaan', e.target.value)}
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
                                 />
-                                <InputError message={errors.deskripsi_perusahaan} />
+                                <InputError message={errors.description} />
                             </div>
 
                             <Button type="submit" className="mt-2 w-full">
