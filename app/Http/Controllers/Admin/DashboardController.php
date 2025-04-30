@@ -13,28 +13,61 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        $currentYear = Carbon::now();
-        $startYear = $currentYear->copy()->subYear(5)->year;
+    public function index()
+    {
+        $currentYear = Carbon::now()->year;
+        $startYear = $currentYear - 5;
+
+    
+        $projectCounts = DB::table('projects')
+            ->join('clients', 'projects.client_id', '=', 'clients.id')
+            ->select('projects.year', 'clients.client_type', DB::raw('count(projects.id) as total'))
+            ->whereBetween('projects.year', [$startYear, $currentYear])
+            ->groupBy('projects.year', 'clients.client_type')
+            ->orderBy('projects.year')
+            ->get();
+
         
+        $chartData = [];
+        for ($year = $startYear; $year <= $currentYear; $year++) {
+            $chartData[$year] = [
+                'year' => (string)$year,
+                'pemerintah' => 0,
+                'swasta' => 0,
+            ];
+        }
+
         
-        $chartData = Project::select([
-            DB::raw('YEAR(year) as year'),
-            DB::raw("SUM(CASE WHEN clients.client_type = 'pemerintah' THEN 1 ELSE 0 END) as pemerintah"),
-            DB::raw("SUM(CASE WHEN clients.client_type = 'swasta' THEN 1 ELSE 0 END) as swasta"),
-        ])
-        ->join('clients', 'projects.client_id', '=', 'clients.id')
-        ->whereBetween('year', [$startYear,$currentYear])
-        ->groupBy(DB::raw('YEAR(year)'))
-        ->orderBy('year')
-        ->get();
-        
-        return Inertia::render('admin/dashboard',[
+        foreach ($projectCounts as $row) {
+            if (isset($chartData[$row->year])) {
+                if ($row->client_type === 'Pemerintah') {
+                    $chartData[$row->year]['pemerintah'] = $row->total;
+                } elseif ($row->client_type === 'Swasta') {
+                    $chartData[$row->year]['swasta'] = $row->total;
+                }
+            }
+        }
+
+        $chartData = array_values($chartData);
+
+        $countofProjectLastYear = Project::whereBetween('year', [$currentYear-1, $currentYear])->count();
+        $countofProjectLast2Year = Project::whereBetween('year', [$currentYear-2, $currentYear])->count();
+
+        if ($countofProjectLastYear > $countofProjectLast2Year) {
+            $performance = 'Peningkatan';
+        } else {
+            $performance = 'Penurunan';
+        }
+
+        return Inertia::render('admin/dashboard', [
             'productsCount' => Product::count(),
             'servicesCount' => Service::count(),
             'teamsCount' => Team::count(),
             'partnersCount' => Partner::count(),
-            'chartData' => $chartData,
+            'projectChartData' => $chartData,
+            'currentYear' => $currentYear,
+            'startYear' => $startYear,
+            'performance' => $performance
         ]);
     }
 }

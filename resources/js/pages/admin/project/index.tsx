@@ -183,7 +183,7 @@ export default function Project() {
                                  <td>{projectItem.location}</td>
                                  <td>{projectItem.year}</td>
                                  <td>{projectItem.value}</td>
-                                 <td className="max-w-[200px] truncate whitespace-nowrap">{projectItem.description}</td>
+                                 <td className="max-w-[100px] truncate whitespace-nowrap">{projectItem.description}</td>
                                  <td className="hidden sm:table-cell">
                                        <img
                                           src={`/storage/${projectItem.project_image}`}
