@@ -155,7 +155,7 @@ class ProjectController extends Controller
 
     public function export()
     {
-        $projects = Project::with(['client', 'category'])->get();
+        $projects = Project::with(['client', 'category'])->orderBy('year', 'asc')->get();
 
         $headers = [
             'Content-Type' => 'text/csv',
@@ -165,10 +165,8 @@ class ProjectController extends Controller
         $callback = function () use ($projects) {
             $file = fopen('php://output', 'w');
 
-            // Header kolom CSV
             fputcsv($file, ['No', 'Nama Project', 'Klien', 'Kategori', 'Lokasi', 'Tahun', 'Harga', 'Deskripsi']);
 
-            // Baris data
             foreach ($projects as $index => $project) {
                 fputcsv($file, [
                     $index + 1,

@@ -39,10 +39,10 @@ type Paginator<T> = {
 };
 
 export default function Project() {
-   const { project, all_project } = usePage<{ project: Paginator<Project>; all_project: Project[] }>().props;
+   const { project } = usePage<{ project: Paginator<Project> }>().props;
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
    const { page, setPage } = usePaginationParam();
-   const { search, setSearch, sortOrder, toggleSort } = useSearchSort(all_project, (projectItem) => projectItem.year.toString());
+   const { search, setSearch, sortOrder, toggleSort } = useSearchSort(project.data, (projectItem) => projectItem.year.toString());
    const [currentSortField, setCurrentSortField] = useState<string>('year');
 
    useFlashToast();
