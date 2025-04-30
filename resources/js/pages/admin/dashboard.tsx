@@ -123,7 +123,7 @@ export default function Dashboard() {
                         <div className="flex w-full items-start gap-2 text-sm">
                             <div className="grid gap-2">
                                 <div className="flex items-center gap-2 leading-none font-medium">
-                                    Tahun {Number(currentYear) - 1} Mengalami <p className="font-bold">{String(performance)}</p> dari tahun{' '}
+                                    Tahun {Number(currentYear) - 1} mengalami <p className="font-bold">{String(performance)}</p> dari tahun{' '}
                                     {Number(currentYear) - 2}{' '}
                                     {performance === 'peningkatan' ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
                                 </div>

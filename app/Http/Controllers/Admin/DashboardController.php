@@ -54,9 +54,9 @@ class DashboardController extends Controller
         $countofProjectLast2Year = Project::whereBetween('year', [$currentYear-2, $currentYear])->count();
 
         if ($countofProjectLastYear > $countofProjectLast2Year) {
-            $performance = 'Peningkatan';
+            $performance = 'peningkatan';
         } else {
-            $performance = 'Penurunan';
+            $performance = 'penurunan';
         }
 
         return Inertia::render('admin/dashboard', [
