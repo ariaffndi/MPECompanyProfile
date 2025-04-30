@@ -25,7 +25,7 @@ class ProjectController extends Controller
                 $query->where('project_name', 'like', '%' . $request->search . '%');
             }
     
-            $sortField = $request->get('sortField', 'created_at'); // default sort by created_at
+            $sortField = $request->get('sortField', 'created_at');
             $sortDirection = $request->get('sort', 'desc');
 
             $query->orderBy($sortField, $sortDirection);

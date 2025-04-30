@@ -11,93 +11,94 @@ import { useState } from 'react';
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Project', href: '/project' }];
 
 type Project = {
-   id: number;
-   project_name: string;
-   client: {
+  id: number;
+  project_name: string;
+  client: {
       id: number;
       client_type: string;
-   };
-   category: {
+  };
+  category: {
       id: number;
       category_name: string;
-   };
-   location: string;
-   year: number;
-   value: number;
-   description: string;
-   project_image: string;
+  };
+  location: string;
+  year: number;
+  value: number;
+  description: string;
+  project_image: string;
 };
 
 type Paginator<T> = {
-   data: T[];
-   current_page: number;
-   last_page: number;
-   per_page: number;
-   total: number;
-   next_page_url: string | null;
-   prev_page_url: string | null;
+  data: T[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  next_page_url: string | null;
+  prev_page_url: string | null;
 };
 
 export default function Project() {
-   const { project, all_project } = usePage<{ project: Paginator<Project>; all_project: Project[] }>().props;
-   const [selectedProject, setSelectedproject] = useState<Project | null>(null);
-   const { page, setPage } = usePaginationParam();
-   const { search, setSearch, sortOrder, toggleSort } = useSearchSort(all_project, (projectItem) => projectItem.year.toString());
+  const { project, all_project } = usePage<{ project: Paginator<Project>; all_project: Project[] }>().props;
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { page, setPage } = usePaginationParam();
+  const { search, setSearch, sortOrder, toggleSort } = useSearchSort(all_project, (projectItem) => projectItem.year.toString());
+  const [currentSortField, setCurrentSortField] = useState<string>('year');
 
-   useFlashToast();
+  useFlashToast();
 
-   const handleDelete = () => {
+  const handleDelete = () => {
       if (selectedProject)
             router.delete(route('project.destroy', selectedProject.id), {
-               preserveScroll: true,
-               preserveState: true,
-               data: { page: project.current_page },
-               onSuccess: () => {
-                  setSelectedproject(null);
-               },
+              preserveScroll: true,
+              preserveState: true,
+              data: { page: project.current_page },
+              onSuccess: () => {
+                  setSelectedProject(null);
+              },
             });
-   };
+  };
 
-   const handlePageChange = (newPage: number) => {
+  const handlePageChange = (newPage: number) => {
       setPage(newPage);
       router.get(
             route('project.index'),
-            { page: newPage },
+            { page: newPage, sort: sortOrder, sortField: currentSortField, search },
             {
-               preserveScroll: true,
-               preserveState: true,
+              preserveScroll: true,
+              preserveState: true,
             },
       );
-   };
+  };
 
-   const handleSearch = (setSearch: string) => {
+  const handleSearch = (setSearch: string) => {
       router.get(
             route('project.index'),
             { search: setSearch },
             {
-               preserveScroll: true,
-               preserveState: true,
-               replace: true,
+              preserveScroll: true,
+              preserveState: true,
+              replace: true,
             },
       );
-   };
+  };
 
-   const handleSort = (field: string) => {
+  const handleSort = (field: string) => {
       const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+      setCurrentSortField(field);
       toggleSort();
       router.get(
-         route('project.index'),
-         { search, sort: newSortOrder, sortField: field, page: 1 },
-         {
-               preserveScroll: true,
-               preserveState: true,
-               replace: true,
-         },
+        route('project.index'),
+        { search, sort: newSortOrder, sortField: field, page: 1 },
+        {
+              preserveScroll: true,
+              preserveState: true,
+              replace: true,
+        },
       );
-   };
+  };
 
 
-   const handleExportCSV = () => {
+  const handleExportCSV = () => {
       const headers = ['No', 'Nama Project', 'Klien', 'Kategori', 'Lokasi', 'Tahun', 'Harga', 'Deskripsi'];
       const rows = all_project.map((projectItem, i) => [
             i + 1,
@@ -118,45 +119,45 @@ export default function Project() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-   };
+  };
 
-   return (
+  return (
       <AppLayout breadcrumbs={breadcrumbs}>
-         <Head title="Project" />
-         <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-               <div className="flex flex-col justify-between gap-2 sm:flex-row">
+        <Head title="Project" />
+        <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+              <div className="flex flex-col justify-between gap-2 sm:flex-row">
                   <Link href={route('project.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                     <PlusCircle size={16} /> Tambah Data
+                    <PlusCircle size={16} /> Tambah Data
                   </Link>
                   <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                     <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
-                           Export CSV
-                     </button>
-                     <label className="input input-sm w-fit rounded-xl border-1">
-                           <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
+                          Export CSV
+                    </button>
+                    <label className="input input-sm w-fit rounded-xl border-1">
+                          <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                               <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                 <circle cx="11" cy="11" r="8"></circle>
-                                 <path d="m21 21-4.3-4.3"></path>
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
                               </g>
-                           </svg>
-                           <input
+                          </svg>
+                          <input
                               type="search"
                               className="grow"
                               placeholder="Search"
                               value={search}
                               onChange={(e) => {
-                                 setSearch(e.target.value);
-                                 handleSearch(e.target.value);
+                                setSearch(e.target.value);
+                                handleSearch(e.target.value);
                               }}
-                           />
-                     </label>
+                          />
+                    </label>
                   </div>
-               </div>
+              </div>
 
-               <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
+              <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
                   <table className="table-pin-rows table min-w-full text-center">
-                     <thead>
-                           <tr className="bg-base-300 text-base-content">
+                    <thead>
+                          <tr className="bg-base-300 text-base-content">
                               <th>No</th>
                               <th>Nama Project</th>
                               <th>Klien</th>
@@ -167,134 +168,134 @@ export default function Project() {
                               <th>Deskripsi</th>
                               <th className="hidden sm:table-cell">Foto</th>
                               <th>Aksi</th>
-                           </tr>
-                     </thead>
-                     <tbody>
-                           {project.data.map((projectItem, index) => (
+                          </tr>
+                    </thead>
+                    <tbody>
+                          {project.data.map((projectItem, index) => (
                               <tr
-                                 key={projectItem.id}
-                                 className="border-base-content/5 hover:bg-base-200 border-1"
-                                 onClick={() => setSelectedproject(projectItem)}
+                                key={projectItem.id}
+                                className="border-base-content/5 hover:bg-base-200 border-1"
+                                onClick={() => setSelectedProject(projectItem)}
                               >
-                                 <td>{(project.current_page - 1) * project.per_page + index + 1}</td>
-                                 <td>{projectItem.project_name}</td>
-                                 <td>{projectItem.client.client_type}</td>
-                                 <td>{projectItem.category.category_name}</td>
-                                 <td>{projectItem.location}</td>
-                                 <td>{projectItem.year}</td>
-                                 <td>Rp.{projectItem.value}</td>
-                                 <td className="max-w-[100px] truncate whitespace-nowrap">{projectItem.description}</td>
-                                 <td className="hidden sm:table-cell">
-                                       <img
+                                <td>{(project.current_page - 1) * project.per_page + index + 1}</td>
+                                <td>{projectItem.project_name}</td>
+                                <td>{projectItem.client.client_type}</td>
+                                <td>{projectItem.category.category_name}</td>
+                                <td>{projectItem.location}</td>
+                                <td>{projectItem.year}</td>
+                                <td>Rp.{projectItem.value}</td>
+                                <td className="max-w-[100px] truncate whitespace-nowrap">{projectItem.description}</td>
+                                <td className="hidden sm:table-cell">
+                                      <img
                                           src={`/storage/${projectItem.project_image}`}
                                           alt={projectItem.project_name}
                                           className="mx-auto h-16 w-16 rounded-lg object-cover"
-                                       />
-                                 </td>
-                                 <td>
-                                       <div className="flex flex-nowrap items-center justify-center gap-1">
+                                      />
+                                </td>
+                                <td>
+                                      <div className="flex flex-nowrap items-center justify-center gap-1">
                                           <Dialog>
-                                             <DialogTrigger asChild>
-                                                   <button
+                                            <DialogTrigger asChild>
+                                                  <button
                                                       title="Detail"
                                                       className="btn btn-sm btn-square btn-soft btn-info m-0.5"
-                                                      onClick={() => setSelectedproject(projectItem)}
-                                                   >
+                                                      onClick={() => setSelectedProject(projectItem)}
+                                                  >
                                                       <Info size={20} />
-                                                   </button>
-                                             </DialogTrigger>
-                                             <DialogContent>
-                                                   <DialogTitle>Detail Project</DialogTitle>
-                                                   <DialogDescription className="max-h-[400px] overflow-y-auto">
+                                                  </button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                  <DialogTitle>Detail Project</DialogTitle>
+                                                  <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                       <figure>
-                                                         <img
-                                                               src={`/storage/${projectItem.project_image}`}
-                                                               alt={projectItem.project_name}
-                                                               className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
-                                                         />
+                                                        <img
+                                                              src={`/storage/${projectItem.project_image}`}
+                                                              alt={projectItem.project_name}
+                                                              className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                        />
                                                       </figure>
                                                       <div className="card-body">
-                                                         <h2 className="card-title">{projectItem.project_name}</h2>
-                                                         <p>Klien: {projectItem.client.client_type}</p>
-                                                         <p>Kategori: {projectItem.category.category_name}</p>
-                                                         <p>Lokasi Proyek: {projectItem.location}</p>
-                                                         <p>Tahun Proyek: {projectItem.year}</p>
-                                                         <p>Nilai Proyek: {projectItem.value}</p>
-                                                         <p className="whitespace-pre-line">{projectItem.description}</p>
+                                                        <h2 className="card-title">{projectItem.project_name}</h2>
+                                                        <p>Klien: {projectItem.client.client_type}</p>
+                                                        <p>Kategori: {projectItem.category.category_name}</p>
+                                                        <p>Lokasi Proyek: {projectItem.location}</p>
+                                                        <p>Tahun Proyek: {projectItem.year}</p>
+                                                        <p>Nilai Proyek: {projectItem.value}</p>
+                                                        <p className="whitespace-pre-line">{projectItem.description}</p>
                                                       </div>
-                                                   </DialogDescription>
-                                                   <DialogFooter>
+                                                  </DialogDescription>
+                                                  <DialogFooter>
                                                       <DialogClose asChild>
-                                                         <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
+                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Kembali</button>
                                                       </DialogClose>
-                                                   </DialogFooter>
-                                             </DialogContent>
+                                                  </DialogFooter>
+                                            </DialogContent>
                                           </Dialog>
                                           <Link
-                                             href={route('project.edit', { id: projectItem.id }) + `?page=${page}`}
-                                             title="Edit Data"
-                                             className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
+                                            href={route('project.edit', { id: projectItem.id }) + `?page=${page}`}
+                                            title="Edit Data"
+                                            className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                           >
-                                             <Pencil size={20} />
+                                            <Pencil size={20} />
                                           </Link>
                                           <Dialog>
-                                             <DialogTrigger asChild>
-                                                   <button
+                                            <DialogTrigger asChild>
+                                                  <button
                                                       title="Hapus Data"
                                                       className="btn btn-sm btn-square btn-soft btn-error m-0.5"
-                                                      onClick={() => setSelectedproject(projectItem)}
-                                                   >
+                                                      onClick={() => setSelectedProject(projectItem)}
+                                                  >
                                                       <Trash2 size={20} />
-                                                   </button>
-                                             </DialogTrigger>
-                                             <DialogContent>
-                                                   <DialogTitle>Konfirmasi Hapus</DialogTitle>
-                                                   <DialogDescription>
+                                                  </button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                  <DialogTitle>Konfirmasi Hapus</DialogTitle>
+                                                  <DialogDescription>
                                                       Apakah Anda yakin ingin menghapus layanan <strong>{selectedProject?.project_name}</strong>?
-                                                   </DialogDescription>
-                                                   <DialogFooter>
+                                                  </DialogDescription>
+                                                  <DialogFooter>
                                                       <DialogClose asChild>
-                                                         <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
+                                                        <button className="btn btn-gray m-1 w-fit rounded-lg">Batal</button>
                                                       </DialogClose>
                                                       <button className="btn btn-error m-1 w-fit rounded-lg" onClick={handleDelete}>
-                                                         Hapus
+                                                        Hapus
                                                       </button>
-                                                   </DialogFooter>
-                                             </DialogContent>
+                                                  </DialogFooter>
+                                            </DialogContent>
                                           </Dialog>
-                                       </div>
-                                 </td>
+                                      </div>
+                                </td>
                               </tr>
-                           ))}
-                     </tbody>
+                          ))}
+                    </tbody>
                   </table>
-               </div>
+              </div>
 
-               {/* paginasi */}
-               <div className="mt-4 flex justify-center gap-2">
+              {/* paginasi */}
+              <div className="mt-4 flex justify-center gap-2">
                   <button className="btn btn-sm" onClick={() => handlePageChange(project.current_page - 1)} disabled={project.current_page === 1}>
-                     Prev
+                    Prev
                   </button>
 
                   {[...Array(project.last_page)].map((_, i) => (
-                     <button
-                           key={i}
-                           className={`btn btn-sm ${project.current_page === i + 1 ? 'btn-active' : ''}`}
-                           onClick={() => handlePageChange(i + 1)}
-                     >
-                           {i + 1}
-                     </button>
+                    <button
+                          key={i}
+                          className={`btn btn-sm ${project.current_page === i + 1 ? 'btn-active' : ''}`}
+                          onClick={() => handlePageChange(i + 1)}
+                    >
+                          {i + 1}
+                    </button>
                   ))}
 
                   <button
-                     className="btn btn-sm"
-                     onClick={() => handlePageChange(project.current_page + 1)}
-                     disabled={project.current_page === project.last_page}
+                    className="btn btn-sm"
+                    onClick={() => handlePageChange(project.current_page + 1)}
+                    disabled={project.current_page === project.last_page}
                   >
-                     Next
+                    Next
                   </button>
-               </div>
-         </div>
+              </div>
+        </div>
       </AppLayout>
-   );
+  );
 }
