@@ -72,7 +72,7 @@ export default function Dashboard() {
                     <div className="border-sidebar-border/70 dark:border-sidebar-border stats relative aspect-video overflow-hidden rounded-xl border shadow">
                         <div className="stat">
                             <div className="stat-title flex gap-2">
-                                <Users size={20} /> Total Karyawan
+                                <Users size={20} /> Total Karyawan & Manajemen
                             </div>
                             <div className="stat-value">
                                 <AnimatedNumber value={typeof teamsCount === 'number' ? teamsCount : 0} />
