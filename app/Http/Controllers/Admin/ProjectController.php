@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Client;
 use App\Models\Category;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Response;
 
 class ProjectController extends Controller
 {
@@ -30,11 +31,9 @@ class ProjectController extends Controller
 
             $query->orderBy($sortField, $sortDirection);
     
-            $all_projects = $query->get();
             $projects = $query->paginate(5)->withQueryString();
 
             return Inertia::render('admin/project/index', [
-                'all_project' => $all_projects,
                 'project' => $projects,
                 'filters' => [
                     'search' => $request->search,
@@ -152,4 +151,41 @@ class ProjectController extends Controller
         return redirect()->route('project.index', ['page' => $currentPage])
             ->with('success', 'Project berhasil dihapus.');
     }
+
+
+    public function export()
+    {
+        $projects = Project::with(['client', 'category'])->get();
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="projects.csv"',
+        ];
+
+        $callback = function () use ($projects) {
+            $file = fopen('php://output', 'w');
+
+            // Header kolom CSV
+            fputcsv($file, ['No', 'Nama Project', 'Klien', 'Kategori', 'Lokasi', 'Tahun', 'Harga', 'Deskripsi']);
+
+            // Baris data
+            foreach ($projects as $index => $project) {
+                fputcsv($file, [
+                    $index + 1,
+                    $project->project_name,
+                    $project->client->client_type ?? '',
+                    $project->category->category_name ?? '',
+                    $project->location,
+                    $project->year,
+                    $project->value,
+                    str_replace(["\r\n", "\r", "\n"], ' ', $project->description),
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
+
 }

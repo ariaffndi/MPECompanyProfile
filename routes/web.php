@@ -51,6 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Project routes
     Route::resource('admin/project', ProjectController::class);
     Route::post('/admin/project/{project}', [ProjectController::class, 'update']);
+    Route::get('/export-projects', [ProjectController::class, 'export']);
+
 
     //Inquiry routes
     Route::resource('admin/inquiry', InquiryController::class);
