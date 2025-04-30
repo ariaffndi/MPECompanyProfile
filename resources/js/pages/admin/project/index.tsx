@@ -182,7 +182,7 @@ export default function Project() {
                                  <td>{projectItem.category.category_name}</td>
                                  <td>{projectItem.location}</td>
                                  <td>{projectItem.year}</td>
-                                 <td>{projectItem.value}</td>
+                                 <td>Rp.{projectItem.value}</td>
                                  <td className="max-w-[100px] truncate whitespace-nowrap">{projectItem.description}</td>
                                  <td className="hidden sm:table-cell">
                                        <img
