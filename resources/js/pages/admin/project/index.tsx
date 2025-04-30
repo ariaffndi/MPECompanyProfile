@@ -88,7 +88,6 @@ export default function Project() {
       setCurrentSortField(field);
       toggleSort();
       router.get(
-<<<<<<< HEAD
             route('project.index'),
             { search, sort: newSortOrder, sortField: field, page: 1 },
             {
@@ -96,24 +95,10 @@ export default function Project() {
                preserveState: true,
                replace: true,
             },
-=======
-        route('project.index'),
-        { search, sort: newSortOrder, sortField: field, page: 1 },
-        {
-              preserveScroll: true,
-              preserveState: true,
-              replace: true,
-        },
->>>>>>> bd29ca8af37fe6aabfe575d3159ea97316e90bf7
       );
   };
 
-<<<<<<< HEAD
    const handleExportCSV = () => {
-=======
-
-  const handleExportCSV = () => {
->>>>>>> bd29ca8af37fe6aabfe575d3159ea97316e90bf7
       const headers = ['No', 'Nama Project', 'Klien', 'Kategori', 'Lokasi', 'Tahun', 'Harga', 'Deskripsi'];
       const rows = all_project.map((projectItem, i) => [
             i + 1,
@@ -192,7 +177,7 @@ export default function Project() {
                               <tr
                                     key={projectItem.id}
                                     className="border-base-content/5 hover:bg-base-200 border-1"
-                                    onClick={() => setSelectedproject(projectItem)}
+                                    onClick={() => setSelectedProject(projectItem)}
                               >
                                     <td>{(project.current_page - 1) * project.per_page + index + 1}</td>
                                     <td>{projectItem.project_name}</td>
