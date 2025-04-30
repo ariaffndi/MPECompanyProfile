@@ -1,3 +1,4 @@
+import ButtonAddData from '@/components/button-add-data';
 import Pagination from '@/components/pagination';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useFlashToast } from '@/hooks/useFlashToast';
@@ -7,7 +8,7 @@ import { useFilterSortPagination } from '@/hooks/useFilterSortPagination';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Info, Pencil, PlusCircle, Trash2 } from 'lucide-react';
+import { Info, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Project', href: '/project' }];
@@ -40,10 +41,10 @@ type Paginator<T> = {
 };
 
 export default function Project() {
-   const { project, all_project } = usePage<{ project: Paginator<Project>; all_project: Project[] }>().props;
+   const { project } = usePage<{ project: Paginator<Project> }>().props;
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
    const { page, setPage } = usePaginationParam();
-   const { search, setSearch, sortOrder, toggleSort } = useSearchSort(all_project, (projectItem) => projectItem.year.toString());
+   const { search, setSearch, sortOrder, toggleSort } = useSearchSort(project.data, (projectItem) => projectItem.year.toString());
    const [currentSortField, setCurrentSortField] = useState<string>('year');
 
    useFlashToast();
@@ -108,9 +109,7 @@ export default function Project() {
             <Head title="Project" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                  <Link href={route('project.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        <PlusCircle size={16} /> Tambah Data
-                  </Link>
+                  <ButtonAddData href={route('project.create')} />
                   <div className="flex flex-col justify-between gap-2 sm:flex-row">
                         <button className="btn btn-sm btn-success w-fit rounded-xl" onClick={handleExportCSV}>
                            Export CSV

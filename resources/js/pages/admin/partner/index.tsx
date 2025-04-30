@@ -1,3 +1,4 @@
+import ButtonAddData from '@/components/button-add-data';
 import Pagination from '@/components/pagination';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useFlashToast } from '@/hooks/useFlashToast';
@@ -6,7 +7,7 @@ import { useSearchSort } from '@/hooks/useSearchSort';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Pencil, PlusCircle, Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Partner', href: '/partner' }];
@@ -77,9 +78,7 @@ export default function Partner() {
             <Head title="Partner" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                    <Link href={route('partner.create')} className="btn btn-sm btn-info w-fit rounded-xl">
-                        <PlusCircle size={16} /> Tambah Data
-                    </Link>
+                    <ButtonAddData href={route('partner.create')} />
                     <label className="input input-sm w-fit rounded-xl border-1">
                         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
