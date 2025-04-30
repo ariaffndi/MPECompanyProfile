@@ -1,3 +1,4 @@
+import Pagination from '@/components/pagination';
 import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';
@@ -108,29 +109,7 @@ export default function User() {
                 </div>
 
                 {/* paginasi */}
-                <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(user.current_page - 1)} disabled={user.current_page === 1}>
-                        Prev
-                    </button>
-
-                    {[...Array(user.last_page)].map((_, i) => (
-                        <button
-                            key={i}
-                            className={`btn btn-sm ${user.current_page === i + 1 ? 'btn-active' : ''}`}
-                            onClick={() => handlePageChange(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-
-                    <button
-                        className="btn btn-sm"
-                        onClick={() => handlePageChange(user.current_page + 1)}
-                        disabled={user.current_page === user.last_page}
-                    >
-                        Next
-                    </button>
-                </div>
+                <Pagination currentPage={user.current_page} lastPage={user.last_page} onPageChange={handlePageChange} />
             </div>
         </AppLayout>
     );

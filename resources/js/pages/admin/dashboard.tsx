@@ -97,8 +97,8 @@ export default function Dashboard() {
                                     right: 12,
                                 }}
                             >
-                                <CartesianGrid vertical={false} />
-                                <XAxis dataKey="year" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 4)} />
+                                <CartesianGrid vertical={true} />
+                                <XAxis dataKey="year" tickLine={true} axisLine={true} tickMargin={12} tickFormatter={(value) => value.slice(0, 4)} />
                                 <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
                                 <Area
                                     dataKey="swasta"

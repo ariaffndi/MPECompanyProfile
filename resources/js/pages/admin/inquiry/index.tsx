@@ -2,6 +2,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
 import { useSearchSort } from '@/hooks/useSearchSort';
+import Pagination from '@/components/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
@@ -239,29 +240,11 @@ export default function Inquiry() {
                 </div>
 
                 {/* paginasi */}
-                <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(inquiry.current_page - 1)} disabled={inquiry.current_page === 1}>
-                        Prev
-                    </button>
-
-                    {[...Array(inquiry.last_page)].map((_, i) => (
-                        <button
-                            key={i}
-                            className={`btn btn-sm ${inquiry.current_page === i + 1 ? 'btn-active' : ''}`}
-                            onClick={() => handlePageChange(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-
-                    <button
-                        className="btn btn-sm"
-                        onClick={() => handlePageChange(inquiry.current_page + 1)}
-                        disabled={inquiry.current_page === inquiry.last_page}
-                    >
-                        Next
-                    </button>
-                </div>
+                <Pagination
+                currentPage={inquiry.current_page}
+                lastPage={inquiry.last_page}
+                onPageChange={handlePageChange}
+                />
             </div>
         </AppLayout>
     );

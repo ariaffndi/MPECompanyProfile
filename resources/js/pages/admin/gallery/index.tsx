@@ -1,3 +1,4 @@
+import Pagination from '@/components/pagination';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
@@ -71,7 +72,6 @@ export default function Gallery() {
         );
     };
 
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Team" />
@@ -81,7 +81,7 @@ export default function Gallery() {
                         <PlusCircle size={16} /> Tambah Data
                     </Link>
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        <label className="input input-sm w-fit border-1 rounded-xl">
+                        <label className="input input-sm w-fit rounded-xl border-1">
                             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
                                     <circle cx="11" cy="11" r="8"></circle>
@@ -173,29 +173,7 @@ export default function Gallery() {
                 </div>
 
                 {/* paginasi */}
-                <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(gallery.current_page - 1)} disabled={gallery.current_page === 1}>
-                        Prev
-                    </button>
-
-                    {[...Array(gallery.last_page)].map((_, i) => (
-                        <button
-                            key={i}
-                            className={`btn btn-sm ${gallery.current_page === i + 1 ? 'btn-active' : ''}`}
-                            onClick={() => handlePageChange(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-
-                    <button
-                        className="btn btn-sm"
-                        onClick={() => handlePageChange(gallery.current_page + 1)}
-                        disabled={gallery.current_page === gallery.last_page}
-                    >
-                        Next
-                    </button>
-                </div>
+                <Pagination currentPage={gallery.current_page} lastPage={gallery.last_page} onPageChange={handlePageChange} />
             </div>
         </AppLayout>
     );

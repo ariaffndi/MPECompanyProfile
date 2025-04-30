@@ -1,4 +1,4 @@
-// usePaginationParam.ts
+// hook agar saat edit dan hapus tidak kembali ke halaman pertama
 import { router } from '@inertiajs/react';
 
 export function usePaginationParam() {

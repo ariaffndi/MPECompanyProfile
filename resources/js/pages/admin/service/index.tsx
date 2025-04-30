@@ -1,3 +1,4 @@
+import Pagination from '@/components/pagination';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useFlashToast } from '@/hooks/useFlashToast';
 import { usePaginationParam } from '@/hooks/usePaginationParam';
@@ -204,29 +205,7 @@ export default function Service() {
                 </div>
 
                 {/* paginasi */}
-                <div className="mt-4 flex justify-center gap-2">
-                    <button className="btn btn-sm" onClick={() => handlePageChange(service.current_page - 1)} disabled={service.current_page === 1}>
-                        Prev
-                    </button>
-
-                    {[...Array(service.last_page)].map((_, i) => (
-                        <button
-                            key={i}
-                            className={`btn btn-sm ${service.current_page === i + 1 ? 'btn-active' : ''}`}
-                            onClick={() => handlePageChange(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-
-                    <button
-                        className="btn btn-sm"
-                        onClick={() => handlePageChange(service.current_page + 1)}
-                        disabled={service.current_page === service.last_page}
-                    >
-                        Next
-                    </button>
-                </div>
+                <Pagination currentPage={service.current_page} lastPage={service.last_page} onPageChange={handlePageChange} />
             </div>
         </AppLayout>
     );
