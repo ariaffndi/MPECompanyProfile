@@ -8,7 +8,7 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, PlusCircle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Gallery', href: '/gallery' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Galeri', href: '/gallery' }];
 
 type Gallery = {
     id: number;

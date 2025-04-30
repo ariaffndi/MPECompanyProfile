@@ -21,7 +21,7 @@ type Inquiry = {
     };
     product: {
         id: number;
-        nama_product: string;
+        product_name: string;
     };
     detail: string;
     status: string;
@@ -154,7 +154,7 @@ export default function Inquiry() {
                                     <td>{inquiryItem.email}</td>
                                     <td>{inquiryItem.phone}</td>
                                     <td>{inquiryItem.service.service_name}</td>
-                                    <td>{inquiryItem.product.nama_product}</td>
+                                    <td>{inquiryItem.product.product_name}</td>
                                     <td className="max-w-[150px] truncate whitespace-nowrap">{inquiryItem.detail}</td>
                                     <td>
                                         <select
@@ -205,7 +205,7 @@ export default function Inquiry() {
                                                         <p>Email: {selectedInquiry?.email}</p>
                                                         <p>Telepon: {selectedInquiry?.phone}</p>
                                                         <p>Layanan: {selectedInquiry?.service.service_name}</p>
-                                                        <p>Produk: {selectedInquiry?.product.nama_product}</p>
+                                                        <p>Produk: {selectedInquiry?.product.product_name}</p>
                                                         <span
                                                             className={`badge badge-soft px-2 ${
                                                                 inquiryItem.status === 'pending'

@@ -8,14 +8,14 @@ import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Info, Pencil, PlusCircle, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Products', href: '/product' }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Produk', href: '/product' }];
 
 type Product = {
     id: number;
-    nama_product: string;
+    product_name: string;
 
-    deskripsi_product: string;
-    foto_product: string;
+    product_description: string;
+    product_image: string;
 };
 
 type Paginator<T> = {
@@ -33,7 +33,7 @@ export default function Product() {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const { page, setPage } = usePaginationParam();
 
-    const { search, setSearch, filtered } = useSearchSort(product.data, (products) => products.nama_product);
+    const { search, setSearch, filtered } = useSearchSort(product.data, (products) => products.product_name);
 
     useFlashToast();
 
@@ -81,7 +81,7 @@ export default function Product() {
                     <Link href={route('product.create')} className="btn btn-sm btn-info w-fit rounded-xl">
                         <PlusCircle size={16} /> Tambah Data
                     </Link>
-                    <label className="input input-sm w-fit  rounded-xl border-1">
+                    <label className="input input-sm w-fit rounded-xl border-1">
                         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
                                 <circle cx="11" cy="11" r="8"></circle>
@@ -120,12 +120,12 @@ export default function Product() {
                                     onClick={() => setSelectedProduct(products)}
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
-                                    <td>{products.nama_product}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.deskripsi_product}</td>
+                                    <td>{products.product_name}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.product_description}</td>
                                     <td className="hidden sm:table-cell">
                                         <img
-                                            src={`/storage/${products.foto_product}`}
-                                            alt={products.nama_product}
+                                            src={`/storage/${products.product_image}`}
+                                            alt={products.product_name}
                                             className="mx-auto h-16 w-16 rounded-lg object-cover"
                                         />
                                     </td>
@@ -146,14 +146,14 @@ export default function Product() {
                                                     <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                         <figure>
                                                             <img
-                                                                src={`/storage/${products.foto_product}`}
-                                                                alt={products.nama_product}
+                                                                src={`/storage/${products.product_image}`}
+                                                                alt={products.product_name}
                                                                 className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
                                                             />
                                                         </figure>
                                                         <div className="card-body">
-                                                            <h2 className="card-title">{products.nama_product}</h2>
-                                                            <p className="whitespace-pre-line">{products.deskripsi_product}</p>
+                                                            <h2 className="card-title">{products.product_name}</h2>
+                                                            <p className="whitespace-pre-line">{products.product_description}</p>
                                                         </div>
                                                     </DialogDescription>
                                                     <DialogFooter>
@@ -183,7 +183,7 @@ export default function Product() {
                                                 <DialogContent>
                                                     <DialogTitle>Konfirmasi Hapus</DialogTitle>
                                                     <DialogDescription>
-                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.nama_product}</strong>?
+                                                        Apakah Anda yakin ingin menghapus produk <strong>{selectedProduct?.product_name}</strong>?
                                                     </DialogDescription>
                                                     <DialogFooter>
                                                         <DialogClose asChild>

@@ -21,10 +21,10 @@ class ProductController extends Controller
         $query = Product::query();
 
         if ($request->has('search')) {
-            $query->where('nama_product', 'like', '%' . $request->search . '%');
+            $query->where('product_name', 'like', '%' . $request->search . '%');
         }
 
-        $query->orderBy('nama_product');
+        $query->orderBy('product_name');
 
         $products = $query->paginate(4)->withQueryString();
 
@@ -52,15 +52,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_product' => 'required|string|max:255',
-            'deskripsi_product' => 'required',
-            'foto_product' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'product_name' => 'required|string|max:255',
+            'product_description' => 'required',
+            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $path = null;
-        if ($request->hasFile('foto_product')) {
-            $path = $request->file('foto_product')->store('product_images', 'public');
-            $validated['foto_product'] = $path;
+        if ($request->hasFile('product_image')) {
+            $path = $request->file('product_image')->store('product_images', 'public');
+            $validated['product_image'] = $path;
         }
 
         Product::create($validated);
@@ -97,13 +97,13 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'nama_product' => 'string|max:225',
-            'deskripsi_product' => 'max:1000',
+            'product_name' => 'string|max:225',
+            'product_description' => 'max:1000',
         ]);
 
-        if ($request->hasFile('foto_product')) {
-            $foto = $request->file('foto_product')->store('product', 'public');
-            $validated['foto_product'] = $foto;
+        if ($request->hasFile('product_image')) {
+            $foto = $request->file('product_image')->store('product', 'public');
+            $validated['product_image'] = $foto;
         }
 
         $product->update($validated);
