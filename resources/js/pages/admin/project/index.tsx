@@ -101,14 +101,14 @@ export default function Project() {
                            <tr className="bg-base-300 text-base-content">
                               <th>No</th>
                               <th>Nama Project</th>
-                              <th>Klien</th>
-                              <th>Kategori</th>
-                              <th>Lokasi</th>
+                              <th className="hidden sm:table-cell">Klien</th>
+                              <th className="hidden sm:table-cell">Kategori</th>
+                              <th className="hidden sm:table-cell">Lokasi</th>
                               <th className="cursor-pointer" onClick={() => handleSort()}>
                                     Tahun {sortOrder === 'asc' ? '↑' : '↓'}
                               </th>
-                              <th>Harga</th>
-                              <th>Deskripsi</th>
+                              <th className="hidden sm:table-cell">Harga</th>
+                              <th className="hidden sm:table-cell">Deskripsi</th>
                               <th className="hidden sm:table-cell">Foto</th>
                               <th>Aksi</th>
                            </tr>
@@ -122,12 +122,12 @@ export default function Project() {
                               >
                                     <td>{(project.current_page - 1) * project.per_page + index + 1}</td>
                                     <td>{projectItem.project_name}</td>
-                                    <td>{projectItem.client.client_type}</td>
-                                    <td>{projectItem.category.category_name}</td>
-                                    <td>{projectItem.location}</td>
+                                    <td className="hidden sm:table-cell">{projectItem.client.client_type}</td>
+                                    <td className="hidden sm:table-cell">{projectItem.category.category_name}</td>
+                                    <td className="hidden sm:table-cell">{projectItem.location}</td>
                                     <td>{projectItem.year}</td>
-                                    <td>Rp.{projectItem.value}</td>
-                                    <td className="max-w-[100px] truncate whitespace-nowrap">{projectItem.description}</td>
+                                    <td className="hidden sm:table-cell">Rp.{projectItem.value}</td>
+                                    <td className="max-w-[100px] truncate whitespace-nowrap hidden sm:table-cell">{projectItem.description}</td>
                                     <td className="hidden sm:table-cell">
                                        <img
                                           src={`/storage/${projectItem.project_image}`}

@@ -26,7 +26,7 @@ class InquiryController extends Controller
                 $query->where('status', $request->status);
             }
 
-            $query->orderBy('created_at');
+            $query->orderBy('created_at', 'desc');
     
             $inquiries = $query->paginate(5)->withQueryString();
 

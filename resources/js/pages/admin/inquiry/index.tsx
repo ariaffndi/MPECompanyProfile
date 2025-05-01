@@ -84,11 +84,11 @@ export default function Inquiry() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Email</th>
-                                <th>Telepon</th>
+                                <th className="hidden sm:table-cell">Email</th>
+                                <th className="hidden sm:table-cell">Telepon</th>
                                 <th>Layanan</th>
                                 <th>Produk</th>
-                                <th>Deskripsi</th>
+                                <th className="hidden sm:table-cell">Deskripsi</th>
                                 <th>
                                     <select value={filters.status || ''} onChange={(e) => handleStatusFilter(e.target.value)}>
                                         <option value="">Status</option>
@@ -110,11 +110,11 @@ export default function Inquiry() {
                                 >
                                     <td>{(inquiry.current_page - 1) * inquiry.per_page + index + 1}</td>
                                     <td>{inquiryItem.name}</td>
-                                    <td>{inquiryItem.email}</td>
-                                    <td>{inquiryItem.phone}</td>
+                                    <td className="hidden sm:table-cell">{inquiryItem.email}</td>
+                                    <td className="hidden sm:table-cell">{inquiryItem.phone}</td>
                                     <td>{inquiryItem.service.service_name}</td>
                                     <td>{inquiryItem.product.product_name}</td>
-                                    <td className="max-w-[150px] truncate whitespace-nowrap">{inquiryItem.detail}</td>
+                                    <td className="max-w-[150px] truncate whitespace-nowrap hidden sm:table-cell">{inquiryItem.detail}</td>
                                     <td>
                                         <select
                                             value={inquiryItem.status}
@@ -123,12 +123,12 @@ export default function Inquiry() {
                                                 inquiryItem.status === 'pending'
                                                     ? 'badge-info'
                                                     : inquiryItem.status === 'progress'
-                                                    ? 'badge-warning'
-                                                    : inquiryItem.status === 'finished'
+                                                      ? 'badge-warning'
+                                                      : inquiryItem.status === 'finished'
                                                         ? 'badge-success'
                                                         : inquiryItem.status === 'cancelled'
-                                                        ? 'badge-error'
-                                                        : 'badge-neutral'
+                                                          ? 'badge-error'
+                                                          : 'badge-neutral'
                                             }`}
                                         >
                                             <option value="pending" className="badge badge-soft badge-info">
@@ -170,12 +170,12 @@ export default function Inquiry() {
                                                                 inquiryItem.status === 'pending'
                                                                     ? 'badge-info'
                                                                     : inquiryItem.status === 'progress'
-                                                                    ? 'badge-warning'
-                                                                    : inquiryItem.status === 'finished'
+                                                                      ? 'badge-warning'
+                                                                      : inquiryItem.status === 'finished'
                                                                         ? 'badge-success'
                                                                         : inquiryItem.status === 'cancelled'
-                                                                        ? 'badge-error'
-                                                                        : 'badge-neutral'
+                                                                          ? 'badge-error'
+                                                                          : 'badge-neutral'
                                                             }`}
                                                         >
                                                             {selectedInquiry?.status}
