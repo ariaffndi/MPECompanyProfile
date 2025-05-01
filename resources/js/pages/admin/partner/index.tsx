@@ -34,7 +34,6 @@ export default function Partner() {
 
     const {
         search,
-        setSearch,
         sortOrder,
         toggleSort,
         filtered,
@@ -139,7 +138,7 @@ export default function Partner() {
                 </div>
 
                 {/* paginasi */}
-                <Pagination currentPage={partner.current_page} lastPage={partner.current_page} onPageChange={handlePageChange} />
+                <Pagination currentPage={partner.current_page} lastPage={partner.last_page} onPageChange={handlePageChange} />
             </div>
         </AppLayout>
     );

@@ -24,7 +24,7 @@ const getPageNumbers = () => {
 };
 
 const pageNumbers = getPageNumbers();
-const showLeftEllipsis = currentPage > 4;
+const showLeftEllipsis = currentPage > 3;
 const showRightEllipsis = currentPage < lastPage - 3;
 
 return (
