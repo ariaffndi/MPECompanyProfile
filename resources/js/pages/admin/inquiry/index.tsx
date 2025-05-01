@@ -1,8 +1,8 @@
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useFlashToast } from '@/hooks/useFlashToast';
-import { usePaginationParam } from '@/hooks/usePaginationParam';
-import { useSearchSort } from '@/hooks/useSearchSort';
 import Pagination from '@/components/pagination';
+import SearchInput from '@/components/search-input';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { useFilterSortPagination } from '@/hooks/useFilterSortPagination';
+import { useFlashToast } from '@/hooks/useFlashToast';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
@@ -41,34 +41,9 @@ type Paginator<T> = {
 export default function Inquiry() {
     const { inquiry, filters } = usePage<{ inquiry: Paginator<Inquiry>; filters: { search: string; sort: string; status: string } }>().props;
     const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
-    const pagination = usePaginationParam();
-    const { search, setSearch, filtered } = useSearchSort(inquiry.data, (inquiryItem) => inquiryItem.name);
+    const { search, filtered, handlePageChange, handleSearch } = useFilterSortPagination('inquiry.index', inquiry.data, (inquiry) => inquiry.name);
 
     useFlashToast();
-
-    const handlePageChange = (newPage: number) => {
-        pagination.setPage(newPage);
-        router.get(
-            route('inquiry.index'),
-            { page: newPage },
-            {
-                preserveScroll: true,
-                preserveState: true,
-            },
-        );
-    };
-
-    const handleSearch = (setSearch: string) => {
-        router.get(
-            route('inquiry.index'),
-            { search: setSearch },
-            {
-                preserveScroll: true,
-                preserveState: true,
-                replace: true,
-            },
-        );
-    };
 
     const handleStatusFilter = (status: string) => {
         router.get(
@@ -100,24 +75,7 @@ export default function Inquiry() {
             <Head title="Layanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-end gap-2 sm:flex-row">
-                    <label className="input input-sm w-fit rounded-xl border-1">
-                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input
-                            type="search"
-                            className="grow"
-                            placeholder="Search"
-                            value={search}
-                            onChange={(e) => {
-                                setSearch(e.target.value);
-                                handleSearch(e.target.value);
-                            }}
-                        />
-                    </label>
+                    <SearchInput value={search} onChange={handleSearch} />
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
@@ -165,12 +123,12 @@ export default function Inquiry() {
                                                 inquiryItem.status === 'pending'
                                                     ? 'badge-info'
                                                     : inquiryItem.status === 'progress'
-                                                      ? 'badge-warning'
-                                                      : inquiryItem.status === 'finished'
+                                                    ? 'badge-warning'
+                                                    : inquiryItem.status === 'finished'
                                                         ? 'badge-success'
                                                         : inquiryItem.status === 'cancelled'
-                                                          ? 'badge-error'
-                                                          : 'badge-neutral'
+                                                        ? 'badge-error'
+                                                        : 'badge-neutral'
                                             }`}
                                         >
                                             <option value="pending" className="badge badge-soft badge-info">
@@ -212,12 +170,12 @@ export default function Inquiry() {
                                                                 inquiryItem.status === 'pending'
                                                                     ? 'badge-info'
                                                                     : inquiryItem.status === 'progress'
-                                                                      ? 'badge-warning'
-                                                                      : inquiryItem.status === 'finished'
+                                                                    ? 'badge-warning'
+                                                                    : inquiryItem.status === 'finished'
                                                                         ? 'badge-success'
                                                                         : inquiryItem.status === 'cancelled'
-                                                                          ? 'badge-error'
-                                                                          : 'badge-neutral'
+                                                                        ? 'badge-error'
+                                                                        : 'badge-neutral'
                                                             }`}
                                                         >
                                                             {selectedInquiry?.status}
@@ -240,11 +198,7 @@ export default function Inquiry() {
                 </div>
 
                 {/* paginasi */}
-                <Pagination
-                currentPage={inquiry.current_page}
-                lastPage={inquiry.last_page}
-                onPageChange={handlePageChange}
-                />
+                <Pagination currentPage={inquiry.current_page} lastPage={inquiry.last_page} onPageChange={handlePageChange} />
             </div>
         </AppLayout>
     );

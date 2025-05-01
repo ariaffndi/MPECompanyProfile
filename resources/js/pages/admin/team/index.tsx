@@ -2,8 +2,8 @@ import ButtonAddData from '@/components/button-add-data';
 import Pagination from '@/components/pagination';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useFlashToast } from '@/hooks/useFlashToast';
-import { usePaginationParam } from '@/hooks/usePaginationParam';
-import { useSearchSort } from '@/hooks/useSearchSort';
+import SearchInput from '@/components/search-input';
+import { useFilterSortPagination } from '@/hooks/useFilterSortPagination';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
@@ -32,9 +32,12 @@ type Paginator<T> = {
 export default function Team() {
     const { team } = usePage<{ team: Paginator<Team> }>().props;
     const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
-    const { page, setPage } = usePaginationParam();
 
-    const { search, setSearch, filtered } = useSearchSort(team.data, (teams) => teams.name);
+    const { search, filtered, page, handlePageChange, handleSearch } = useFilterSortPagination(
+        'team.index',
+        team.data,
+        (team) => team.name,
+    );
 
     useFlashToast();
 
@@ -50,55 +53,13 @@ export default function Team() {
             });
     };
 
-    const handlePageChange = (newPage: number) => {
-        setPage(newPage);
-        router.get(
-            route('team.index'),
-            { page: newPage },
-            {
-                preserveScroll: true,
-                preserveState: true,
-            },
-        );
-    };
-
-    const handleSearch = (setSearch: string) => {
-        router.get(
-            route('team.index'),
-            { search: setSearch },
-            {
-                preserveScroll: true,
-                preserveState: true,
-                replace: true,
-            },
-        );
-    };
-
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Team" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <ButtonAddData href={route('team.create')} />
-                    <label className="input input-sm w-fit rounded-xl border-1">
-                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input
-                            type="search"
-                            className="grow"
-                            placeholder="Search"
-                            value={search}
-                            onChange={(e) => {
-                                setSearch(e.target.value);
-                                handleSearch(e.target.value);
-                            }}
-                        />
-                    </label>
+                    <SearchInput value={search} onChange={handleSearch} />
                 </div>
 
                 <div className="rounded-box border-base-content/5 w-full overflow-x-auto border">
@@ -168,7 +129,7 @@ export default function Team() {
                 </div>
 
                 {/* paginasi */}
-            <Pagination currentPage={team.current_page} lastPage={team.last_page} onPageChange={handlePageChange} />
+                <Pagination currentPage={team.current_page} lastPage={team.last_page} onPageChange={handlePageChange} />
             </div>
         </AppLayout>
     );

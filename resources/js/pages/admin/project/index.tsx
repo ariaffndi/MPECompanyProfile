@@ -42,7 +42,7 @@ type Paginator<T> = {
 export default function Project() {
    const { project } = usePage<{ project: Paginator<Project> }>().props;
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-   const { search, sortOrder,sortField, setSortField, toggleSort, page, handlePageChange, handleSearch } = useFilterSortPagination(
+   const { search, sortOrder, sortField, setSortField, toggleSort, page, handlePageChange, handleSearch } = useFilterSortPagination(
       'project.index',
       project.data,
       (projectItem) => projectItem.year.toString(),
@@ -68,7 +68,7 @@ export default function Project() {
       toggleSort();
       router.get(
             route('project.index'),
-            { search, sort: newSortOrder, sortField: 'year', page : project.current_page },
+            { search, sort: newSortOrder, sortField: 'year', page: project.current_page },
             {
                preserveScroll: true,
                preserveState: true,
@@ -175,7 +175,10 @@ export default function Project() {
                                                 </DialogContent>
                                           </Dialog>
                                           <Link
-                                                href={route('project.edit', { id: projectItem.id }) + `?page=${page}&search=${search}&sort=${sortOrder}&sortField=${sortField}`}
+                                                href={
+                                                   route('project.edit', { id: projectItem.id }) +
+                                                   `?page=${page}&search=${search}&sort=${sortOrder}&sortField=${sortField}`
+                                                }
                                                 title="Edit Data"
                                                 className="btn btn-sm btn-square btn-soft btn-warning m-0.5"
                                           >
@@ -207,7 +210,7 @@ export default function Project() {
                                                 </DialogContent>
                                           </Dialog>
                                        </div>
-                                    </td>
+                                 </td>
                               </tr>
                            ))}
                         </tbody>

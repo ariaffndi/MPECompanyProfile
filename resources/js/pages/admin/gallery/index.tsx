@@ -1,16 +1,14 @@
 import ButtonAddData from '@/components/button-add-data';
 import Pagination from '@/components/pagination';
+import SearchInput from '@/components/search-input';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useFlashToast } from '@/hooks/useFlashToast';
-import { usePaginationParam } from '@/hooks/usePaginationParam';
-import { useSearchSort } from '@/hooks/useSearchSort';
 import { useFilterSortPagination } from '@/hooks/useFilterSortPagination';
+import { useFlashToast } from '@/hooks/useFlashToast';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import SearchInput from '@/components/search-input';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Galeri', href: '/gallery' }];
 
@@ -33,18 +31,12 @@ type Paginator<T> = {
 export default function Gallery() {
     const { gallery } = usePage<{ gallery: Paginator<Gallery> }>().props;
     const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
-    // const { page, setPage } = usePaginationParam();
 
-    const {
-        search,
-        setSearch,
-        sortOrder,
-        toggleSort,
-        filtered,
-        page,
-        handlePageChange,
-        handleSearch,
-    } = useFilterSortPagination('gallery.index', gallery.data, (item) => item.activity_name);
+    const { search, sortOrder, toggleSort, filtered, page, handlePageChange, handleSearch } = useFilterSortPagination(
+        'gallery.index',
+        gallery.data,
+        (item) => item.activity_name,
+    );
 
     useFlashToast();
 
@@ -60,30 +52,6 @@ export default function Gallery() {
             });
     };
 
-    // const handlePageChange = (newPage: number) => {
-    //     setPage(newPage);
-    //     router.get(
-    //         route('gallery.index'),
-    //         { page: newPage },
-    //         {
-    //             preserveScroll: true,
-    //             preserveState: true,
-    //         },
-    //     );
-    // };
-
-    // const handleSearch = (setSearch: string) => {
-    //     router.get(
-    //         route('gallery.index'),
-    //         { search: setSearch },
-    //         {
-    //             preserveScroll: true,
-    //             preserveState: true,
-    //             replace: true,
-    //         },
-    //     );
-    // };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Team" />
@@ -91,25 +59,7 @@ export default function Gallery() {
                 <div className="flex flex-col justify-between gap-2 sm:flex-row">
                     <ButtonAddData href={route('gallery.create')} />
                     <div className="flex flex-col justify-between gap-2 sm:flex-row">
-                        {/* <label className="input input-sm w-fit rounded-xl border-1">
-                            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <path d="m21 21-4.3-4.3"></path>
-                                </g>
-                            </svg>
-                            <input
-                                type="search"
-                                className="grow"
-                                placeholder="Search"
-                                value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                    handleSearch(e.target.value);
-                                }}
-                            />
-                        </label> */}
-                        <SearchInput value={search} onChange={handleSearch}/>
+                        <SearchInput value={search} onChange={handleSearch} />
                     </div>
                 </div>
 
