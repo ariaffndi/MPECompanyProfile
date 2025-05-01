@@ -4,31 +4,22 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Partner;
+use Faker\Factory as Faker;
 
 class PartnerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        Partner::insert([
-            [
-            'company_name' => 'Partner 1',
-            'logo' => 'partner.jpg',
-            'created_at' => now(),
-            'updated_at' => now(),
-            ],[
-            'company_name' => 'Partner 2',
-            'logo' => 'partner.jpg',
-            'created_at' => now(),
-            'updated_at' => now(),
-            ],[
-            'company_name' => 'Partner 3',
-            'logo' => 'partner.jpg',
-            'created_at' => now(),
-            'updated_at' => now(),
-            ],
-        ]);
+        $faker = Faker::create();
+
+        foreach (range(1, 10) as $index) {
+            Partner::create([
+                'company_name' => $faker->company,
+                'logo' => 'logo'.$index.'.png', // contoh file logo
+            ]);
+        }
     }
 }

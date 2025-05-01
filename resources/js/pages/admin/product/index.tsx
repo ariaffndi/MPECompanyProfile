@@ -69,7 +69,7 @@ export default function Product() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th>Produk</th>
-                                <th>Deskripsi</th>
+                                <th className='hidden sm:table-cell'>Deskripsi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
@@ -83,7 +83,7 @@ export default function Product() {
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
                                     <td>{products.product_name}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{products.product_description}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap hidden sm:table-cell">{products.product_description}</td>
                                     <td className="hidden sm:table-cell">
                                         <img
                                             src={`/storage/${products.product_image}`}

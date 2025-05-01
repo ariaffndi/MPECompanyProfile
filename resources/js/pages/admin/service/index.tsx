@@ -68,7 +68,7 @@ export default function Service() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th>Layanan</th>
-                                <th>Deskripsi</th>
+                                <th className='hidden sm:table-cell'>Deskripsi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
@@ -82,7 +82,7 @@ export default function Service() {
                                 >
                                     <td>{(service.current_page - 1) * service.per_page + index + 1}</td>
                                     <td>{serviceItem.service_name}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap">{serviceItem.service_description}</td>
+                                    <td className="max-w-[200px] truncate whitespace-nowrap hidden sm:table-cell">{serviceItem.service_description}</td>
                                     <td className="hidden sm:table-cell">
                                         <img
                                             src={`/storage/${serviceItem.service_image}`}

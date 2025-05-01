@@ -3,21 +3,20 @@
 namespace Database\Seeders;
 
 use App\Models\Gallery;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class GallerySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        Gallery::insert([
-            'activity_name' => 'Activity 1',
-            'activity_image' => 'image1.jpg',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $faker = Faker::create();
+
+        foreach (range(1, 10) as $index) {
+            Gallery::create([
+                'activity_name' => $faker->company,
+                'activity_image' => 'activity'.$index.'.png',
+            ]);
+        }
     }
 }

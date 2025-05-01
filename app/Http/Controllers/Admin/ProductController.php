@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         $query->orderBy('product_name');
 
-        $products = $query->paginate(4)->withQueryString();
+        $products = $query->paginate(5)->withQueryString();
 
         return Inertia::render('admin/product/index', [
             'product' => $products,

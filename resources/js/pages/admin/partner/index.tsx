@@ -75,7 +75,7 @@ export default function Partner() {
                                 <th className="cursor-pointer" onClick={toggleSort}>
                                     Partner {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
-                                <th className="hidden sm:table-cell">Logo</th>
+                                <th className="">Logo</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -88,7 +88,7 @@ export default function Partner() {
                                 >
                                     <td>{(partner.current_page - 1) * partner.per_page + index + 1}</td>
                                     <td>{partnerItem.company_name}</td>
-                                    <td className="hidden sm:table-cell">
+                                    <td className="">
                                         <img
                                             src={`/storage/${partnerItem.logo}`}
                                             alt={partnerItem.company_name}

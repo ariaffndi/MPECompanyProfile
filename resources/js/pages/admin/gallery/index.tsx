@@ -71,7 +71,7 @@ export default function Gallery() {
                                 <th className="cursor-pointer" onClick={toggleSort}>
                                     Nama Kegiatan {sortOrder === 'asc' ? '↑' : '↓'}
                                 </th>
-                                <th className="hidden sm:table-cell">Foto</th>
+                                <th className="">Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -84,7 +84,7 @@ export default function Gallery() {
                                 >
                                     <td>{(gallery.current_page - 1) * gallery.per_page + index + 1}</td>
                                     <td>{galleries.activity_name}</td>
-                                    <td className="hidden sm:table-cell">
+                                    <td className="">
                                         <img
                                             src={`/storage/${galleries.activity_image}`}
                                             alt={galleries.activity_name}
