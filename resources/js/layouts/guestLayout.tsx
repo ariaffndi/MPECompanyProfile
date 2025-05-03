@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/mainApp/navbar';
+import Footer from '@/components/mainApp/footer';
 
 type Props  = {
     children : React.ReactNode
@@ -10,6 +11,7 @@ const GuestLayout : React.FunctionComponent<Props> = ({children}) => {
         <div>
             <Navbar />
             <main>{children}</main>
+            <Footer />
         </div>
     );
 }
