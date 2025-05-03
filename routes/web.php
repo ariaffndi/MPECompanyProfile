@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\GalleryController;
 
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('home');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -58,6 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admin/inquiry', InquiryController::class);
     Route::put('/admin/inquiry/{inquiry}/update-status', [InquiryController::class, 'updateStatus'])->name('inquiry.update-status');
 });
+
+
 
 
 
