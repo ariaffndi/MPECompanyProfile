@@ -29,8 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/product/{product}', [ProductController::class, 'update']);
 
     //Company routes
-    Route::resource('admin/perusahaan', CompanyController::class);
-    Route::post('/admin/perusahaan/{perusahaan}', [CompanyController::class, 'update']);
+    Route::resource('admin/company', CompanyController::class);
+    Route::post('/admin/company/{company}', [CompanyController::class, 'update']);
 
     //Service routes
     Route::resource('admin/service', ServiceController::class);

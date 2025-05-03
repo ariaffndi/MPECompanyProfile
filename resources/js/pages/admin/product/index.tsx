@@ -15,7 +15,6 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Produk', href: '/product' }];
 type Product = {
     id: number;
     product_name: string;
-
     product_description: string;
     product_image: string;
 };
