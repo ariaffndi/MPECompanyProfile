@@ -11,7 +11,7 @@ import { FormEventHandler } from 'react';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Edit Data Company',
-        href: '/perusahaan',
+        href: '/company',
     },
 ];
 
@@ -29,23 +29,23 @@ type FormCompany = {
     logo: string;
 };
 
-export default function EditCompany({ perusahaan }: { perusahaan: FormCompany }) {
+export default function EditCompany({ company }: { company: FormCompany }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: perusahaan.name,
-        address: perusahaan.address,
-        email: perusahaan.email,
-        phone: perusahaan.phone,
-        whatsapp: perusahaan.whatsapp,
-        description: perusahaan.description,
-        instagram: perusahaan.instagram,
-        facebook: perusahaan.facebook,
+        name: company.name,
+        address: company.address,
+        email: company.email,
+        phone: company.phone,
+        whatsapp: company.whatsapp,
+        description: company.description,
+        instagram: company.instagram,
+        facebook: company.facebook,
         office_image: null as File | null,
         logo: null as File | null,
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('perusahaan.update', perusahaan.id), {
+        post(route('company.update', company.id), {
             method: 'put',
             forceFormData: true,
             onSuccess: () => reset(),

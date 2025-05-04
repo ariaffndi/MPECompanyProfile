@@ -16,9 +16,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $perusahaan = Company::firstOrFail();
+        $company = Company::firstOrFail();
         return Inertia::render('admin/company/index', [
-            "perusahaan" => $perusahaan
+            "company" => $company
         ]);
     }
 
@@ -48,20 +48,20 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        $perusahaan = Company::findOrFail($id);
+        $company = Company::findOrFail($id);
 
         return Inertia::render('admin/company/edit', [
-            'perusahaan' => $perusahaan
+            'company' => $company
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Company $perusahaan)
+    public function update(Request $request, Company $company)
     {
 
-        $perusahaan = Company::firstOrFail();
+        $company = Company::firstOrFail();
 
         $validated = $request->validate([
             'name' => 'string|max:255',
@@ -75,13 +75,13 @@ class CompanyController extends Controller
         ]);
 
         $validated = array_merge($validated, [
-            'office_image' => $request->file('office_image')?->store('perusahaan', 'public') ?? $perusahaan->office_image,
-            'logo' => $request->file('logo')?->store('perusahaan', 'public') ?? $perusahaan->logo,
-        ]);
+                'office_image' => $request->file('office_image')?->store('company', 'public') ?? $company->office_image,
+                'logo' => $request->file('logo')?->store('company', 'public') ?? $company->logo,
+            ]);
 
-        $perusahaan->update($validated);
+        $company->update($validated);
 
-        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
+        return redirect()->route('company.index')->with('success', 'Data perusahaan berhasil diperbarui.');
     }
 
     /**

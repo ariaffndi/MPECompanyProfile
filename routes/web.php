@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Company routes
     Route::resource('admin/company', CompanyController::class);
-    Route::post('/admin/company/{perusahaan}', [CompanyController::class, 'update']);
+    Route::post('/admin/company/{company}', [CompanyController::class, 'update']);
 
     //Service routes
     Route::resource('admin/service', ServiceController::class);

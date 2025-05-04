@@ -38,7 +38,7 @@
 
     <title inertia>{{ config('app.name', 'Mitra Prima Enviro') }}</title>
     @php
-        $logoPath = $page['props']['perusahaan']['logo'] ?? null;
+        $logoPath = $page['props']['company']['logo'] ?? null;
     @endphp
 
     @if ($logoPath)

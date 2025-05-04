@@ -170,3 +170,29 @@
         font-family: 'Poppins', sans-serif;
     }
 }
+<<<<<<< HEAD
+=======
+
+@layer components {
+    .nav-link {
+        @apply relative text-black hover:text-blue-400 transition-colors duration-300;
+    }
+
+    .nav-link::before {
+        content: '';
+        @apply absolute bottom-0 left-0 h-[3px] w-0 bg-blue-400 transition-all duration-300;
+    }
+
+    .nav-link:hover::before {
+        @apply w-full;
+    }
+}
+
+.menu li > a:hover {
+  background-color: transparent !important;
+}
+.menu li > a:focus {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+>>>>>>> 8c8327fbea4827af5db44ff6e91e19ee261476a3

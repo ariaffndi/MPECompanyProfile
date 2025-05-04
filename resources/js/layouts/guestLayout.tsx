@@ -8,7 +8,7 @@ type Props  = {
 
 const GuestLayout : React.FunctionComponent<Props> = ({children}) => {
     return (
-        <div className='font-montserrat'>
+        <div>
             <Navbar />
             <main>{children}</main>
             <Footer />

@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Inertia::share([
-            'perusahaan' => fn () => Company::firstorfail(),
+            'company' => fn () => Company::firstorfail(),
         ]);
     }
 }
