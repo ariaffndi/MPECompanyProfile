@@ -13,6 +13,7 @@
     "devDependencies": {
         "@eslint/js": "^9.19.0",
         "@types/node": "^22.13.5",
+        "@types/react-scroll": "^1.8.10",
         "daisyui": "^5.0.9",
         "eslint": "^9.17.0",
         "eslint-config-prettier": "^10.0.1",
@@ -60,6 +61,7 @@
         "motion": "^12.9.2",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "react-scroll": "^1.9.3",
         "rechart": "^0.0.1",
         "recharts": "^2.15.2",
         "sonner": "^2.0.3",
