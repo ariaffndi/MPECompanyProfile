@@ -6,8 +6,8 @@ import { Facebook, Instagram, Mail, MessageCircle, Pencil, Phone } from 'lucide-
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Company',
-        href: '/perusahaan',
+        title: 'Perusahaan',
+        href: '/company',
     },
 ];
 

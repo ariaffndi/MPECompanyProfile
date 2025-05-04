@@ -17,7 +17,7 @@ class CompanyController extends Controller
     public function index()
     {
         $perusahaan = Company::firstOrFail();
-        return Inertia::render('admin/perusahaan/index', [
+        return Inertia::render('admin/company/index', [
             "perusahaan" => $perusahaan
         ]);
     }
@@ -50,7 +50,7 @@ class CompanyController extends Controller
     {
         $perusahaan = Company::findOrFail($id);
 
-        return Inertia::render('admin/perusahaan/edit', [
+        return Inertia::render('admin/company/edit', [
             'perusahaan' => $perusahaan
         ]);
     }
@@ -73,11 +73,11 @@ class CompanyController extends Controller
             'instagram' => 'string|max:255',
             'facebook' => 'string|max:255',
         ]);
-    
+
         $validated = array_merge($validated, [
-                'office_image' => $request->file('office_image')?->store('perusahaan', 'public') ?? $perusahaan->office_image,
-                'logo' => $request->file('logo')?->store('perusahaan', 'public') ?? $perusahaan->logo,
-            ]);
+            'office_image' => $request->file('office_image')?->store('perusahaan', 'public') ?? $perusahaan->office_image,
+            'logo' => $request->file('logo')?->store('perusahaan', 'public') ?? $perusahaan->logo,
+        ]);
 
         $perusahaan->update($validated);
 

@@ -15,7 +15,7 @@ const mainNavItems: NavItem[] = [
     },
 
     {
-        title: 'Company',
+        title: 'Perusahaan',
         href: '/admin/perusahaan',
         icon: Building,
     },
