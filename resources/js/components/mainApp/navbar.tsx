@@ -90,7 +90,7 @@ const Navbar = () => {
                         height: 6,
                         originX: 0,
                   }}
-                  className="z-99 bg-gradient-to-r from-white via-blue-200 to-blue-700"
+                  className="z-99 bg-gradient-to-r from-base-100 via-base-300 to-blue-700"
                />
             </div>
       </>
