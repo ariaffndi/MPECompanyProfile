@@ -31,19 +31,19 @@ const Navbar = () => {
                   <div className="mr-5 hidden lg:flex">
                         <ul className={`menu menu-horizontal gap-5 px-1 ${isScrolled ? 'text-base-content' : 'text-white'}`}>
                            <li>
-                              <a className="nav-link hover:bg-transparent">Home</a>
+                              <a className="nav-link hover:text-sky-500">Home</a>
                            </li>
                            <li>
-                              <a className="nav-link hover:bg-transparent">About Us</a>
+                              <a className="nav-link hover:text-sky-500">About Us</a>
                            </li>
                            <li>
-                              <a className="nav-link hover:bg-transparent">Services</a>
+                              <a className="nav-link hover:text-sky-500">Services</a>
                            </li>
                            <li>
-                              <a className="nav-link hover:bg-transparent">Portofolio</a>
+                              <a className="nav-link hover:text-sky-500">Portofolio</a>
                            </li>
                            <li>
-                              <a className="nav-link hover:bg-transparent">Contact</a>
+                              <a className="nav-link hover:text-sky-500">Contact</a>
                            </li>
                         </ul>
                   </div>
@@ -54,26 +54,28 @@ const Navbar = () => {
 
                {/* Mobile Menu */}
                <div className={`dropdown dropdown-end ml-2 lg:hidden ${isScrolled ? 'text-base-content t' : 'text-white'}`}>
-                  <div tabIndex={0} role="button" className="btn btn-ghost">
+                  <div tabIndex={0} role="button" className="btn-ghost">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                         </svg>
                   </div>
-                  <ul tabIndex={0} className="menu menu-md dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 text-black shadow">
+                  <ul
+                  tabIndex={0}
+                  className={`menu menu-md dropdown-content bg-base-100 rounded-box ${isScrolled ? 'bg-base-200 shadow-sm' : 'bg-black/30'}`}>
                         <li>
-                           <a className="nav-link hover:bg-transparent">Home</a>
+                           <a className="nav-link hover:text-sky-500">Home</a>
                         </li>
                         <li>
-                           <a className="nav-link hover:bg-transparent">About Us</a>
+                           <a className="nav-link hover:text-sky-500">About Us</a>
                         </li>
                         <li>
-                           <a className="nav-link hover:bg-transparent">Services</a>
+                           <a className="nav-link hover:text-sky-500">Services</a>
                         </li>
                         <li>
-                           <a className="nav-link hover:bg-transparent">Portofolio</a>
+                           <a className="nav-link hover:text-sky-500">Portofolio</a>
                         </li>
                         <li>
-                           <a className="nav-link hover:bg-transparent">Contact</a>
+                           <a className="nav-link hover:text-sky-500">Contact</a>
                         </li>
                   </ul>
                </div>
