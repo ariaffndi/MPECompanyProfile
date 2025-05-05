@@ -13,11 +13,12 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\GalleryController;
 
-
+//website route
 Route::get('/', function () {
-    return Inertia::render('home');
+    return Inertia::render('website/home');
 })->name('home');
 
+//admin route
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
