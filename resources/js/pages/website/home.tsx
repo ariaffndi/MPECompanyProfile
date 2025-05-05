@@ -1,7 +1,6 @@
-import React from 'react';
-import { Head } from '@inertiajs/react';
-import GuestLayout from '@/layouts/guestLayout';
 import HomeHero from '@/components/mainApp/section/home-hero';
+import GuestLayout from '@/layouts/guestLayout';
+import { Head } from '@inertiajs/react';
 
 export default function Home() {
     return (
@@ -10,7 +9,7 @@ export default function Home() {
                 <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" />
             </Head>
             <GuestLayout>
-                <HomeHero/>
+                <HomeHero />
             </GuestLayout>
         </>
     );

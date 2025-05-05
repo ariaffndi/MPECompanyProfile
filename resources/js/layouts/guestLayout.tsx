@@ -8,7 +8,7 @@ type Props  = {
 
 const GuestLayout : React.FunctionComponent<Props> = ({children}) => {
     return (
-        <div className='overflow-x-hidden'>
+        <div className='overflow-x-hidden no-scrollbar'>
             <Navbar />
             <main>{children}</main>
             <Footer />

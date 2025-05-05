@@ -105,13 +105,18 @@ export default function EditCompany({ company }: { company: FormCompany }) {
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="whatsapp">No Whatsapp</Label>
-                                    <Input id="whatsapp" type="text" value={data.whatsapp} onChange={(e) => {
-                                        let value = e.target.value;
-                                        if (!value.startsWith('62')) {
-                                            value = '62' + value;
-                                        }
-                                        setData('whatsapp',value);
-                                    }} />
+                                    <Input
+                                        id="whatsapp"
+                                        type="text"
+                                        value={data.whatsapp}
+                                        onChange={(e) => {
+                                            let value = e.target.value;
+                                            if (!value.startsWith('62')) {
+                                                value = '62' + value;
+                                            }
+                                            setData('whatsapp', value);
+                                        }}
+                                    />
                                     <InputError message={errors.whatsapp} />
                                 </div>
                                 <div className="grid gap-2">

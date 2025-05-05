@@ -5,7 +5,7 @@ import { usePage } from '@inertiajs/react';
 import { Facebook, Mail, Phone } from 'lucide-react';
 
 import AppLogoIcon from '../app-logo-icon';
-
+//data dari company service provider
 type Company = {
     name: string;
     address: string;

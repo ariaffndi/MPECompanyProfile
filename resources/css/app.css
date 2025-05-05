@@ -7,11 +7,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 @theme {
-
-    --font-poppins:  "Poppins", sans-serif;
-
+    --font-poppins: 'Poppins', sans-serif;
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -163,11 +160,21 @@
 @layer base {
     * {
         @apply border-border;
-        
     }
 
     body {
-        @apply bg-background text-foreground overflow-x-hidden tracking-wide;
+        @apply bg-background text-foreground overflow-auto tracking-wide;
         font-family: 'Poppins', sans-serif;
+    }
+    .no-scrollbar,
+    body,
+    html,
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
 }

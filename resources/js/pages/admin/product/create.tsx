@@ -60,7 +60,7 @@ export default function ProductCreate() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="product description">Deskripsi Produuk</Label>
+                                <Label htmlFor="product description">Deskripsi Produk</Label>
                                 <textarea
                                     id="product_description"
                                     rows={5}
