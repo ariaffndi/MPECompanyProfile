@@ -12,11 +12,10 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Website\HomeController;
 
 //website route
-Route::get('/', function () {
-    return Inertia::render('website/home');
-})->name('home');
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 //admin route
 Route::middleware(['auth', 'verified'])->group(function () {
