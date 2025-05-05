@@ -83,6 +83,7 @@ export default function EditCompany({ company }: { company: FormCompany }) {
                                 <div className="grid gap-2">
                                     <Label htmlFor="address">Alamat</Label>
                                     <Input id="address" type="text" value={data.address} onChange={(e) => setData('address', e.target.value)} />
+                                    <p className="text-xs font-light text-red-600">*Gunakan pemisah "," (koma)</p>
                                     <InputError message={errors.address} />
                                 </div>
                             </div>
@@ -148,6 +149,7 @@ export default function EditCompany({ company }: { company: FormCompany }) {
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
                                 />
+                                <p className="text-xs font-light text-red-600">*Menampilkan deskripsi sampai "." (titik) pertama di halaman home</p>
                                 <InputError message={errors.description} />
                             </div>
 

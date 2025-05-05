@@ -65,8 +65,8 @@ const footer = () => {
                             <a href={`tel:${company.phone}`}>{company.phone}</a>
                         </p>
                         <p>
-                            {company.address?.split(',').map((line, idx) => (
-                                <span key={idx}>
+                            {company.address?.split(',').map((line, index) => (
+                                <span key={index}>
                                     {line}
                                     <br />
                                 </span>
