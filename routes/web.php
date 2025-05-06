@@ -15,7 +15,12 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Website\HomeController;
 
 //website route
-Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class,'index']);
+Route::get('/about', [HomeController::class,'index']);
+Route::get('/services', [HomeController::class,'index']);
+Route::get('/portofolio', [HomeController::class,'index']);
+Route::get('/contact', [HomeController::class,'index']);
+
 
 //admin route
 Route::middleware(['auth', 'verified'])->group(function () {
