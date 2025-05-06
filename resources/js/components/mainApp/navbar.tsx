@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { motion, useScroll } from 'motion/react';
 import { useEffect, useState } from 'react';
 import AppLogoIcon from '../app-logo-icon';
@@ -31,19 +32,29 @@ const Navbar = () => {
                   <div className="mr-5 hidden lg:flex">
                         <ul className={`menu menu-horizontal gap-5 px-1 ${isScrolled ? 'text-base-content' : 'text-white'}`}>
                            <li>
-                              <a className="nav-link hover:text-sky-500">Home</a>
+                              <Link href="/" className="nav-link hover:text-sky-500">
+                                    Home
+                              </Link>
                            </li>
                            <li>
-                              <a className="nav-link hover:text-sky-500">About Us</a>
+                              <Link href="/about" className="nav-link hover:text-sky-500">
+                                    About Us
+                              </Link>
                            </li>
                            <li>
-                              <a className="nav-link hover:text-sky-500">Services</a>
+                              <Link href="/services" className="nav-link hover:text-sky-500">
+                                    Services
+                              </Link>
                            </li>
                            <li>
-                              <a className="nav-link hover:text-sky-500">Portofolio</a>
+                              <Link href="/portofolio" className="nav-link hover:text-sky-500">
+                                    Portofolio
+                              </Link>
                            </li>
                            <li>
-                              <a className="nav-link hover:text-sky-500">Contact</a>
+                              <Link href="/contact" className="nav-link hover:text-sky-500">
+                                    Contact
+                              </Link>
                            </li>
                         </ul>
                   </div>
@@ -60,23 +71,34 @@ const Navbar = () => {
                         </svg>
                   </div>
                   <ul
-                  tabIndex={0}
-                  className={`menu menu-md dropdown-content bg-base-100 rounded-box ${isScrolled ? 'bg-base-200 shadow-sm' : 'bg-black/30'}`}>
+                        tabIndex={0}
+                        className={`menu menu-md dropdown-content bg-base-100 rounded-box mt-8 ${isScrolled ? 'bg-base-200 shadow-sm' : 'bg-black/30'}`}
+                  >
                         <li>
-                           <a className="nav-link hover:text-sky-500">Home</a>
+                           <Link href="/" className="nav-link hover:text-sky-500">
+                              Home
+                           </Link>
                         </li>
                         <li>
-                           <a className="nav-link hover:text-sky-500">About Us</a>
+                           <Link href="/about" className="nav-link hover:text-sky-500">
+                              About Us
+                           </Link>
                         </li>
                         <li>
-                           <a className="nav-link hover:text-sky-500">Services</a>
+                           <Link href="/services" className="nav-link hover:text-sky-500">
+                              Services
+                           </Link>
                         </li>
                         <li>
-                           <a className="nav-link hover:text-sky-500">Portofolio</a>
+                           <Link href="/portofolio" className="nav-link hover:text-sky-500">
+                              Portofolio
+                           </Link>
                         </li>
                         <li>
-                           <a className="nav-link hover:text-sky-500">Contact</a>
-                        </li>
+                           <Link href="/contact" className="nav-link hover:text-sky-500">
+                              Contact
+                           </Link>
+                        </li> 
                   </ul>
                </div>
             </div>
@@ -92,7 +114,7 @@ const Navbar = () => {
                         height: 6,
                         originX: 0,
                   }}
-                  className="z-99 bg-gradient-to-r from-base-100 via-base-300 to-blue-700"
+                  className="from-base-100 via-base-300 z-99 bg-gradient-to-r to-blue-700"
                />
             </div>
       </>
