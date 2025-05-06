@@ -1,10 +1,11 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { motion, useScroll } from 'motion/react';
 import { useEffect, useState } from 'react';
 import AppLogoIcon from '../app-logo-icon';
 import ButtonInquiry from './button-inquiry';
 
 const Navbar = () => {
+   const { url } = usePage();
    const [isScrolled, setIsScrolled] = useState(false);
    const { scrollYProgress } = useScroll();
 
@@ -32,27 +33,44 @@ const Navbar = () => {
                   <div className="mr-5 hidden lg:flex">
                         <ul className={`menu menu-horizontal gap-5 px-1 ${isScrolled ? 'text-base-content' : 'text-white'}`}>
                            <li>
-                              <Link href="/" className="nav-link hover:text-sky-500">
+                              <Link
+                                    href="/"
+                                    className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${
+                                       url === '/' ? 'text-sky-500 after:w-full' : ''
+                                    }`}
+                              >
                                     Home
                               </Link>
                            </li>
                            <li>
-                              <Link href="/about" className="nav-link hover:text-sky-500">
+                              <Link
+                                    href="/about"
+                                    className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/about') ? 'text-sky-500 after:w-full' : ''}`}
+                              >
                                     About Us
                               </Link>
                            </li>
                            <li>
-                              <Link href="/services" className="nav-link hover:text-sky-500">
+                              <Link
+                                    href="/services"
+                                    className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/services') ? 'text-sky-500 after:w-full' : ''}`}
+                              >
                                     Services
                               </Link>
                            </li>
                            <li>
-                              <Link href="/portofolio" className="nav-link hover:text-sky-500">
+                              <Link
+                                    href="/portofolio"
+                                    className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/portofolio') ? 'text-sky-500 after:w-full' : ''}`}
+                              >
                                     Portofolio
                               </Link>
                            </li>
                            <li>
-                              <Link href="/contact" className="nav-link hover:text-sky-500">
+                              <Link
+                                    href="/contact"
+                                    className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/contact') ? 'text-sky-500 after:w-full' : ''}`}
+                              >
                                     Contact
                               </Link>
                            </li>
@@ -75,30 +93,45 @@ const Navbar = () => {
                         className={`menu menu-md dropdown-content bg-base-100 rounded-box mt-8 ${isScrolled ? 'bg-base-200 shadow-sm' : 'bg-black/30'}`}
                   >
                         <li>
-                           <Link href="/" className="nav-link hover:text-sky-500">
+                           <Link
+                              href="/"
+                              className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url === '/' ? 'text-sky-500 after:w-full' : ''}`}
+                           >
                               Home
                            </Link>
                         </li>
                         <li>
-                           <Link href="/about" className="nav-link hover:text-sky-500">
+                           <Link
+                              href="/about"
+                              className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/about') ? 'text-sky-500 after:w-full' : ''}`}
+                           >
                               About Us
                            </Link>
                         </li>
                         <li>
-                           <Link href="/services" className="nav-link hover:text-sky-500">
+                           <Link
+                              href="/services"
+                              className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/services') ? 'text-sky-500 after:w-full' : ''}`}
+                           >
                               Services
                            </Link>
                         </li>
                         <li>
-                           <Link href="/portofolio" className="nav-link hover:text-sky-500">
+                           <Link
+                              href="/portofolio"
+                              className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/portofolio') ? 'text-sky-500 after:w-full' : ''}`}
+                           >
                               Portofolio
                            </Link>
                         </li>
                         <li>
-                           <Link href="/contact" className="nav-link hover:text-sky-500">
+                           <Link
+                              href="/contact"
+                              className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/contact') ? 'text-sky-500 after:w-full' : ''}`}
+                           >
                               Contact
                            </Link>
-                        </li> 
+                        </li>
                   </ul>
                </div>
             </div>
