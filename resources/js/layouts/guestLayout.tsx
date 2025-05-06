@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/mainApp/navbar';
+import Navbar from '@/components/mainApp/navbar';
 import Footer from '@/components/mainApp/footer';
 
 type Props  = {
