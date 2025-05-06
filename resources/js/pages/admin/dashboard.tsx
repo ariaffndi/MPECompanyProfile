@@ -41,8 +41,6 @@ export default function Dashboard() {
         },
     } satisfies ChartConfig;
 
-    console.log({ projectChartData });
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
