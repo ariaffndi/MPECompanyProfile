@@ -1,6 +1,7 @@
-import HomeHero from '@/components/mainApp/section/home-hero';
+import PageHero from '@/components/mainApp/section/page-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import { Head } from '@inertiajs/react';
+import bgAbout from '@/assets/images/bg-about.jpg';
 
 export default function Home() {
     return (
@@ -9,7 +10,7 @@ export default function Home() {
                 <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" />
             </Head>
             <GuestLayout>
-                <HomeHero />
+                <PageHero backgroundImage={bgAbout} firstTitle='GET TO' secondTitle='KNOW US'/>
             </GuestLayout>
         </>
     );

@@ -12,14 +12,18 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Website\ContactController;
+use App\Http\Controllers\Website\PortofolioController;
+use App\Http\Controllers\Website\ServicesController;
 use App\Http\Controllers\Website\HomeController;
+use App\Http\Controllers\Website\AboutController;
 
 //website route
 Route::get('/', [HomeController::class,'index']);
-Route::get('/about', [HomeController::class,'index']);
-Route::get('/services', [HomeController::class,'index']);
-Route::get('/portofolio', [HomeController::class,'index']);
-Route::get('/contact', [HomeController::class,'index']);
+Route::get('/about', [AboutController::class,'index']);
+Route::get('/services', [ServicesController::class,'index']);
+Route::get('/portofolio', [PortofolioController::class,'index']);
+Route::get('/contact', [ContactController::class,'index']);
 
 
 //admin route
