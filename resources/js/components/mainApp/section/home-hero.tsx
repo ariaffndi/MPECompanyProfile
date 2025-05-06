@@ -15,7 +15,7 @@ const HomeHero = () => {
                 <div>
                     <h1 className="my-2 w-full pb-4 text-5xl font-bold">{company.name}</h1>
                     <hr className="w-1/2 border-t-4 border-white" />
-                    <p className="py-6 md:mr-99">{company.description.split(/\.\s*/)[0].trim()}</p>
+                    <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
                     <Link href="#" className="btn text-base-200 w-fit rounded-lg border-none bg-sky-500 shadow-none hover:bg-sky-600">
                         Discover more
                     </Link>
