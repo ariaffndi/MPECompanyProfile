@@ -16,12 +16,12 @@ type Company = {
     facebook: string;
 };
 
-const footer = () => {
+const Footer = () => {
     const { company } = usePage<{ company: Company }>().props;
     const currentYear: number = new Date().getFullYear();
 
     return (
-        <footer className="bg-sky-900 px-6 py-10 text-white">
+        <footer className="bg-sky-800 px-6 py-10 text-white">
             <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-2">
                 <aside className="flex flex-col items-center gap-4 text-center md:items-start md:text-left">
                     <AppLogoIcon className="w-40 md:w-28 rounded-lg bg-white p-2 mb-12 shadow-md" />
@@ -61,7 +61,7 @@ const footer = () => {
                     </div>
                     <div className="text-sm leading-snug">
                         <p className="flex items-center justify-center gap-2 md:justify-end">
-                            <Phone />
+                            <Phone size={16}/>
                             <a href={`tel:${company.phone}`}>{company.phone}</a>
                         </p>
                         <p>
@@ -79,4 +79,4 @@ const footer = () => {
     );
 };
 
-export default footer;
+export default Footer;

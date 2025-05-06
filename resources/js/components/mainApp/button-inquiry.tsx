@@ -4,7 +4,7 @@ import { ShoppingCart } from 'lucide-react';
 
 export default function ButtonInquiry() {
   return (
-      <Link href='#' className={'btn btn-sm border-0 shadow-lg bg-blue-400 w-fit rounded-lg text-white'}>
+      <Link href="#" className="btn btn-sm text-base-200 w-fit rounded-lg border-none bg-sky-500 shadow-none hover:bg-sky-600">
           <ShoppingCart size={16} /> Pemesanan IPAL
       </Link>
   );
