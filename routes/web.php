@@ -19,7 +19,7 @@ use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\AboutController;
 
 //website route
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ServicesController::class,'index']);
 Route::get('/portofolio', [PortofolioController::class,'index']);
