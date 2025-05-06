@@ -11,7 +11,7 @@ const HomeHero = () => {
     return (
         <section className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgHome})` }}>
             <div className="absolute inset-0 bg-black opacity-70"></div>
-            <div className="hero-content flex-col px-5 text-white lg:flex-row-reverse">
+            <div className="hero-content flex-col px-20 text-white lg:flex-row-reverse">
                 <div>
                     <h1 className="my-2 w-full pb-4 text-5xl font-bold">{company.name}</h1>
                     <hr className="w-1/2 border-t-4 border-white" />
