@@ -1,5 +1,8 @@
 import bgHome from '@/assets/images/bg-home.jpg';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
+import { ArrowDown } from 'lucide-react';
+import { Link as ScrollLink } from 'react-scroll';
+import ButtonTemplate from '../button-template';
 
 type Company = {
     name: string;
@@ -16,11 +19,22 @@ const HomeHero = () => {
                     <h1 className="my-2 w-full pb-4 text-5xl font-bold">{company.name}</h1>
                     <hr className="w-1/2 border-t-4 border-white" />
                     <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
-                    <Link href="#" className="btn text-base-200 w-fit rounded-lg border-none bg-sky-500 shadow-none hover:bg-sky-600">
-                        Discover more
-                    </Link>
+                    <ButtonTemplate size="btn-md">
+                        <ScrollLink to="homeContactUs" smooth={true} duration={500} offset={-50}>
+                            Discover Me
+                        </ScrollLink>
+                    </ButtonTemplate>
                 </div>
             </div>
+            <ScrollLink
+                to="homeContactUs"
+                smooth={true}
+                duration={500}
+                offset={-50}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer text-white"
+            >
+                <ArrowDown size={32} />
+            </ScrollLink>
         </section>
     );
 };

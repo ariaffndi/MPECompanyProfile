@@ -6,8 +6,8 @@ type Props = {
 
 const SectionLayout: React.FunctionComponent<Props> = ({ children }) => {
     return (
-        <div className='p-10 gap-y-5'>
-            <main>{children}</main>
+        <div className='p-10 gap-y-5 bg-base-200'>
+            {children}
         </div>
     );
 };

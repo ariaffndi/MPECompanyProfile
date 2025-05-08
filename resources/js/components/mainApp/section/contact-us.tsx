@@ -4,7 +4,7 @@ import sectionImage from '@/assets/images/section-contact-us.jpg';
 
 const ContactUs = () => {
    return (
-       <div className="flex w-full flex-col gap-5 md:flex-row items-start">
+       <div id='homeContactUs' className="flex w-full flex-col gap-5 md:flex-row items-start ">
            <div className="card w-1/2 gap-y-4 md:place-self-center">
                <h1 className="text-3xl font-light text-sky-500">Ready to collaborate?</h1>
                <h1 className="text-3xl font-bold">Let's team up and create something incredible!</h1>
