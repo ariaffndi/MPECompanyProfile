@@ -130,9 +130,10 @@ export default function Project() {
                                     <td className="max-w-[100px] truncate whitespace-nowrap hidden sm:table-cell">{projectItem.description}</td>
                                     <td className="hidden sm:table-cell">
                                        <img
+                                          width={50}
                                           src={`/storage/${projectItem.project_image}`}
                                           alt={projectItem.project_name}
-                                          className="mx-auto h-16 w-16 rounded-lg object-cover"
+                                          className="mx-auto aspect-square rounded-lg object-cover"
                                        />
                                     </td>
                                     <td>
@@ -152,9 +153,10 @@ export default function Project() {
                                                    <DialogDescription className="max-h-[400px] overflow-y-auto">
                                                       <figure>
                                                             <img
+                                                               height={200}
                                                                src={`/storage/${projectItem.project_image}`}
                                                                alt={projectItem.project_name}
-                                                               className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                               className="mx-auto aspect-video rounded-lg object-cover"
                                                             />
                                                       </figure>
                                                       <div className="card-body">

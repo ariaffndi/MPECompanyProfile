@@ -84,7 +84,7 @@ export default function Team() {
                                     <td>{teams.name}</td>
                                     <td className="max-w-[200px] truncate whitespace-nowrap">{teams.position}</td>
                                     <td className="hidden sm:table-cell">
-                                        <img src={`/storage/${teams.image}`} alt={teams.name} className="mx-auto h-16 w-16 rounded-lg object-cover" />
+                                        <img src={`/storage/${teams.image}`} width={50} alt={teams.name} className="mx-auto aspect-square rounded-lg object-cover" />
                                     </td>
                                     <td>
                                         <div className="flex flex-nowrap items-center justify-center gap-1">

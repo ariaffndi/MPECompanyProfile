@@ -90,9 +90,10 @@ export default function Partner() {
                                     <td>{partnerItem.company_name}</td>
                                     <td className="">
                                         <img
+                                            width={100}
                                             src={`/storage/${partnerItem.logo}`}
                                             alt={partnerItem.company_name}
-                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
+                                            className="mx-auto aspect-video rounded-lg object-cover "
                                         />
                                     </td>
                                     <td>

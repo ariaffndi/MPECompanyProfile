@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Partner;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return Inertia::render('website/home');
+        $partners = Partner::all();
+
+        return Inertia::render('website/home', [
+            'partners' => $partners,    
+        ]);
+        
     }
 
     /**

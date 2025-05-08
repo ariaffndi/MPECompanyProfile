@@ -20,14 +20,14 @@ const HomeHero = () => {
                     <hr className="w-1/2 border-t-4 border-white" />
                     <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
                     <ButtonTemplate size="btn-md">
-                        <ScrollLink to="homeContactUs" smooth={true} duration={500} offset={-50}>
+                        <ScrollLink to="homePartner" smooth={true} duration={500} offset={-50}>
                             Discover Me
                         </ScrollLink>
                     </ButtonTemplate>
                 </div>
             </div>
             <ScrollLink
-                to="homeContactUs"
+                to="homePartner"
                 smooth={true}
                 duration={500}
                 offset={-50}

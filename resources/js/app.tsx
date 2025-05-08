@@ -4,6 +4,8 @@ import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { initializeTheme } from './hooks/use-appearance';
+import 'swiper/css';
+import 'swiper/css/autoplay';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Mitra Prima Enviro';
 
