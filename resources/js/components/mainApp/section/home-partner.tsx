@@ -27,7 +27,7 @@ const HomePartner = ({ partners }: Props) => {
             <div className="space-y-8">
                <Swiper
                   slidesPerView="auto"
-                  spaceBetween={100}
+                  spaceBetween={75}
                   loop={true}
                   speed={10000}
                   allowTouchMove={true}
@@ -41,10 +41,11 @@ const HomePartner = ({ partners }: Props) => {
                         <SwiperSlide key={`up-${index}`} style={{ width: 'auto' }}>
                            <ScrollReveal direction="left">
                               <img
-                                    width={150}
+                                    loading="lazy"
+                                    title={partner.company_name}
                                     src={`/storage/${partner.logo}`}
                                     alt={partner.company_name}
-                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
+                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert w-[100px] sm:w-[150px]"
                               />
                            </ScrollReveal>
                         </SwiperSlide>
@@ -53,7 +54,7 @@ const HomePartner = ({ partners }: Props) => {
 
                <Swiper
                   slidesPerView="auto"
-                  spaceBetween={100}
+                  spaceBetween={75}
                   loop={true}
                   speed={10000}
                   allowTouchMove={true}
@@ -68,10 +69,10 @@ const HomePartner = ({ partners }: Props) => {
                         <SwiperSlide key={`down-${index}`} style={{ width: 'auto' }}>
                            <ScrollReveal direction="right">
                               <img
-                                    width={150}
+                                    title={partner.company_name}
                                     src={`/storage/${partner.logo}`}
                                     alt={partner.company_name}
-                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
+                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert w-[100px] sm:w-[150px]"
                               />
                            </ScrollReveal>
                         </SwiperSlide>

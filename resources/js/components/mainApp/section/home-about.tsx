@@ -11,18 +11,28 @@ const AboutSection = () => {
     const { company } = usePage<{ company: Company }>().props;
 
     return (
-        <section id="homeAbout" className="my-20 flex w-full flex-col items-start gap-10 px-6 md:flex-row">
-            <div className="flex w-full justify-center md:w-1/2">
+        <section id="homeAbout" className="my-20 flex w-full flex-col items-start gap-10 px-6 lg:flex-row">
+            <div className="flex w-full justify-center lg:w-1/2">
                 <ScrollReveal direction="right">
-                    <img src={sectionImage} alt="Mitra Prima Enviro" className="w-full max-w-md rounded-lg object-cover shadow-lg md:aspect-square" />
+                    <img
+                        loading="lazy"
+                        src={sectionImage}
+                        alt="Mitra Prima Enviro"
+                        className="w-full max-w-md object-cover shadow-xl lg:aspect-square"
+                    />
                 </ScrollReveal>
             </div>
 
-            <div className="flex w-full flex-col justify-center md:w-1/2">
+            <div className="flex w-full flex-col justify-center lg:w-1/2">
                 <ScrollReveal direction="left">
-                    <h2 className="mb-2 text-2xl font-light text-gray-500 uppercase dark:text-gray-100">About</h2>
-                    <h1 className="mb-4 text-2xl font-extrabold text-gray-800 md:text-3xl dark:text-gray-50">{company.name}</h1>
-                    <p className="mb-6 leading-relaxed text-gray-700 dark:text-gray-50">{company.description}</p>
+                    <h2 className="text-3xl font-light">ABOUT</h2>
+                    <h2 className="text-3xl font-bold">{company.name}</h2>
+                    <p className="my-6 leading-relaxed text-gray-700 dark:text-gray-50">
+                        {company.description
+                            .match(/[^.!?]+[.!?]+/g)
+                            ?.slice(0, 2)
+                            .join(' ')}
+                    </p>
                     <Link href="#" className="btn w-fit rounded-lg bg-sky-500 px-6 py-2 text-white shadow-md hover:bg-sky-600">
                         Explore More
                     </Link>

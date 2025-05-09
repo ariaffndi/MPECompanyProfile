@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Partner;
+use App\Models\Service;
 
 class HomeController extends Controller
 {
@@ -15,9 +16,11 @@ class HomeController extends Controller
     public function index()
     {
         $partners = Partner::all();
+        $services = Service::all();
 
         return Inertia::render('website/home', [
-            'partners' => $partners,    
+            'partners' => $partners,  
+            'services' => $services,  
         ]);
         
     }
