@@ -13,7 +13,7 @@ type Company = {
 const HomeHero = () => {
     const { company } = usePage<{ company: Company }>().props;
     return (
-        <section className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgHome})` }}>
+        <section  className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgHome}) ` }}>
             <div className="absolute inset-0 bg-black opacity-70"></div>
             <div className="hero-content flex-col px-10 text-white lg:flex-row-reverse">
                 <div>
@@ -25,17 +25,17 @@ const HomeHero = () => {
                         <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
                     </ScrollReveal>
                     <ButtonTemplate size="btn-md">
-                        <ScrollLink to="homePartner" smooth={true} duration={500} offset={-50}>
+                        <ScrollLink to="homeAbout" smooth={true} duration={500} offset={-120}>
                             Discover Me
                         </ScrollLink>
                     </ButtonTemplate>
                 </div>
             </div>
             <ScrollLink
-                to="homePartner"
+                to="homeAbout"
                 smooth={true}
                 duration={500}
-                offset={-50}
+                offset={-120}
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer text-white"
             >
                 <ArrowDown size={32} />

@@ -4,6 +4,7 @@ import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
 import HomePartner from '@/components/mainApp/section/home-partner';
+import AboutSection from '@/components/mainApp/section/home-about';
 
 interface Partner {
     id: number;
@@ -25,6 +26,7 @@ export default function Home({ partners }: Props) {
             <GuestLayout>
                 <HomeHero />
                 <SectionLayout>
+                    <AboutSection/>
                     <HomePartner partners={partners} />
                     <ContactUs />
                 </SectionLayout>
