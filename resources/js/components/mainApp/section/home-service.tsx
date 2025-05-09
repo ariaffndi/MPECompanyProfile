@@ -33,7 +33,7 @@ const HomeService = ({ services }: Props) => {
                <ScrollReveal direction="up">
                   <Swiper
                      slidesPerView={4}
-                     spaceBetween={20}
+                     spaceBetween={0}
                      pagination={{
                            clickable: true,
                      }}
@@ -42,21 +42,21 @@ const HomeService = ({ services }: Props) => {
                      className="mySwiper"
                   >
                      {services.map((service, index) => (
-                           <SwiperSlide key={`up-${index}`}>
-                              <div className="relative m-5 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-110">
-                                 <img
-                                       loading="lazy"
-                                       title={service.service_name}
-                                       src={`/storage/${service.service_image}`}
-                                       alt={service.service_name}
-                                       className="h-full w-full object-cover"
-                                 />
-                                 <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
-                                 <div className="absolute bottom-5 w-full p-4 text-center text-white">
-                                       <h2 className="mx-auto w-2/3 text-lg font-bold">{service.service_name}</h2>
-                                 </div>
-                              </div>
-                           </SwiperSlide>
+                     <SwiperSlide key={`up-${index}`}>
+                        <div className="relative m-8 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-110">
+                           <img
+                                 loading="lazy"
+                                 title={service.service_name}
+                                 src={`/storage/${service.service_image}`}
+                                 alt={service.service_name}
+                                 className="h-full w-full object-cover"
+                           />
+                           <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
+                           <div className="absolute bottom-5 w-full p-4 text-center text-white">
+                                 <h2 className="mx-auto w-2/3 text-lg font-bold">{service.service_name}</h2>
+                           </div>
+                        </div>
+                     </SwiperSlide>
                      ))}
                      <SwiperSlide key={`up-${services.length}`}>
                            <a href='#' className="relative m-5 flex aspect-9/16 items-center overflow-hidden shadow-md duration-300 ease-in hover:scale-110">
