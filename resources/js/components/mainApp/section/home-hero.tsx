@@ -3,6 +3,7 @@ import { usePage } from '@inertiajs/react';
 import { ArrowDown } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
 import ButtonTemplate from '../button-template';
+import ScrollReveal from '../scroll-reveal';
 
 type Company = {
     name: string;
@@ -14,11 +15,15 @@ const HomeHero = () => {
     return (
         <section className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgHome})` }}>
             <div className="absolute inset-0 bg-black opacity-70"></div>
-            <div className="hero-content flex-col px-20 text-white lg:flex-row-reverse">
+            <div className="hero-content flex-col px-10 text-white lg:flex-row-reverse">
                 <div>
-                    <h1 className="my-2 w-full pb-4 text-5xl font-bold">{company.name}</h1>
+                    <ScrollReveal direction="right">
+                        <h1 className="my-2 w-full pb-4 text-5xl font-bold">{company.name}</h1>
+                    </ScrollReveal>
                     <hr className="w-1/2 border-t-4 border-white" />
-                    <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
+                    <ScrollReveal direction="left">
+                        <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
+                    </ScrollReveal>
                     <ButtonTemplate size="btn-md">
                         <ScrollLink to="homePartner" smooth={true} duration={500} offset={-50}>
                             Discover Me

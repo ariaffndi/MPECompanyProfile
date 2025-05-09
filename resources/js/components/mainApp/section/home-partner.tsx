@@ -1,5 +1,6 @@
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ScrollReveal from '../scroll-reveal';
 
 interface Partner {
    id: number;
@@ -17,8 +18,10 @@ const HomePartner = ({ partners }: Props) => {
    return (
       <section id="homePartner" className="mb-10">
             <div className="mb-5">
-               <h2 className="text-center text-3xl font-light">PARTNERS &</h2>
-               <h2 className="text-center text-3xl font-bold">COLABORATION</h2>
+               <ScrollReveal direction="up">
+                  <h2 className="text-center text-3xl font-light">PARTNERS &</h2>
+                  <h2 className="text-center text-3xl font-bold">COLABORATION</h2>
+               </ScrollReveal>
             </div>
 
             <div className="space-y-8">
@@ -36,12 +39,14 @@ const HomePartner = ({ partners }: Props) => {
                >
                   {[...partners, ...partners].map((partner, index) => (
                         <SwiperSlide key={`up-${index}`} style={{ width: 'auto' }}>
-                           <img
-                              width={150}
-                              src={`/storage/${partner.logo}`}
-                              alt={partner.company_name}
-                              className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
-                           />
+                           <ScrollReveal direction="left">
+                              <img
+                                    width={150}
+                                    src={`/storage/${partner.logo}`}
+                                    alt={partner.company_name}
+                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
+                              />
+                           </ScrollReveal>
                         </SwiperSlide>
                   ))}
                </Swiper>
@@ -61,12 +66,14 @@ const HomePartner = ({ partners }: Props) => {
                >
                   {[...reversedPartners, ...reversedPartners].map((partner, index) => (
                         <SwiperSlide key={`down-${index}`} style={{ width: 'auto' }}>
-                           <img
-                              width={150}
-                              src={`/storage/${partner.logo}`}
-                              alt={partner.company_name}
-                              className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
-                           />
+                           <ScrollReveal direction="right">
+                              <img
+                                    width={150}
+                                    src={`/storage/${partner.logo}`}
+                                    alt={partner.company_name}
+                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
+                              />
+                           </ScrollReveal>
                         </SwiperSlide>
                   ))}
                </Swiper>
