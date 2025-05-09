@@ -55,7 +55,7 @@ const HomePartner = ({ partners }: Props) => {
                   modules={[Autoplay]}
                   dir="rtl"
                >
-                  {partners.map((partner) => (
+                  {partners.reverse().map((partner) => (
                         <SwiperSlide key={partner.id} style={{ width: 'auto' }}>
                            <img
                               width={150}
