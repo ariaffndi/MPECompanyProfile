@@ -26,7 +26,7 @@ const HomePartner = ({ partners }: Props) => {
                   slidesPerView="auto"
                   spaceBetween={100}
                   loop={true}
-                  speed={4000}
+                  speed={10000}
                   allowTouchMove={true}
                   autoplay={{
                         delay: 0,
@@ -50,7 +50,7 @@ const HomePartner = ({ partners }: Props) => {
                   slidesPerView="auto"
                   spaceBetween={100}
                   loop={true}
-                  speed={4000}
+                  speed={10000}
                   allowTouchMove={true}
                   autoplay={{
                         delay: 0,
