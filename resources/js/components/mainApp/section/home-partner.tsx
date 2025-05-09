@@ -6,17 +6,22 @@ interface Partner {
    company_name: string;
    logo: string;
 }
+
 interface Props {
    partners: Partner[];
 }
+
 const HomePartner = ({ partners }: Props) => {
+   const reversedPartners = partners.slice().reverse();
+
    return (
-      <section id='homePartner' className="mb-10">
+      <section id="homePartner" className="mb-10">
             <div className="mb-5">
                <h2 className="text-center text-3xl font-light">PARTNERS &</h2>
                <h2 className="text-center text-3xl font-bold">COLABORATION</h2>
             </div>
-            <div className="swiper-wrapper my-5">
+
+            <div className="space-y-8">
                <Swiper
                   slidesPerView="auto"
                   spaceBetween={100}
@@ -24,24 +29,23 @@ const HomePartner = ({ partners }: Props) => {
                   speed={4000}
                   allowTouchMove={true}
                   autoplay={{
-                        delay: 1,
+                        delay: 0,
                         disableOnInteraction: false,
                   }}
                   modules={[Autoplay]}
                >
-                  {partners.map((partner) => (
-                        <SwiperSlide key={partner.id} style={{ width: 'auto' }}>
+                  {[...partners, ...partners].map((partner, index) => (
+                        <SwiperSlide key={`up-${index}`} style={{ width: 'auto' }}>
                            <img
                               width={150}
                               src={`/storage/${partner.logo}`}
                               alt={partner.company_name}
-                              className="mx-auto aspect-video rounded-lg border-1 object-contain"
+                              className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
                            />
                         </SwiperSlide>
                   ))}
                </Swiper>
-            </div>
-            <div className="swiper-wrapper my-5">
+
                <Swiper
                   slidesPerView="auto"
                   spaceBetween={100}
@@ -49,19 +53,19 @@ const HomePartner = ({ partners }: Props) => {
                   speed={4000}
                   allowTouchMove={true}
                   autoplay={{
-                        delay: 1,
+                        delay: 0,
                         disableOnInteraction: false,
                   }}
                   modules={[Autoplay]}
                   dir="rtl"
                >
-                  {partners.reverse().map((partner) => (
-                        <SwiperSlide key={partner.id} style={{ width: 'auto' }}>
+                  {[...reversedPartners, ...reversedPartners].map((partner, index) => (
+                        <SwiperSlide key={`down-${index}`} style={{ width: 'auto' }}>
                            <img
                               width={150}
                               src={`/storage/${partner.logo}`}
                               alt={partner.company_name}
-                              className="mx-auto aspect-video rounded-lg border-1 object-contain"
+                              className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
                            />
                         </SwiperSlide>
                   ))}
