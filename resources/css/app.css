@@ -184,4 +184,8 @@ background-color: transparent !important;
 box-shadow: none !important;
 }
 
+.swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
 

@@ -85,9 +85,10 @@ export default function Product() {
                                     <td className="max-w-[200px] truncate whitespace-nowrap hidden sm:table-cell">{products.product_description}</td>
                                     <td className="hidden sm:table-cell">
                                         <img
+                                            width={50}
                                             src={`/storage/${products.product_image}`}
                                             alt={products.product_name}
-                                            className="mx-auto h-16 w-16 rounded-lg object-cover"
+                                            className="mx-auto aspect-square rounded-lg object-cover"
                                         />
                                     </td>
                                     <td>

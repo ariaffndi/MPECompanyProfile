@@ -3,8 +3,20 @@ import HomeHero from '@/components/mainApp/section/home-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
+import HomePartner from '@/components/mainApp/section/home-partner';
 
-export default function Home() {
+interface Partner {
+    id: number;
+    company_name: string;
+    logo: string;
+}
+
+interface Props  {
+    partners: Partner[];
+}
+
+
+export default function Home({ partners }: Props) {
     return (
         <>
             <Head title="Mitra Prima Enviro">
@@ -13,6 +25,7 @@ export default function Home() {
             <GuestLayout>
                 <HomeHero />
                 <SectionLayout>
+                    <HomePartner partners={partners} />
                     <ContactUs />
                 </SectionLayout>
             </GuestLayout>
