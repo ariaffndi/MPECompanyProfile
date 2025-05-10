@@ -2,6 +2,7 @@ import ContactUs from '@/components/mainApp/section/contact-us';
 import AboutSection from '@/components/mainApp/section/home-about';
 import HomeHero from '@/components/mainApp/section/home-hero';
 import HomePartner from '@/components/mainApp/section/home-partner';
+import HomeProject from '@/components/mainApp/section/home-project';
 import HomeService from '@/components/mainApp/section/home-service';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
@@ -36,6 +37,7 @@ export default function Home({ partners, services }: Props) {
                 <SectionLayout>
                     <AboutSection />
                     <HomeService services={services} />
+                    <HomeProject />
                     <HomePartner partners={partners} />
                     <ContactUs />
                 </SectionLayout>

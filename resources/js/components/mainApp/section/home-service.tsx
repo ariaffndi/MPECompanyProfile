@@ -29,10 +29,9 @@ const HomeService = ({ services }: Props) => {
                   </h2>
                </ScrollReveal>
          </div>
-         <div className="mb-5 w-full">
+         <div className="mb-5 w-full max-w-screen mx-auto">
                <ScrollReveal direction="up">
                   <Swiper
-                     slidesPerView={4}
                      spaceBetween={0}
                      pagination={{
                            clickable: true,
@@ -40,31 +39,39 @@ const HomeService = ({ services }: Props) => {
                      navigation={true}
                      modules={[Navigation]}
                      className="mySwiper"
+                     breakpoints={{
+                           320: { slidesPerView: 2 },
+                           768: { slidesPerView: 3 },
+                           1024: { slidesPerView: 4 },
+                     }}
                   >
                      {services.map((service, index) => (
-                     <SwiperSlide key={`up-${index}`}>
-                        <div className="relative m-8 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-110">
-                           <img
-                                 loading="lazy"
-                                 title={service.service_name}
-                                 src={`/storage/${service.service_image}`}
-                                 alt={service.service_name}
-                                 className="h-full w-full object-cover"
-                           />
-                           <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
-                           <div className="absolute bottom-5 w-full p-4 text-center text-white">
-                                 <h2 className="mx-auto w-2/3 text-lg font-bold">{service.service_name}</h2>
-                           </div>
-                        </div>
-                     </SwiperSlide>
+                           <SwiperSlide key={`up-${index}`}>
+                              <div className="relative m-5 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-105">
+                                 <img
+                                       loading="lazy"
+                                       title={service.service_name}
+                                       src={`/storage/${service.service_image}`}
+                                       alt={service.service_name}
+                                       className="h-full w-full object-cover"
+                                 />
+                                 <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
+                                 <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
+                                       <h2 className="mx-2 text-xs md:text-sm font-bold lg:mx-4 lg:text-lg">{service.service_name}</h2>
+                                 </div>
+                              </div>
+                           </SwiperSlide>
                      ))}
                      <SwiperSlide key={`up-${services.length}`}>
-                           <a href='#' className="relative m-5 flex aspect-9/16 items-center overflow-hidden shadow-md duration-300 ease-in hover:scale-110">
-                              <CirclePlus size={160} className="absolute w-full text-sky-900 opacity-100" />
+                           <a
+                              href="#"
+                              className="relative m-5 flex aspect-9/16 items-center overflow-hidden shadow-md duration-300 ease-in hover:scale-105"
+                           >
+                              <CirclePlus size={80} className="absolute w-full text-sky-900 opacity-100 md:scale-100 lg:scale-200" />
                               <div className="absolute inset-0 bg-sky-900 opacity-70"></div>
-                              <div className="absolute bottom-5 w-full p-4 text-center text-white">
-                                 <h2 className="mx-auto w-2/3 text-lg font-light">SHOW MORE</h2>
-                                 <h2 className="mx-auto text-lg font-bold">WHAT WE PROVIDE</h2>
+                              <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
+                                 <h2 className="mx-2 text-xs md:text-sm font-light lg:mx-4 lg:text-lg">SHOW MORE</h2>
+                                 <h2 className="mx-2 text-xs md:text-sm font-bold lg:mx-4 lg:text-lg">WHAT WE PROVIDE</h2>
                               </div>
                            </a>
                      </SwiperSlide>

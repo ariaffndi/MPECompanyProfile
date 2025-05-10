@@ -16,7 +16,7 @@ const HomePartner = ({ partners }: Props) => {
    const reversedPartners = partners.slice().reverse();
 
    return (
-      <section id="homePartner" className="mb-10">
+      <section id="homePartner" className="my-10">
             <div className="mb-5">
                <ScrollReveal direction="up">
                   <h2 className="text-center text-3xl font-light">PARTNERS &</h2>
