@@ -18,8 +18,10 @@ const HomePartner = ({ partners }: Props) => {
    return (
       <section id="homePartner" className="my-10">
             <div className="mb-5">
-               <ScrollReveal direction="up">
+               <ScrollReveal direction="left">
                   <h2 className="text-center text-3xl font-light">PARTNERS &</h2>
+               </ScrollReveal>
+               <ScrollReveal direction="right">
                   <h2 className="text-center text-3xl font-bold">COLABORATION</h2>
                </ScrollReveal>
             </div>
@@ -39,15 +41,13 @@ const HomePartner = ({ partners }: Props) => {
                >
                   {[...partners, ...partners].map((partner, index) => (
                         <SwiperSlide key={`up-${index}`} style={{ width: 'auto' }}>
-                           <ScrollReveal direction="left">
-                              <img
-                                    loading="lazy"
-                                    title={partner.company_name}
-                                    src={`/storage/${partner.logo}`}
-                                    alt={partner.company_name}
-                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert w-[100px] sm:w-[150px]"
-                              />
-                           </ScrollReveal>
+                           <img
+                              loading="lazy"
+                              title={partner.company_name}
+                              src={`/storage/${partner.logo}`}
+                              alt={partner.company_name}
+                              className="mx-auto aspect-video w-[100px] object-contain grayscale transition duration-500 hover:grayscale-0 sm:w-[150px] dark:invert"
+                           />
                         </SwiperSlide>
                   ))}
                </Swiper>
@@ -67,14 +67,12 @@ const HomePartner = ({ partners }: Props) => {
                >
                   {[...reversedPartners, ...reversedPartners].map((partner, index) => (
                         <SwiperSlide key={`down-${index}`} style={{ width: 'auto' }}>
-                           <ScrollReveal direction="right">
-                              <img
-                                    title={partner.company_name}
-                                    src={`/storage/${partner.logo}`}
-                                    alt={partner.company_name}
-                                    className="mx-auto aspect-video object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert w-[100px] sm:w-[150px]"
-                              />
-                           </ScrollReveal>
+                           <img
+                              title={partner.company_name}
+                              src={`/storage/${partner.logo}`}
+                              alt={partner.company_name}
+                              className="mx-auto aspect-video w-[100px] object-contain grayscale transition duration-500 hover:grayscale-0 sm:w-[150px] dark:invert"
+                           />
                         </SwiperSlide>
                   ))}
                </Swiper>

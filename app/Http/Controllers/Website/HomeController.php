@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Partner;
+use App\Models\Product;
 use App\Models\Service;
 
 class HomeController extends Controller
@@ -17,10 +18,12 @@ class HomeController extends Controller
     {
         $partners = Partner::all();
         $services = Service::all();
+        $products = Product::orderBy('created_at','desc')->limit(4)->get();
 
         return Inertia::render('website/home', [
             'partners' => $partners,  
             'services' => $services,  
+            'products' => $products,
         ]);
         
     }
