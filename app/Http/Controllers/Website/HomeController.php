@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Partner;
 use App\Models\Product;
 use App\Models\Service;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
