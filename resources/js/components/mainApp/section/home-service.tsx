@@ -10,7 +10,6 @@ import { CirclePlus } from 'lucide-react';
 interface service {
    id: number;
    service_name: string;
-   service_description: string;
    service_image: string;
 }
 

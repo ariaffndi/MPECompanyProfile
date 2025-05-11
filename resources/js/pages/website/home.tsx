@@ -5,6 +5,7 @@ import HomePartner from '@/components/mainApp/section/home-partner';
 import HomeProduct from '@/components/mainApp/section/home-product';
 import HomeProject from '@/components/mainApp/section/home-project';
 import HomeService from '@/components/mainApp/section/home-service';
+import HomeStatistic from '@/components/mainApp/section/home-statistic';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
@@ -18,7 +19,6 @@ interface Partner {
 interface Service {
     id: number;
     service_name: string;
-    service_description: string;
     service_image: string;
 }
 interface Product {

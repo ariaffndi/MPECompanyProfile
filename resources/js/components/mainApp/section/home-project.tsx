@@ -16,7 +16,7 @@ interface Props {
 
 const HomeProject = ({ projects }: Props) => {
    return (
-       <section id="homeContactUs" className="flex w-full flex-col items-start gap-5 md:flex-row my-20">
+       <section id="homeProject" className="flex w-full flex-col items-start gap-5 md:flex-row my-20">
            <div className="aspect-video place-self-center md:w-1/3 md:place-self-start lg:pl-5">
                <div className="flex h-full items-center justify-center text-center md:text-start">
                    <ScrollReveal direction="right">
