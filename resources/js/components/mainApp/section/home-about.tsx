@@ -11,7 +11,7 @@ const AboutSection = () => {
     const { company } = usePage<{ company: Company }>().props;
 
     return (
-        <section id="homeAbout" className="my-20 flex w-full flex-col items-start gap-10 px-6 lg:flex-row">
+        <section id="homeAbout" className="mb-20 flex w-full flex-col items-start gap-10 lg:flex-row">
             <div className="flex w-full justify-center lg:w-1/2">
                 <ScrollReveal direction="right">
                     <img

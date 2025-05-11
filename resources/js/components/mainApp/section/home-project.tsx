@@ -1,9 +1,21 @@
 import ScrollReveal from '@/components/mainApp/scroll-reveal';
 import { Link } from '@inertiajs/react';
 
-const HomeProject = () => {
+
+interface project {
+    id: number;
+    project_name: string;
+    location: string;
+    project_image: string;
+}
+
+interface Props {
+    projects: project[];
+}
+
+const HomeProject = ({ projects }: Props) => {
    return (
-       <section id="homeContactUs" className="flex w-full flex-col items-start gap-5 md:flex-row">
+       <section id="homeContactUs" className="flex w-full flex-col items-start gap-5 md:flex-row my-20">
            <div className="aspect-video place-self-center md:w-1/3 md:place-self-start lg:pl-5">
                <div className="flex h-full items-center justify-center text-center md:text-start">
                    <ScrollReveal direction="right">
@@ -16,15 +28,15 @@ const HomeProject = () => {
                </div>
            </div>
            <div className="grid grid-cols-1 justify-end gap-5 md:w-2/3 md:grid-cols-2">
-               {[1, 2, 3, 4].map((item) => (
-                   <ScrollReveal direction="left" key={item}>
-                       <div className="bg-base-100 aspect-video shadow-md duration-300 ease-in hover:scale-105">
+               {projects.map((project) => (
+                   <ScrollReveal direction="left" key={project.id}>
+                       <div className="bg-base-100 shadow-md duration-300 ease-in hover:scale-105">
                            <figure>
-                               <img loading="lazy" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
+                               <img loading="lazy" src={`/storage/${project.project_image}`} alt={project.project_name} title={project.project_name} className='aspect-video object-cover w-full'/>
                            </figure>
-                           <div className="bg-sky-900 p-4 text-white">
-                               <h2 className="card-title text-md font-bold md:text-lg lg:text-xl">Card Title</h2>
-                               <p className="md:text-md text-sm lg:text-lg">Surabaya, East Java</p>
+                           <div className="bg-sky-900 p-2 md:p-3 lg:p-4 text-white">
+                               <h2 className="card-title text-md font-bold lg:text-xl">{project.project_name}</h2>
+                               <p className="text-sm lg:text-lg">{project.location}</p>
                            </div>
                        </div>
                    </ScrollReveal>

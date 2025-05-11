@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Website;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Partner;
+use App\Models\Project;
 use App\Models\Service;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -17,10 +18,12 @@ class HomeController extends Controller
     {
         $partners = Partner::all();
         $services = Service::all();
+        $recentProjects = Project::orderBy('created_at', 'desc')->take(4)->get();
 
         return Inertia::render('website/home', [
             'partners' => $partners,  
             'services' => $services,  
+            'projects' => $recentProjects,
         ]);
         
     }

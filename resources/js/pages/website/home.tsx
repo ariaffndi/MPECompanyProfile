@@ -21,12 +21,20 @@ interface service {
     service_image: string;
 }
 
+interface project {
+    id: number;
+    project_name: string;
+    location: string;
+    project_image: string;
+}
+
 interface Props {
     partners: Partner[];
     services: service[];
+    projects: project[];
 }
 
-export default function Home({ partners, services }: Props) {
+export default function Home({ partners, services, projects }: Props) {
     return (
         <>
             <Head title="Mitra Prima Enviro">
@@ -37,7 +45,7 @@ export default function Home({ partners, services }: Props) {
                 <SectionLayout>
                     <AboutSection />
                     <HomeService services={services} />
-                    <HomeProject />
+                    <HomeProject projects={projects} />
                     <HomePartner partners={partners} />
                     <ContactUs />
                 </SectionLayout>
