@@ -1,8 +1,8 @@
 import Company from '@/pages/admin/company';
-import { faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookSquare, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePage } from '@inertiajs/react';
-import { Facebook, Mail, Phone } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 import AppLogoIcon from '../app-logo-icon';
 import ScrollReveal from './scroll-reveal';
@@ -44,16 +44,16 @@ const Footer = () => {
                         <div className="flex flex-col items-center gap-2 md:items-end">
                             <div className="flex gap-4">
                                 <a href={company.instagram} target="_blank" rel="noopener noreferrer">
-                                    <FontAwesomeIcon icon={faInstagram} className="text-2xl" />
+                                    <FontAwesomeIcon icon={faInstagram} className="text-2xl hover:invert" />
                                 </a>
                                 <a href={company.facebook} target="_blank" rel="noopener noreferrer">
-                                    <Facebook />
+                                    <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl hover:invert" />
                                 </a>
                                 <a href={`mailto:${company.email}`} target="_blank" rel="noopener noreferrer">
-                                    <Mail />
+                                    <Mail className="text-2xl hover:invert" />
                                 </a>
                                 <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                                    <FontAwesomeIcon icon={faWhatsapp} className="text-2xl" />
+                                    <FontAwesomeIcon icon={faWhatsapp} className="text-2xl hover:invert" />
                                 </a>
                             </div>
                             <nav className="flex flex-col gap-1 text-sm">
@@ -64,7 +64,7 @@ const Footer = () => {
                             </nav>
                         </div>
                         <div className="text-sm leading-snug">
-                            <p className="flex items-center justify-center gap-2 md:justify-end">
+                            <p className="flex items-center justify-center gap-2 py-2 md:justify-end">
                                 <Phone size={16} />
                                 <a href={`tel:${company.phone}`}>{company.phone}</a>
                             </p>

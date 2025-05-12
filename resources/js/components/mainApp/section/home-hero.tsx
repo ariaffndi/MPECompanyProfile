@@ -23,12 +23,12 @@ const HomeHero = () => {
                     <hr className="w-1/2 border-t-4 border-white" />
                     <ScrollReveal direction="left">
                         <p className="py-6 lg:w-1/2">{company.description.split(/\.\s*/)[0].trim()}</p>
-                    </ScrollReveal>
                     <ButtonTemplate size="btn-md">
                         <ScrollLink to="homeAbout" smooth={true} duration={500} offset={-120}>
                             Discover Me
                         </ScrollLink>
                     </ButtonTemplate>
+                    </ScrollReveal>
                 </div>
             </div>
             <ScrollLink

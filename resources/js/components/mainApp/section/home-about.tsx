@@ -1,6 +1,7 @@
 import sectionImage from '@/assets/images/section-about.jpg';
 import ScrollReveal from '@/components/mainApp/scroll-reveal';
 import { Link, usePage } from '@inertiajs/react';
+import ButtonTemplate from '../button-template';
 
 type Company = {
     name: string;
@@ -33,9 +34,9 @@ const AboutSection = () => {
                             ?.slice(0, 2)
                             .join(' ')}
                     </p>
-                    <Link href="#" className="btn w-fit rounded-lg bg-sky-500 px-6 py-2 text-white shadow-md hover:bg-sky-600">
-                        Explore More
-                    </Link>
+                    <ButtonTemplate size="btn-md">
+                        <Link href="#">Explore More</Link>
+                    </ButtonTemplate>
                 </ScrollReveal>
             </div>
         </section>

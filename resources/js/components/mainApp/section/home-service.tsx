@@ -81,4 +81,4 @@ const HomeService = ({ services }: Props) => {
    );
 }
 
-export default HomeService
+export default HomeService;
