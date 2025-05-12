@@ -45,18 +45,14 @@ const Footer = () => {
                             <div className="flex gap-4">
                                 <a href={company.instagram} target="_blank" rel="noopener noreferrer">
                                     <FontAwesomeIcon icon={faInstagram} className="text-2xl hover:invert" />
-                                    <FontAwesomeIcon icon={faInstagram} className="text-2xl hover:invert" />
                                 </a>
                                 <a href={company.facebook} target="_blank" rel="noopener noreferrer">
-                                    <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl hover:invert" />
                                     <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl hover:invert" />
                                 </a>
                                 <a href={`mailto:${company.email}`} target="_blank" rel="noopener noreferrer">
                                     <Mail className="text-2xl hover:invert" />
-                                    <Mail className="text-2xl hover:invert" />
                                 </a>
                                 <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                                    <FontAwesomeIcon icon={faWhatsapp} className="text-2xl hover:invert" />
                                     <FontAwesomeIcon icon={faWhatsapp} className="text-2xl hover:invert" />
                                 </a>
                             </div>
