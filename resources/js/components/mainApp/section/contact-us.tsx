@@ -13,9 +13,6 @@ const ContactUs = () => {
                     <ButtonTemplate size="btn-md">
                         <Link href="#">Contact Us</Link>
                     </ButtonTemplate>
-                    <ButtonTemplate size="btn-md">
-                        <Link href="#">Contact Us</Link>
-                    </ButtonTemplate>
                 </ScrollReveal>
             </div>
             <div className="w-full justify-end md:w-1/2">
