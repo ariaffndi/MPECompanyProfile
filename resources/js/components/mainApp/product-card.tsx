@@ -56,5 +56,4 @@ const ProductCard = ({ product }: Props) => {
         </div>
     );
 };
-
 export default ProductCard;

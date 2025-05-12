@@ -5,6 +5,7 @@ import HomePartner from '@/components/mainApp/section/home-partner';
 import HomeProduct from '@/components/mainApp/section/home-product';
 import HomeProject from '@/components/mainApp/section/home-project';
 import HomeService from '@/components/mainApp/section/home-service';
+import HomeProduct from '@/components/mainApp/section/home-product';
 import HomeStatistic from '@/components/mainApp/section/home-statistic';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
@@ -21,7 +22,15 @@ interface Service {
     service_name: string;
     service_image: string;
 }
+
 interface Product {
+    id: number;
+    product_name: string;
+    product_description: string;
+    product_image: string;
+}
+
+interface project {
     id: number;
     product_name: string;
     product_description: string;
@@ -30,11 +39,17 @@ interface Product {
 
 interface Props {
     partners: Partner[];
-    services: Service[];
+    services: service[];
+    projects: project[];
     products: Product[];
+    yearsExperience: number;
+    totalProject: number;
+    totalPartner: number;
+    totalTeam: number;
 }
 
-export default function Home({ partners, services, products }: Props) {
+
+export default function Home({ partners, services, projects, products, yearsExperience, totalProject, totalPartner, totalTeam }: Props) {
     return (
         <>
             <Head title="Mitra Prima Enviro">
@@ -46,7 +61,8 @@ export default function Home({ partners, services, products }: Props) {
                     <AboutSection />
                     <HomeService services={services} />
                     <HomeProduct products={products} />
-                    <HomeProject />
+                    <HomeProject projects={projects} />
+                    <HomeStatistic yearsExperience={yearsExperience} totalProject={totalProject} totalPartner={totalPartner} totalTeam={totalTeam} />
                     <HomePartner partners={partners} />
                     <ContactUs />
                 </SectionLayout>
