@@ -3,7 +3,6 @@ import { faFacebookSquare, faInstagram, faWhatsapp } from '@fortawesome/free-bra
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePage } from '@inertiajs/react';
 import { Mail, Phone } from 'lucide-react';
-import { Mail, Phone } from 'lucide-react';
 
 import AppLogoIcon from '../app-logo-icon';
 import ScrollReveal from './scroll-reveal';
@@ -69,7 +68,6 @@ const Footer = () => {
                             </nav>
                         </div>
                         <div className="text-sm leading-snug">
-                            <p className="flex items-center justify-center gap-2 py-2 md:justify-end">
                             <p className="flex items-center justify-center gap-2 py-2 md:justify-end">
                                 <Phone size={16} />
                                 <a href={`tel:${company.phone}`}>{company.phone}</a>

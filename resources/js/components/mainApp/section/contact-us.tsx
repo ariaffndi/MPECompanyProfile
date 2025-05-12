@@ -2,7 +2,6 @@ import sectionImage from '@/assets/images/section-contact-us.jpg';
 import ScrollReveal from '@/components/mainApp/scroll-reveal';
 import { Link } from '@inertiajs/react';
 import ButtonTemplate from '../button-template';
-import ButtonTemplate from '../button-template';
 
 const ContactUs = () => {
     return (
