@@ -15,9 +15,9 @@ interface Props {
 
 const HomeProduct = ({ products }: Props) => {
    return (
-      <section id="homeProduct" className="py-12">
+      <section id="homeProduct" className="my-20">
             <ScrollReveal direction="up">
-               <div className="mb-10">
+               <div className="my-10">
                   <h2 className="text-center text-3xl font-light">
                         OUR POPULAR <span className="font-bold">PRODUCTS</span>
                   </h2>
@@ -25,13 +25,13 @@ const HomeProduct = ({ products }: Props) => {
             </ScrollReveal>
 
             <ScrollReveal direction="up">
-               <div className="m-6 grid grid-cols-1 gap-6 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+               <div className="m-6 grid grid-cols-1 gap-6 px-4 md:grid-cols-2 lg:grid-cols-4">
                   {products.map((product) => (
                         <ProductCard key={product.id} product={product} />
                   ))}
                </div>
 
-               <div className="mt-8 text-center">
+               <div className="my-10 text-center">
                   <ButtonTemplate size="btn-md">
                         <a href="#">Show More</a>
                   </ButtonTemplate>

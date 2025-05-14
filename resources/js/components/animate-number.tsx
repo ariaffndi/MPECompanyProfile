@@ -1,24 +1,31 @@
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 type AnimatedNumberProps = {
-  value: number;
-  duration?: number; 
+    value: number;
+    duration?: number;
 };
 
 export default function AnimatedNumber({ value, duration = 1 }: AnimatedNumberProps) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.floor(latest).toLocaleString());
-  const [display, setDisplay] = useState('0');
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, (latest) => Math.floor(latest).toLocaleString());
+    const [display, setDisplay] = useState('0');
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.3,
+    });
 
-  useEffect(() => {
-    const controls = animate(count, value, { duration });
-    const unsubscribe = rounded.on('change', (v) => setDisplay(v));
-    return () => {
-      controls.stop();
-      unsubscribe();
-    };
-  }, [value, duration]);
+    useEffect(() => {
+        if (inView) {
+            const controls = animate(count, value, { duration });
+            const unsubscribe = rounded.on('change', (v) => setDisplay(v));
+            return () => {
+                controls.stop();
+                unsubscribe();
+            };
+        }
+    }, [inView, value, duration, count, rounded]);
 
-  return <motion.span>{display}</motion.span>;
+    return <motion.span ref={ref}>{display}</motion.span>;
 }
