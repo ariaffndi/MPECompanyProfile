@@ -24,6 +24,7 @@ Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ServicesController::class,'index']);
 Route::get('/portofolio', [PortofolioController::class,'index']);
 Route::get('/contact', [ContactController::class,'index']);
+Route::get('/inquiry', [InquiryController::class,'create']);
 
 
 //admin route

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 use App\Models\Inquiry;
+use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 
 class InquiryController extends Controller
 {
@@ -47,7 +49,13 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        //
+        $services = Service::all();
+        $products = Product::all();
+        
+        return Inertia::render('website/inquiry', [
+            'services' => $services,
+            'products' => $products,
+        ]);
     }
 
     /**
