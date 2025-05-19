@@ -24,12 +24,17 @@ type InquiryForm = {
 type Service = {
     id: number;
     service_name: string;
+    service_image: string;
 };
 
 type Product = {
     id: number;
     product_name: string;
+    product_image: string;
 };
+
+type MergedItem = (Service & { type: 'service' }) | (Product & { type: 'product' });
+
 
 export default function InquirySection() {
     const { data, setData, post, processing, errors, reset } = useForm<InquiryForm>({
@@ -41,9 +46,10 @@ export default function InquirySection() {
         detail: '',
         status: 'pending',
     });
-    const { services, products } = usePage<{
+    const { services, products, mergedData } = usePage<{
         services: Service[];
         products: Product[];
+        mergedData: MergedItem[];
     }>().props;
 
     const submit: FormEventHandler = (e) => {
@@ -53,16 +59,15 @@ export default function InquirySection() {
             onSuccess: () => reset(),
         });
     };
+    console.log('mergedData:', mergedData);
 
     return (
-        <section id="homeProject" className="mt-20 flex w-full flex-col md:mt-15 lg:mt-10">
-            <div className="mb-10 w-full">
-                <h2 className="text-center text-3xl font-light">
-                    FORM PERMINTAAN <span className="font-bold">PENAWARAN</span>
-                </h2>
-            </div>
+        <section id="homeProject" className="mt-20 flex w-full flex-col md:mt-15 lg:mt-5">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <ScrollReveal direction="right">
+                    <h2 className="mb-10 text-center text-3xl font-light">
+                        FORM PERMINTAAN <span className="font-bold">PENAWARAN</span>
+                    </h2>
                     <div>
                         <form className="flex flex-col gap-6" onSubmit={submit}>
                             <div className="grid gap-6">
@@ -96,7 +101,17 @@ export default function InquirySection() {
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="phone">No. Telp </Label>
-                                        <Input id="phone" type="number" required tabIndex={2} autoComplete="phone" placeholder="no telepon" />
+                                        <Input
+                                            id="phone"
+                                            type="number"
+                                            required
+                                            tabIndex={2}
+                                            autoComplete="phone"
+                                            placeholder="no telepon"
+                                            value={data.phone}
+                                            onChange={(e) => setData('phone', parseInt(e.target.value))}
+                                        />
+
                                         <InputError message="" />
                                     </div>
                                 </div>
@@ -127,7 +142,7 @@ export default function InquirySection() {
                                         </Label>
 
                                         <select
-                                            id="service_id"
+                                            id="product_id"
                                             value=""
                                             required
                                             onChange={(e) => setData('service_id', parseInt(e.target.value))}
@@ -153,6 +168,8 @@ export default function InquirySection() {
                                         className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
                                         required
                                         placeholder="Deskripsikan pesanan anda!"
+                                        value={data.detail}
+                                        onChange={(e) => setData('detail', e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -190,15 +207,23 @@ export default function InquirySection() {
                             modules={[EffectCreative, Autoplay]}
                             className="mySwiper"
                         >
-                            <SwiperSlide>Slide 1</SwiperSlide>
-                            <SwiperSlide>Slide 2</SwiperSlide>
-                            <SwiperSlide>Slide 3</SwiperSlide>
-                            <SwiperSlide>Slide 4</SwiperSlide>
-                            <SwiperSlide>Slide 5</SwiperSlide>
-                            <SwiperSlide>Slide 6</SwiperSlide>
-                            <SwiperSlide>Slide 7</SwiperSlide>
-                            <SwiperSlide>Slide 8</SwiperSlide>
-                            <SwiperSlide>Slide 9</SwiperSlide>
+                            {mergedData.map((item) => (
+                                <SwiperSlide key={`${item.type}-${item.id}`}>
+                                    <div className="relative flex flex-col items-center justify-center">
+                                        <img
+                                            src={`/storage/${item.type === 'service' ? item.service_image : item.product_image}`}
+                                            alt={item.type === 'service' ? item.service_name : item.product_name}
+                                            className="aspect-square w-full object-cover shadow-lg"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
+                                        <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
+                                            <h2 className="mx-2 text-xs font-bold md:text-sm lg:mx-4 lg:text-xl">
+                                                {item.type === 'service' ? item.service_name : item.product_name}
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
                         </Swiper>
                     </div>
                 </ScrollReveal>
@@ -206,3 +231,4 @@ export default function InquirySection() {
         </section>
     );
 }
+

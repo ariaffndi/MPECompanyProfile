@@ -49,14 +49,27 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $products = Product::all();
-        
+        $services = Service::all()->map(function ($item) {
+            $item->type = 'service';
+            return $item;
+        });
+    
+        $products = Product::all()->map(function ($item) {
+            $item->type = 'product';
+            return $item;
+        });
+    
+        $mergedData = $services->concat($products);
+
+        // dd($services, $products, $mergedData);
+    
         return Inertia::render('website/inquiry', [
             'services' => $services,
             'products' => $products,
+            'mergedData' => $mergedData,
         ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.
