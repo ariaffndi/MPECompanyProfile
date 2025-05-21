@@ -9,7 +9,6 @@ use App\Models\Product;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\Team;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -21,7 +20,7 @@ class HomeController extends Controller
     {
         $partners = Partner::all();
         $services = Service::all();
-        $products = Product::orderBy('created_at','desc')->take(4)->get();
+        $products = Product::orderBy('created_at', 'desc')->take(4)->get();
         $recentProjects = Project::orderBy('created_at', 'desc')->take(4)->get();
         $currentYear = Carbon::now()->year;
         $yearsExperience = $currentYear - 2009;
@@ -31,8 +30,8 @@ class HomeController extends Controller
 
 
         return Inertia::render('website/home', [
-            'partners' => $partners,  
-            'services' => $services,  
+            'partners' => $partners,
+            'services' => $services,
             'products' => $products,
             'projects' => $recentProjects,
             'yearsExperience' => $yearsExperience,
@@ -40,54 +39,5 @@ class HomeController extends Controller
             'totalPartner' => $totalPartner,
             'totalTeam' => $totalTeam,
         ]);
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

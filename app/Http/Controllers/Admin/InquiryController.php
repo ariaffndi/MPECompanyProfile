@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Inertia\Inertia;
 
 use App\Models\Inquiry;
-use App\Models\Product;
-use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -42,50 +40,6 @@ class InquiryController extends Controller
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-   
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
-   
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function updateStatus(Request $request, $id)

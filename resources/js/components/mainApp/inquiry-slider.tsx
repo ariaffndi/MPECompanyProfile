@@ -3,7 +3,7 @@ import 'swiper/css/effect-creative';
 import { Autoplay, EffectCreative } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-type mergeItem = {
+type MergeItem = {
     id: number;
     type: 'service' | 'product';
     service_name?: string;
@@ -12,7 +12,7 @@ type mergeItem = {
     product_image?: string;
 };
 
-const InquirySlider = ({mergedData}:{ mergedData : mergeItem[]}) => {
+const InquirySlider = ({mergedData}:{ mergedData : MergeItem[]}) => {
     return (
         <div className='w-full max-w-md mx-auto md:mt-20'>
             <Swiper
