@@ -27,7 +27,9 @@ const Navbar = () => {
                }`}
             >
                <div className="flex-1">
-                  <AppLogoIcon className="aspect-square size-16 rounded-md" />
+                  <Link href="/" className="flex w-fit" >
+                        <AppLogoIcon className="aspect-square size-16 rounded-md" />
+                  </Link>
                </div>
 
                <div className="flex items-center gap-5">
@@ -79,8 +81,8 @@ const Navbar = () => {
                   </div>
                   <div>
                         <ButtonTemplate size="btn-sm">
-                           <Link href="/" className="flex items-center gap-2">
-                              <ShoppingCart size={16}/>
+                           <Link href="/inquiry" className="flex items-center gap-2">
+                              <ShoppingCart size={16} />
                               Pemesanaan IPAL
                            </Link>
                         </ButtonTemplate>

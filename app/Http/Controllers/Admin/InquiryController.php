@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 use App\Models\Inquiry;
+use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 
 class InquiryController extends Controller
 {
@@ -47,8 +49,27 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        //
+        $services = Service::all()->map(function ($item) {
+            $item->type = 'service';
+            return $item;
+        });
+    
+        $products = Product::all()->map(function ($item) {
+            $item->type = 'product';
+            return $item;
+        });
+    
+        $mergedData = $services->concat($products);
+
+        // dd($services, $products, $mergedData);
+    
+        return Inertia::render('website/inquiry', [
+            'services' => $services,
+            'products' => $products,
+            'mergedData' => $mergedData,
+        ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.

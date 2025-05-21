@@ -5,7 +5,7 @@ import ButtonTemplate from '../button-template';
 
 const ContactUs = () => {
     return (
-        <section id="homeContactUs" className="flex w-full flex-col items-start gap-5 md:flex-row">
+        <section id="homeContactUs" className="mt-20 flex w-full flex-col items-start gap-5 md:flex-row">
             <div className="card gap-y-4 md:w-1/2 md:place-self-center lg:pl-5">
                 <ScrollReveal direction="right">
                     <h1 className="text-3xl font-light text-sky-500">Ready to collaborate?</h1>

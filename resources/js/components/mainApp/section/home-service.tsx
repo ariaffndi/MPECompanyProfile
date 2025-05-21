@@ -10,7 +10,6 @@ import { CirclePlus } from 'lucide-react';
 interface service {
    id: number;
    service_name: string;
-   service_description: string;
    service_image: string;
 }
 
@@ -21,7 +20,7 @@ interface Props {
 
 const HomeService = ({ services }: Props) => {
    return (
-      <section id="homeService" className="mb-10">
+      <section id="homeService" className="my-20">
          <div className="mb-5">
                <ScrollReveal direction="up">
                   <h2 className="text-center text-3xl font-light">
@@ -45,8 +44,8 @@ const HomeService = ({ services }: Props) => {
                            1024: { slidesPerView: 4 },
                      }}
                   >
-                     {services.map((service, index) => (
-                           <SwiperSlide key={`up-${index}`}>
+                     {services.map((service) => (
+                           <SwiperSlide key={`up-${service.id}`}>
                               <div className="relative m-5 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-105">
                                  <img
                                        loading="lazy"

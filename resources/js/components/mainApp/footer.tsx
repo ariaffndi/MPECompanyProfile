@@ -1,5 +1,5 @@
 import Company from '@/pages/admin/company';
-import { faFacebook, faFacebookF, faFacebookMessenger, faFacebookSquare, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookSquare, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usePage } from '@inertiajs/react';
 import { Mail, Phone } from 'lucide-react';

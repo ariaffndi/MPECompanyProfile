@@ -76,6 +76,7 @@ export default function ProjectCreate() {
                                     required
                                     value={data.project_name}
                                     onChange={(e) => setData('project_name', e.target.value)}
+                                    placeholder='Nama Project'
                                 />
                                 <InputError message={errors.project_name} className="mt-2" />
                             </div>
@@ -122,7 +123,7 @@ export default function ProjectCreate() {
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="location">Lokasi</Label>
-                                    <Input id="location" type="text" required value={data.location} onChange={(e) => setData('location', e.target.value)} />
+                                    <Input placeholder='lokasi' id="location" type="text" required value={data.location} onChange={(e) => setData('location', e.target.value)} />
                                     <InputError message={errors.location} />
                                 </div>
                                 <div className="grid gap-2">
