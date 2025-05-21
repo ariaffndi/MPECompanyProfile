@@ -62,6 +62,7 @@ export default function InquiryForm() {
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
                         placeholder="Nama Perorangan / Perusahaan"
+                        className="w-full rounded-md border border-gray-300 p-2"
                     />
                     <InputError message={errors.name} />
                 </div>
@@ -77,10 +78,11 @@ export default function InquiryForm() {
                             onChange={(e) => setData('email', e.target.value)}
                             autoComplete="email"
                             placeholder="email@example.com"
+                            className="w-full rounded-md border border-gray-300 p-2"
                         />
                         <InputError message={errors.email} />
                     </div>
-                    <div className="grid gap-2">
+                    <div className="grid gap-2 ">
                         <Label htmlFor="phone">No. Telp</Label>
                         <Input
                             id="phone"
@@ -90,6 +92,7 @@ export default function InquiryForm() {
                             placeholder="no telepon"
                             value={data.phone}
                             onChange={(e) => setData('phone', parseInt(e.target.value))}
+                            className="w-full rounded-md border border-gray-300 p-2"
                         />
                         <InputError message={errors.phone} />
                     </div>
