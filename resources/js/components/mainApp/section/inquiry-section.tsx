@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/effect-creative';
 import InquiryForm from '../inquiry-form';
 import InquirySlider from '../inquiry-slider';
+import { useFlashToast } from '@/hooks/useFlashToast';
 
 type Service = {
     id: number;
@@ -21,6 +22,7 @@ type MergedItem = (Service & { type: 'service' }) | (Product & { type: 'product'
 
 export default function InquirySection() {
     const { mergedData } = usePage<{ mergedData: MergedItem[] }>().props;
+    useFlashToast();
     return (
         <section id="homeProject" className="mt-20 flex w-full flex-col md:mt-15 lg:mt-5">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">

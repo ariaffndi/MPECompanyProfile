@@ -2,14 +2,13 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\PartnerController;
-use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\InquiryController as AdminInquiryController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Website\ContactController;
@@ -17,6 +16,7 @@ use App\Http\Controllers\Website\PortofolioController;
 use App\Http\Controllers\Website\ServicesController;
 use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\AboutController;
+use App\Http\Controllers\Website\InquiryController as WebsiteInquiryController;
 
 //website route
 Route::get('/', [HomeController::class,'index'])->name('home');
@@ -24,7 +24,8 @@ Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ServicesController::class,'index']);
 Route::get('/portofolio', [PortofolioController::class,'index']);
 Route::get('/contact', [ContactController::class,'index']);
-Route::get('/inquiry', [InquiryController::class,'create']);
+Route::get('/inquiry', [WebsiteInquiryController::class,'index'])->name('inquiry');
+Route::post('/inquiry', [WebsiteInquiryController::class,'store'])->name('inquiry.store');
 
 
 //admin route
@@ -65,8 +66,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     //Inquiry routes
-    Route::resource('admin/inquiry', InquiryController::class);
-    Route::put('/admin/inquiry/{inquiry}/update-status', [InquiryController::class, 'updateStatus'])->name('inquiry.update-status');
+    Route::get('admin/inquiry',[AdminInquiryController::class,'index']);
+    Route::put('/admin/inquiry/{inquiry}/update-status', [AdminInquiryController::class, 'updateStatus'])->name('inquiry.update-status');
 });
 
 

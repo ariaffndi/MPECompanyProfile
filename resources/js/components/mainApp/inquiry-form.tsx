@@ -9,9 +9,9 @@ import { FormEventHandler } from 'react';
 type InquiryForm = {
     name: string;
     email: string;
-    phone: number;
-    service_id: number;
-    product_id: number;
+    phone: string;
+    service_id: string | null;
+    product_id: string | null;
     detail: string;
     status: string;
 };
@@ -35,9 +35,9 @@ export default function InquiryForm() {
     const { data, setData, post, processing, errors, reset } = useForm<InquiryForm>({
         name: '',
         email: '',
-        phone: 0,
-        service_id: 0,
-        product_id: 0,
+        phone: '62',
+        service_id: null,
+        product_id: null,
         detail: '',
         status: 'pending',
     });
@@ -82,7 +82,7 @@ export default function InquiryForm() {
                         />
                         <InputError message={errors.email} />
                     </div>
-                    <div className="grid gap-2 ">
+                    <div className="grid gap-2">
                         <Label htmlFor="phone">No. Telp</Label>
                         <Input
                             id="phone"
@@ -91,7 +91,7 @@ export default function InquiryForm() {
                             autoComplete="phone"
                             placeholder="no telepon"
                             value={data.phone}
-                            onChange={(e) => setData('phone', parseInt(e.target.value))}
+                            onChange={(e) => setData('phone', e.target.value)}
                             className="w-full rounded-md border border-gray-300 p-2"
                         />
                         <InputError message={errors.phone} />
@@ -106,8 +106,11 @@ export default function InquiryForm() {
                         <select
                             id="service_id"
                             value={data.service_id || ''}
-                            onChange={(e) => setData('service_id', parseInt(e.target.value))}
-                            className="w-full rounded-md border border-gray-300 p-2"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                setData('service_id', value === '' ? null : value);
+                            }}
+                            className="dark:bg-base-100 w-full rounded-md border border-gray-300 p-2"
                         >
                             <option value="">-- Pilih Layanan --</option>
                             {services.map((service) => (
@@ -125,8 +128,11 @@ export default function InquiryForm() {
                         <select
                             id="product_id"
                             value={data.product_id || ''}
-                            onChange={(e) => setData('product_id', parseInt(e.target.value))}
-                            className="w-full rounded-md border border-gray-300 p-2"
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                setData('product_id', value === '' ? null : value);
+                            }}
+                            className="dark:bg-base-100 w-full rounded-md border border-gray-300 p-2"
                         >
                             <option value="">-- Pilih Produk --</option>
                             {products.map((product) => (

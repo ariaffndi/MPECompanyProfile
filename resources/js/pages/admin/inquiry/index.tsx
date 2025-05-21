@@ -19,11 +19,11 @@ type Inquiry = {
     service: {
         id: number;
         service_name: string;
-    };
+    } | null;
     product: {
         id: number;
         product_name: string;
-    };
+    } | null;
     detail: string;
     status: string;
 };
@@ -112,9 +112,9 @@ export default function Inquiry() {
                                     <td>{inquiryItem.name}</td>
                                     <td className="hidden sm:table-cell">{inquiryItem.email}</td>
                                     <td className="hidden sm:table-cell">{inquiryItem.phone}</td>
-                                    <td>{inquiryItem.service.service_name}</td>
-                                    <td>{inquiryItem.product.product_name}</td>
-                                    <td className="max-w-[150px] truncate whitespace-nowrap hidden sm:table-cell">{inquiryItem.detail}</td>
+                                    <td>{inquiryItem.service?.service_name ?? '-'}</td>
+                                    <td>{inquiryItem.product?.product_name ?? '-'}</td>
+                                    <td className="hidden max-w-[150px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.detail}</td>
                                     <td>
                                         <select
                                             value={inquiryItem.status}
@@ -163,8 +163,8 @@ export default function Inquiry() {
                                                         <h2 className="card-title">{selectedInquiry?.name}</h2>
                                                         <p>Email: {selectedInquiry?.email}</p>
                                                         <p>Telepon: {selectedInquiry?.phone}</p>
-                                                        <p>Layanan: {selectedInquiry?.service.service_name}</p>
-                                                        <p>Produk: {selectedInquiry?.product.product_name}</p>
+                                                        <p>Layanan: {selectedInquiry?.service?.service_name ?? '-'}</p>
+                                                        <p>Produk: {selectedInquiry?.product?.product_name ?? '-'}</p>
                                                         <span
                                                             className={`badge badge-soft px-2 ${
                                                                 inquiryItem.status === 'pending'

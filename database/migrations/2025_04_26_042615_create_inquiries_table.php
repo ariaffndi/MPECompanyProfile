@@ -1,35 +1,51 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Http\Controllers\Admin;
 
-return new class extends Migration
+use Inertia\Inertia;
+use App\Models\Inquiry;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class InquiryController extends Controller
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function index(Request $request)
     {
-        Schema::create('inquiries', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->foreignId('service_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->text('detail');
-            $table->enum('status', ['pending', 'progress', 'finished', 'cancelled'])->default('pending');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        try {
+            $query = Inquiry::query()->with(['service:id,name', 'product:id,name']);
+
+            if ($request->has('search')) {
+                $query->where('name', 'like', '%' . $request->search . '%');
+            }
+
+            if ($request->has('status') && $request->status !== null) {
+                $query->where('status', $request->status);
+            }
+
+            $inquiries = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();
+
+            return Inertia::render('admin/inquiry/index', [
+                'inquiry' => $inquiries,
+                'filters' => [
+                    'search' => $request->search,
+                    'status' => $request->status,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function updateStatus(Request $request, $id)
     {
-        Schema::dropIfExists('inquiries');
+        $request->validate([
+            'status' => 'required|in:pending,progress,finished,cancelled',
+        ]);
+
+        $inquiry = Inquiry::findOrFail($id);
+        $inquiry->status = $request->status;
+        $inquiry->save();
+
+        return back()->with('success', 'Status berhasil diperbarui.');
     }
-};
+}
