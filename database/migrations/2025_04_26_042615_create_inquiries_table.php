@@ -16,12 +16,23 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->foreignId('service_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+
+            $table->foreignId('service_id')
+                ->nullable()
+                ->constrained('services')
+                ->onDelete('set null');
+
+            $table->foreignId('product_id')
+                ->nullable()
+                ->constrained('products')
+                ->onDelete('set null');
+
             $table->text('detail');
+
             $table->enum('status', ['pending', 'progress', 'finished', 'cancelled'])->default('pending');
-            $table->timestamps();
-            $table->softDeletes();
+
+            $table->timestamps();        
+            $table->softDeletes();      
         });
     }
 
