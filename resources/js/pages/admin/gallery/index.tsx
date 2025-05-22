@@ -32,7 +32,7 @@ export default function Gallery() {
     const { gallery } = usePage<{ gallery: Paginator<Gallery> }>().props;
     const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
 
-    const { search, sortOrder, toggleSort, filtered, page, handlePageChange, handleSearch } = useFilterSortPagination(
+    const { search, filtered, page, handlePageChange, handleSearch } = useFilterSortPagination(
         'gallery.index',
         gallery.data,
         (item) => item.activity_name,
@@ -68,8 +68,8 @@ export default function Gallery() {
                         <thead>
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
-                                <th className="cursor-pointer" onClick={toggleSort}>
-                                    Nama Kegiatan {sortOrder === 'asc' ? '↑' : '↓'}
+                                <th>
+                                    Nama Kegiatan
                                 </th>
                                 <th className="">Foto</th>
                                 <th>Aksi</th>

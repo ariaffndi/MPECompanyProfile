@@ -14,7 +14,7 @@ type MergeItem = {
 
 const InquirySlider = ({mergedData}:{ mergedData : MergeItem[]}) => {
     return (
-        <div className="w-full max-w-sm md:max-w-md lg:max-w-lg h-64 mt-20 md:h-80 mx-auto">
+        <div className="w-full lg:max-w-lg lg:mt-20 md:mt-15 mt-10 mx-auto">
             <Swiper
                 grabCursor={true}
                 effect={'creative'}
@@ -41,7 +41,7 @@ const InquirySlider = ({mergedData}:{ mergedData : MergeItem[]}) => {
                             <img
                                 src={`/storage/${item.type === 'service' ? item.service_image : item.product_image}`}
                                 alt={item.type === 'service' ? item.service_name : item.product_name}
-                                className="aspect-square w-full object-cover shadow-lg"
+                                className="aspect-square w-full object-cover shadow-lg md:aspect-video lg:aspect-square"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
                             <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">

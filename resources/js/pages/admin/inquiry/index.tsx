@@ -114,7 +114,7 @@ export default function Inquiry() {
                                     <td className="hidden sm:table-cell">{inquiryItem.phone}</td>
                                     <td>{inquiryItem.service?.service_name ?? '-'}</td>
                                     <td>{inquiryItem.product?.product_name ?? '-'}</td>
-                                    <td className="hidden max-w-[150px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.detail}</td>
+                                    <td className="hidden max-w-[100px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.detail}</td>
                                     <td>
                                         <select
                                             value={inquiryItem.status}

@@ -25,14 +25,14 @@ export default function InquirySection() {
     useFlashToast();
     return (
         <section id="homeProject" className="mt-20 flex w-full flex-col md:mt-15 lg:mt-5">
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 ">
                 <ScrollReveal direction="right">
                     <h2 className="mb-10 text-center text-3xl font-light">
                         FORM PERMINTAAN <span className="font-bold">PENAWARAN</span>
                     </h2>
                     <InquiryForm />
                 </ScrollReveal>
-                <ScrollReveal direction="left">
+                <ScrollReveal direction="left" >
                     <InquirySlider mergedData={mergedData} />
                 </ScrollReveal>
             </div>

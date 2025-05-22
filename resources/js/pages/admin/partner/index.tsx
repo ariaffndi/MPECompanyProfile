@@ -34,8 +34,6 @@ export default function Partner() {
 
     const {
         search,
-        sortOrder,
-        toggleSort,
         filtered,
         page,
         handlePageChange,
@@ -72,8 +70,8 @@ export default function Partner() {
                         <thead>
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
-                                <th className="cursor-pointer" onClick={toggleSort}>
-                                    Partner {sortOrder === 'asc' ? '↑' : '↓'}
+                                <th>
+                                    Partner
                                 </th>
                                 <th className="">Logo</th>
                                 <th>Aksi</th>

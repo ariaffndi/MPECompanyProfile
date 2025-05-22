@@ -21,8 +21,7 @@ class GalleryController extends Controller
             $query->where('activity_name', 'like', '%' . $request->search . '%');
         }
 
-        $sort = $request->get('sort', 'asc');
-        $query->orderBy('activity_name', $sort);
+        $query->orderBy('created_at', 'desc');
 
         $galleries = $query->paginate(5)->withQueryString();
 
@@ -30,7 +29,6 @@ class GalleryController extends Controller
             'gallery' => $galleries,
             'filter' => [
                 'search' => $request->search,
-                'sort' => $sort
             ]
         ]);
     }
