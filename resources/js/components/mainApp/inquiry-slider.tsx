@@ -14,7 +14,7 @@ type MergeItem = {
 
 const InquirySlider = ({mergedData}:{ mergedData : MergeItem[]}) => {
     return (
-        <div>
+        <div className="w-full max-w-sm md:max-w-md lg:max-w-lg h-64 mt-20 md:h-80 mx-auto">
             <Swiper
                 grabCursor={true}
                 effect={'creative'}
