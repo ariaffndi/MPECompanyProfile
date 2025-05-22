@@ -110,11 +110,11 @@ export default function Inquiry() {
                                 >
                                     <td>{(inquiry.current_page - 1) * inquiry.per_page + index + 1}</td>
                                     <td>{inquiryItem.name}</td>
-                                    <td className="hidden sm:table-cell">{inquiryItem.email}</td>
+                                    <td className="hidden max-w-[250px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.email}</td>
                                     <td className="hidden sm:table-cell">{inquiryItem.phone}</td>
                                     <td>{inquiryItem.service?.service_name ?? '-'}</td>
                                     <td>{inquiryItem.product?.product_name ?? '-'}</td>
-                                    <td className="hidden max-w-[100px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.detail}</td>
+                                    <td className="hidden max-w-[150px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.detail}</td>
                                     <td>
                                         <select
                                             value={inquiryItem.status}
