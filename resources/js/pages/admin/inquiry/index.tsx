@@ -72,7 +72,7 @@ export default function Inquiry() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Layanan" />
+            <Head title="Pemesanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-end gap-2 sm:flex-row">
                     <SearchInput value={search} onChange={handleSearch} />
