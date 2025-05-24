@@ -1,4 +1,4 @@
-import HomeHero from '@/components/mainApp/section/home-hero';
+import HomeHero from '@/components/website/section/home/home-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import { Head } from '@inertiajs/react';
 

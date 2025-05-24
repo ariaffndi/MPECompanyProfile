@@ -1,5 +1,5 @@
 import sectionImage from '@/assets/images/section-contact-us.jpg';
-import ScrollReveal from '@/components/mainApp/scroll-reveal';
+import ScrollReveal from '@/components/website/scroll-reveal';
 import { Link } from '@inertiajs/react';
 import ButtonTemplate from '../button-template';
 

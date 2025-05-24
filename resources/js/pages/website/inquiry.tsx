@@ -1,7 +1,7 @@
-import SectionLayout from '@/layouts/section-layout';
+import InquirySection from '@/components/website/section/inquiry-section';
 import GuestLayout from '@/layouts/guestLayout';
+import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
-import InquirySection from '@/components/mainApp/section/inquiry-section';
 
 export default function Inquiry() {
     return (

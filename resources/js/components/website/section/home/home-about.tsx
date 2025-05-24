@@ -1,7 +1,7 @@
 import sectionImage from '@/assets/images/section-about.jpg';
-import ScrollReveal from '@/components/mainApp/scroll-reveal';
+import ScrollReveal from '@/components/website/scroll-reveal';
 import { Link, usePage } from '@inertiajs/react';
-import ButtonTemplate from '../button-template';
+import ButtonTemplate from '../../button-template';
 
 type Company = {
     name: string;
@@ -35,7 +35,7 @@ const AboutSection = () => {
                             .join(' ')}
                     </p>
                     <ButtonTemplate size="btn-md">
-                        <Link href="#"> More</Link>
+                        <Link href="#">Explore More</Link>
                     </ButtonTemplate>
                 </ScrollReveal>
             </div>

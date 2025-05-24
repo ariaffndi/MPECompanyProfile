@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Website;
 
-use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Team;
 use Inertia\Inertia;
+use App\Models\Partner;
+use App\Models\Product;
+use App\Models\Project;
+use App\Models\Service;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AboutController extends Controller
@@ -13,7 +19,20 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return Inertia::render('website/about');
+        
+        $currentYear = Carbon::now()->year;
+        $yearsExperience = $currentYear - 2009;
+        $totalPartner = Partner::count();
+        $totalProject = Project::count();
+        $totalTeam = Team::count();
+
+
+        return Inertia::render('website/about', [
+            'yearsExperience' => $yearsExperience,
+            'totalProject' => $totalProject,
+            'totalPartner' => $totalPartner,
+            'totalTeam' => $totalTeam,
+        ]);
     }
 
     /**

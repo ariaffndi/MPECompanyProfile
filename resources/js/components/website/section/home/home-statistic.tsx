@@ -1,6 +1,6 @@
 import AnimatedNumber from '@/components/animate-number';
 // import { BicepsFlexed, Cpu, Handshake, Leaf } from 'lucide-react';
-import ScrollReveal from '../scroll-reveal';
+import ScrollReveal from '../../scroll-reveal';
 
 interface Props {
     yearsExperience: number;
@@ -18,7 +18,7 @@ const HomeStatistic = ({ yearsExperience, totalProject, totalPartner, totalTeam 
                     <h2 className="text-center text-3xl font-bold">THE BEST</h2>
                 </div>
 
-            {/* <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-4">
+                {/* <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-4">
                 <div className="duration-300 ease-in hover:scale-105">
                     <ScrollReveal direction="right">
                         <div className="justify-items-center p-2 text-center md:p-3 lg:p-4">

@@ -1,11 +1,11 @@
-import ContactUs from '@/components/mainApp/section/contact-us';
-import AboutSection from '@/components/mainApp/section/home-about';
-import HomeHero from '@/components/mainApp/section/home-hero';
-import HomePartner from '@/components/mainApp/section/home-partner';
-import HomeProject from '@/components/mainApp/section/home-project';
-import HomeService from '@/components/mainApp/section/home-service';
-import HomeProduct from '@/components/mainApp/section/home-product';
-import HomeStatistic from '@/components/mainApp/section/home-statistic';
+import ContactUs from '@/components/website/section/contact-us';
+import AboutSection from '@/components/website/section/home/home-about';
+import HomeHero from '@/components/website/section/home/home-hero';
+import HomePartner from '@/components/website/section/home/home-partner';
+import HomeProduct from '@/components/website/section/home/home-product';
+import HomeProject from '@/components/website/section/home/home-project';
+import HomeService from '@/components/website/section/home/home-service';
+import HomeStatistic from '@/components/website/section/home/home-statistic';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
@@ -47,7 +47,6 @@ interface Props {
     totalTeam: number;
 }
 
-
 export default function Home({ partners, services, projects, products, yearsExperience, totalProject, totalPartner, totalTeam }: Props) {
     return (
         <>
@@ -61,7 +60,7 @@ export default function Home({ partners, services, projects, products, yearsExpe
                     <HomeService services={services} />
                     <HomeProduct products={products} />
                     <HomeProject projects={projects} />
-                    <HomeStatistic yearsExperience={yearsExperience} totalProject={totalProject} totalPartner={totalPartner} totalTeam={totalTeam}/>
+                    <HomeStatistic yearsExperience={yearsExperience} totalProject={totalProject} totalPartner={totalPartner} totalTeam={totalTeam} />
                     <HomePartner partners={partners} />
                     <ContactUs />
                 </SectionLayout>
