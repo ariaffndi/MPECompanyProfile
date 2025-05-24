@@ -41,7 +41,7 @@ type Paginator<T> = {
 export default function Inquiry() {
     const { inquiry, filters } = usePage<{ inquiry: Paginator<Inquiry>; filters: { search: string; sort: string; status: string } }>().props;
     const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
-    const { search, filtered, handlePageChange, handleSearch } = useFilterSortPagination('inquiry.index', inquiry.data, (inquiry) => inquiry.name);
+    const { search, handlePageChange, handleSearch } = useFilterSortPagination('inquiry.index', inquiry.data, (inquiry) => inquiry.name);
 
     useFlashToast();
 
@@ -70,9 +70,11 @@ export default function Inquiry() {
         );
     };
 
+    console.log(inquiry);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Layanan" />
+            <Head title="Pemesanan" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex flex-col justify-end gap-2 sm:flex-row">
                     <SearchInput value={search} onChange={handleSearch} />
@@ -102,7 +104,7 @@ export default function Inquiry() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map((inquiryItem, index) => (
+                            {inquiry.data.map((inquiryItem, index) => (
                                 <tr
                                     key={inquiryItem.id}
                                     className="border-base-content/5 hover:bg-base-200 border-1"
@@ -110,7 +112,7 @@ export default function Inquiry() {
                                 >
                                     <td>{(inquiry.current_page - 1) * inquiry.per_page + index + 1}</td>
                                     <td>{inquiryItem.name}</td>
-                                    <td className="hidden max-w-[250px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.email}</td>
+                                    <td className="hidden max-w-[200px] truncate whitespace-nowrap sm:table-cell">{inquiryItem.email}</td>
                                     <td className="hidden sm:table-cell">{inquiryItem.phone}</td>
                                     <td>{inquiryItem.service?.service_name ?? '-'}</td>
                                     <td>{inquiryItem.product?.product_name ?? '-'}</td>

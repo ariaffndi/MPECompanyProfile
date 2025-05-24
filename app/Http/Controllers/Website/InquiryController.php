@@ -14,7 +14,7 @@ class InquiryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function create()
     {
         $services = Service::all()->map(function ($item) {
             $item->type = 'service';

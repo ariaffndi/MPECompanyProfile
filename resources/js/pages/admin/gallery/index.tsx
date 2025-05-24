@@ -32,7 +32,7 @@ export default function Gallery() {
     const { gallery } = usePage<{ gallery: Paginator<Gallery> }>().props;
     const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
 
-    const { search, filtered, page, handlePageChange, handleSearch } = useFilterSortPagination(
+    const { search, page, handlePageChange, handleSearch } = useFilterSortPagination(
         'gallery.index',
         gallery.data,
         (item) => item.activity_name,
@@ -76,7 +76,7 @@ export default function Gallery() {
                             </tr>
                         </thead>
                         <tbody>
-                            {filtered.map((galleries, index) => (
+                            {gallery.data.map((galleries, index) => (
                                 <tr
                                     key={galleries.id}
                                     className="border-base-content/5 hover:bg-base-200 border-1"

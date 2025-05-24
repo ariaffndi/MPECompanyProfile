@@ -13,7 +13,7 @@ export function useFilterSortPagination<T>(
     const pagination = usePaginationParam();
     const { search, setSearch, sortOrder, toggleSort, filtered } = useSearchSort<T>(data, searchKey);
 
-    const [sortField, setSortField] = useState<string>('year');
+    const [sortField, setSortField] = useState<string>('');
 
     const handlePageChange = (newPage: number) => {
         pagination.setPage(newPage);

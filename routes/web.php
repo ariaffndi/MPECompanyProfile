@@ -24,7 +24,7 @@ Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ServicesController::class,'index']);
 Route::get('/portofolio', [PortofolioController::class,'index']);
 Route::get('/contact', [ContactController::class,'index']);
-Route::get('/inquiry', [WebsiteInquiryController::class,'index'])->name('inquiry');
+Route::get('/inquiry', [WebsiteInquiryController::class,'create'])->name('inquiry.create');
 Route::post('/inquiry', [WebsiteInquiryController::class,'store'])->name('inquiry.store');
 
 
@@ -66,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     //Inquiry routes
-    Route::get('admin/inquiry',[AdminInquiryController::class,'index']);
+    Route::get('admin/inquiry',[AdminInquiryController::class,'index'])->name('inquiry.index');
     Route::put('/admin/inquiry/{inquiry}/update-status', [AdminInquiryController::class, 'updateStatus'])->name('inquiry.update-status');
 });
 

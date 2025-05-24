@@ -42,7 +42,7 @@ type Paginator<T> = {
 export default function Project() {
    const { project } = usePage<{ project: Paginator<Project> }>().props;
    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-   const { search, sortOrder, sortField, setSortField, toggleSort, page, handlePageChange, handleSearch } = useFilterSortPagination(
+   const { search, sortOrder, sortField, page, handlePageChange, handleSearch } = useFilterSortPagination(
       'project.index',
       project.data,
       (projectItem) => projectItem.year.toString(),
@@ -60,21 +60,6 @@ export default function Project() {
                   setSelectedProject(null);
                },
             });
-   };
-
-   const handleSort = () => {
-      const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-      setSortField('year');
-      toggleSort();
-      router.get(
-            route('project.index'),
-            { search, sort: newSortOrder, sortField: 'year', page: project.current_page },
-            {
-               preserveScroll: true,
-               preserveState: true,
-               replace: true,
-            },
-      );
    };
 
    const handleExportCSV = () => {
@@ -104,8 +89,8 @@ export default function Project() {
                               <th className="hidden sm:table-cell">Klien</th>
                               <th className="hidden sm:table-cell">Kategori</th>
                               <th className="hidden sm:table-cell">Lokasi</th>
-                              <th className="cursor-pointer" onClick={() => handleSort()}>
-                                    Tahun {sortOrder === 'asc' ? '↑' : '↓'}
+                              <th>
+                                    Tahun
                               </th>
                               <th className="hidden sm:table-cell">Harga</th>
                               <th className="hidden sm:table-cell">Deskripsi</th>

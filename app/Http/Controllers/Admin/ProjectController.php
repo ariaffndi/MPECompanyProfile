@@ -25,11 +25,8 @@ class ProjectController extends Controller
             if ($request->has('search')) {
                 $query->where('project_name', 'like', '%' . $request->search . '%');
             }
-    
-            $sortField = $request->get('sortField', 'created_at');
-            $sortDirection = $request->get('sort', 'desc');
 
-            $query->orderBy($sortField, $sortDirection);
+            $query->orderByDesc('year')->orderByDesc('created_at');
     
             $projects = $query->paginate(5)->withQueryString();
 
@@ -37,7 +34,6 @@ class ProjectController extends Controller
                 'project' => $projects,
                 'filters' => [
                     'search' => $request->search,
-                    'sort' => $sortDirection,
                 ],
             ]);
         } catch (\Exception $e) {
