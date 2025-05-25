@@ -25,7 +25,7 @@ const AboutTeam = ({ teams }: Props) => {
                     {teams?.map((team) => (
                         <div className="card bg-base-100 aspect-4/5 h-full shadow-sm">
                             <figure className="px-10 pt-10">
-                                <img src={`/storage/${team.image}`} alt={team.name} className="aspect-square rounded-full object-cover" />
+                                <img loading='lazy' src={`/storage/${team.image}`} alt={team.name} className="aspect-square rounded-full object-cover" />
                             </figure>
                             <div className="card-body items-center text-center">
                                 <h2 className="card-title">{team.name}</h2>

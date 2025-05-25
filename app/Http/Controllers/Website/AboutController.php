@@ -6,11 +6,10 @@ use Carbon\Carbon;
 use App\Models\Team;
 use Inertia\Inertia;
 use App\Models\Partner;
-use App\Models\Product;
 use App\Models\Project;
-use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
 
 class AboutController extends Controller
 {
@@ -20,6 +19,8 @@ class AboutController extends Controller
     public function index()
     {
         $teams = Team::limit(9)->get();
+        $gallery = Gallery::latest()->limit(17)->get();
+        $partners = Partner::all();
         $currentYear = Carbon::now()->year;
         $yearsExperience = $currentYear - 2009;
         $totalPartner = Partner::count();
@@ -33,6 +34,8 @@ class AboutController extends Controller
             'totalPartner' => $totalPartner,
             'totalTeam' => $totalTeam,
             'team' => $teams,
+            'gallery' => $gallery,
+            'partners' => $partners,
         ]);
     }
 

@@ -47,7 +47,7 @@ const HomePartner = ({ partners }: Props) => {
                                     title={partner.company_name}
                                     src={`/storage/${partner.logo}`}
                                     alt={partner.company_name}
-                                    className="mx-auto aspect-video w-[100px] object-contain grayscale transition duration-500 hover:grayscale-0 sm:w-[150px] dark:invert"
+                                    className="mx-auto aspect-video w-[100px] md:w-[150px] object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
                                 />
                             </ScrollReveal>
                         </SwiperSlide>
