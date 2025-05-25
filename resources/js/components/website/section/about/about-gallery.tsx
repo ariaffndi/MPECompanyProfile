@@ -21,7 +21,7 @@ const AboutGallery = ({ gallery }: Props) => {
                 )}
                 <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
                     {gallery?.slice(1).map((gallery, index) => (
-                        <div className="" key={index}>
+                        <div className="hover:scale-105 duration-300 ease-in" key={index}>
                                 <img src={`/storage/${gallery.activity_image}`} alt={gallery.activity_name} title={gallery.activity_name} className="aspect-video w-full object-cover" />
                         </div>
                     ))}

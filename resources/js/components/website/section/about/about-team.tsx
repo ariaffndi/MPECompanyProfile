@@ -23,7 +23,7 @@ const AboutTeam = ({ teams }: Props) => {
 
                 <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
                     {teams?.map((team) => (
-                        <div className="card bg-base-100 aspect-4/5 h-full shadow-sm">
+                        <div className="card bg-base-100 aspect-4/5 h-full shadow-sm hover:scale-105 ease-in duration-300 transition">
                             <figure className="px-10 pt-10">
                                 <img loading='lazy' src={`/storage/${team.image}`} alt={team.name} className="aspect-square rounded-full object-cover" />
                             </figure>
@@ -33,7 +33,7 @@ const AboutTeam = ({ teams }: Props) => {
                             </div>
                         </div>
                     ))}
-                    <div className="card bg-base-100 aspect-4/5 h-full shadow-sm">
+                    <div className="card bg-base-100 aspect-4/5 h-full shadow-sm hover:scale-105 ease-in duration-300 transition">
                         <figure className="px-10 pt-10">
                             <Users className="mx-auto aspect-square size-24 rounded-full bg-sky-100 object-cover p-4 lg:size-40" />
                         </figure>
