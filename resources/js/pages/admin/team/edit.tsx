@@ -72,13 +72,13 @@ export default function TeamEdit({ team, page }: { team: TeamForm; page: number 
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Nama Team</Label>
+                                <Label htmlFor="name">Nama</Label>
                                 <Input id="name " name="name" type="text" value={data.name} onChange={(e) => setData('name', e.target.value)} />
                                 <InputError message={errors.name} className="mt-2" />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="position">Posisi</Label>
+                                <Label htmlFor="position">Jabatan</Label>
                                 <Input
                                     id="position"
                                     name="position"
@@ -106,7 +106,7 @@ export default function TeamEdit({ team, page }: { team: TeamForm; page: number 
 
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Edit Produk
+                                Edit Team
                             </Button>
                         </div>
                     </form>

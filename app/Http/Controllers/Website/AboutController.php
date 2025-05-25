@@ -19,7 +19,7 @@ class AboutController extends Controller
      */
     public function index()
     {
-        
+        $teams = Team::limit(9)->get();
         $currentYear = Carbon::now()->year;
         $yearsExperience = $currentYear - 2009;
         $totalPartner = Partner::count();
@@ -32,6 +32,7 @@ class AboutController extends Controller
             'totalProject' => $totalProject,
             'totalPartner' => $totalPartner,
             'totalTeam' => $totalTeam,
+            'team' => $teams,
         ]);
     }
 

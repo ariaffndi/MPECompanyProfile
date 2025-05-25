@@ -1,5 +1,6 @@
 import bgAbout from '@/assets/images/bg-about.jpg';
 import AboutJourney from '@/components/website/section/about/about-journey';
+import AboutTeam from '@/components/website/section/about/about-team';
 import AboutVision from '@/components/website/section/about/about-vision';
 import PageHero from '@/components/website/section/page-hero';
 import GuestLayout from '@/layouts/guestLayout';
@@ -12,38 +13,23 @@ interface Partner {
     logo: string;
 }
 
-interface Service {
+interface Team {
     id: number;
-    service_name: string;
-    service_image: string;
-}
-
-interface Product {
-    id: number;
-    product_name: string;
-    product_description: string;
-    product_image: string;
-}
-
-interface Project {
-    id: number;
-    project_name: string;
-    location: string;
-    project_image: string;
+    name: string;
+    position: string;
+    image: string;
 }
 
 interface Props {
+    team: Team[];
     partners: Partner[];
-    services: Service[];
-    projects: Project[];
-    products: Product[];
     yearsExperience: number;
     totalProject: number;
     totalPartner: number;
     totalTeam: number;
 }
 
-export default function About({ yearsExperience, totalProject, totalPartner, totalTeam }: Props) {
+export default function About({ yearsExperience, totalProject, totalPartner, totalTeam, team }: Props) {
     return (
         <>
             <Head title="Mitra Prima Enviro">
@@ -54,6 +40,7 @@ export default function About({ yearsExperience, totalProject, totalPartner, tot
                 <SectionLayout>
                     <AboutJourney />
                     <AboutVision yearsExperience={yearsExperience} totalProject={totalProject} totalPartner={totalPartner} totalTeam={totalTeam} />
+                    <AboutTeam teams={team || []} />
                 </SectionLayout>
             </GuestLayout>
         </>

@@ -89,7 +89,7 @@ export default function TeamCreate() {
                             </div>
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                                Tambah Produk
+                                Tambah Team
                             </Button>
                         </div>
                     </form>
