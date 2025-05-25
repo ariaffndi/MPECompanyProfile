@@ -1,15 +1,19 @@
-import HomeHero from '@/components/website/section/home/home-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import { Head } from '@inertiajs/react';
+import SectionLayout from '@/layouts/section-layout';
+import PageHero from '@/components/website/section/page-hero';
+import bgService from '@/assets/images/bg-service.jpg';
+import ContactUs from '@/components/website/section/contact-us';
 
-export default function Home() {
+export default function Services() {
     return (
         <>
-            <Head title="Mitra Prima Enviro">
-                <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" />
-            </Head>
+            <Head title="Services"></Head>
             <GuestLayout>
-                <HomeHero />
+                <PageHero backgroundImage={bgService} firstTitle="OUR SERVICE" secondTitle="OUR SOLUTION" />
+                <SectionLayout>
+                    <ContactUs />
+                </SectionLayout>
             </GuestLayout>
         </>
     );

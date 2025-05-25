@@ -1,15 +1,19 @@
-import HomeHero from '@/components/website/section/home/home-hero';
+import bgContactUs from '@/assets/images/bg-contactUs.jpg';
+import ContactUs from '@/components/website/section/contact-us';
+import PageHero from '@/components/website/section/page-hero';
 import GuestLayout from '@/layouts/guestLayout';
+import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
 
-export default function Home() {
+export default function Contact() {
     return (
         <>
-            <Head title="Mitra Prima Enviro">
-                <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" />
-            </Head>
+            <Head title="Contact Us"></Head>
             <GuestLayout>
-                <HomeHero />
+                <PageHero backgroundImage={bgContactUs} firstTitle="LET'S" secondTitle="GET IN TOUCH" />
+                <SectionLayout>
+                    <ContactUs />
+                </SectionLayout>
             </GuestLayout>
         </>
     );

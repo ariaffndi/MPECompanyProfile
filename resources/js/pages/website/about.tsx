@@ -42,8 +42,7 @@ interface Props {
 export default function About({ yearsExperience, totalProject, totalPartner, totalTeam, team, gallery, partners }: Props) {
     return (
         <>
-            <Head title="Mitra Prima Enviro">
-                <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" />
+            <Head title="About">
             </Head>
             <GuestLayout>
                 <PageHero backgroundImage={bgAbout} firstTitle="GET TO" secondTitle="KNOW US" />

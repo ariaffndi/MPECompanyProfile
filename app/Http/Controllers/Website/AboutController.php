@@ -18,8 +18,8 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $teams = Team::limit(9)->get();
-        $gallery = Gallery::latest()->limit(17)->get();
+        $teams = Team::all();
+        $gallery = Gallery::latest()->get();
         $partners = Partner::all();
         $currentYear = Carbon::now()->year;
         $yearsExperience = $currentYear - 2009;

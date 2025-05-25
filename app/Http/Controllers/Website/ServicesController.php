@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Website;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Service;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;    
 
 class ServicesController extends Controller
@@ -13,7 +14,12 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('website/services');
+        $services = Service::all();
+
+
+        return Inertia::render('website/services', [
+            'services' => $services,
+        ]);
     }
 
     /**
