@@ -27,7 +27,7 @@ const Navbar = () => {
                }`}
             >
                <div className="flex-1">
-                  <Link href="/" className="flex w-fit" >
+                  <Link href="/" className="flex w-fit">
                         <AppLogoIcon className="aspect-square size-16 rounded-md" />
                   </Link>
                </div>
@@ -58,7 +58,7 @@ const Navbar = () => {
                                     href="/services"
                                     className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/services') ? 'text-sky-500 after:w-full' : ''}`}
                               >
-                                    Services
+                                    Product & Services
                               </Link>
                            </li>
                            <li>
@@ -121,7 +121,7 @@ const Navbar = () => {
                               href="/services"
                               className={`bg-transparent duration-300 after:absolute after:bottom-[-3px] after:left-0 after:block after:h-[3px] after:w-0 after:bg-sky-500 after:transition-all after:duration-300 hover:text-sky-500 hover:after:w-full ${url.startsWith('/services') ? 'text-sky-500 after:w-full' : ''}`}
                            >
-                              Services
+                              Product & Services
                            </Link>
                         </li>
                         <li>

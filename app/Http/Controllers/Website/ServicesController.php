@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use Inertia\Inertia;
 use App\Models\Service;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;    
 
@@ -15,10 +16,12 @@ class ServicesController extends Controller
     public function index()
     {
         $services = Service::all();
+        $products = Product::all();
 
 
         return Inertia::render('website/services', [
             'services' => $services,
+            'products' => $products,
         ]);
     }
 

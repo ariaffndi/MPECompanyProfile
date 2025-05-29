@@ -1,5 +1,4 @@
 import bgContactUs from '@/assets/images/bg-contactUs.jpg';
-import ContactUs from '@/components/website/section/contact-us';
 import PageHero from '@/components/website/section/page-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
@@ -12,7 +11,7 @@ export default function Contact() {
             <GuestLayout>
                 <PageHero backgroundImage={bgContactUs} firstTitle="LET'S" secondTitle="GET IN TOUCH" />
                 <SectionLayout>
-                    <ContactUs />
+                    hehe
                 </SectionLayout>
             </GuestLayout>
         </>
