@@ -53,7 +53,7 @@ const ServiceService = ({ services }: Props) => {
                                             <img
                                                 src={`/storage/${service.service_image}`}
                                                 alt={service.service_name}
-                                                className="mx-auto aspect-square max-w-[200px] rounded-lg object-cover"
+                                                className="mx-auto aspect-video max-h-[200px] rounded-lg object-cover"
                                             />
                                         </figure>
                                         <div className="card-body">

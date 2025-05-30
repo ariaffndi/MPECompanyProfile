@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
+use App\Models\Project;
 
 class PortofolioController extends Controller
 {
@@ -15,9 +16,11 @@ class PortofolioController extends Controller
     public function index()
     {
         $partners = Partner::all();
+        $projects = Project::with(['client', 'category'])->orderBy('value', 'desc')->get();
 
         return Inertia::render('website/portofolio', [
             'partners' => $partners,
+            'projects' => $projects,
         ]);
     }
 
