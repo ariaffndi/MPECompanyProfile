@@ -1,4 +1,5 @@
 import bgContactUs from '@/assets/images/bg-contactUs.jpg';
+import ContactMessage from '@/components/website/section/contact/contact-message';
 import PageHero from '@/components/website/section/page-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
@@ -11,7 +12,7 @@ export default function Contact() {
             <GuestLayout>
                 <PageHero backgroundImage={bgContactUs} firstTitle="LET'S" secondTitle="GET IN TOUCH" />
                 <SectionLayout>
-                    hehe
+                    <ContactMessage />
                 </SectionLayout>
             </GuestLayout>
         </>

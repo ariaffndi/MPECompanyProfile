@@ -15,7 +15,7 @@ interface Props {
 
 const AboutGallery = ({ gallery }: Props) => {
     const [showAll, setShowAll] = useState(false);
-    const visibileActivity = showAll ? gallery : gallery.slice(0, 5);
+    const visibileActivity = showAll ? gallery : gallery.slice(0, 16);
     const handleShowAll = () => setShowAll((prev) => !prev);
     return (
         <section id="aboutGallery" className="my-20">
