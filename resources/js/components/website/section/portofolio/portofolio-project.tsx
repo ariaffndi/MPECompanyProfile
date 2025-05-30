@@ -40,6 +40,7 @@ const PortofolioProject = ({ projects }: Props) => {
         .sort((a, b) => b.value - a.value)
         .slice(0, 17);
 
+
     return (
         <section id="serviceService" className="my-20">
             <div className="mb-8 flex flex-wrap justify-center gap-3">
@@ -57,7 +58,7 @@ const PortofolioProject = ({ projects }: Props) => {
             <motion.div layout className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3">
                 <AnimatePresence mode="wait">
                     {filtered.map((project) => (
-                        <motion.div
+                        <motion.a
                             key={project.id}
                             layout
                             initial={{ opacity: 0, scale: 0.95 }}
@@ -65,6 +66,7 @@ const PortofolioProject = ({ projects }: Props) => {
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.3 }}
                             className="group relative cursor-pointer overflow-hidden shadow-lg transition duration-300 ease-in hover:scale-105"
+                            href={route('portofolio.show', project.id)}
                         >
                             <img
                                 loading="lazy"
@@ -77,7 +79,7 @@ const PortofolioProject = ({ projects }: Props) => {
                                 <h3 className="text-md font-bold text-white lg:text-lg">{project.project_name}</h3>
                                 <p className="text-xs text-white lg:text-sm">{project.location}</p>
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                     <div className="flex h-full items-center justify-center text-center">
                         <div>

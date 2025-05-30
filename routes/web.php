@@ -23,6 +23,7 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ServicesController::class,'index']);
 Route::get('/portofolio', [PortofolioController::class,'index']);
+Route::get('/portofolio/{id}', [PortofolioController::class, 'show'])->name('portofolio.show');
 Route::get('/contact', [ContactController::class,'index']);
 Route::get('/inquiry', [WebsiteInquiryController::class,'create'])->name('inquiry.create');
 Route::post('/inquiry', [WebsiteInquiryController::class,'store'])->name('inquiry.store');

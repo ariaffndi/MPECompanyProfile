@@ -45,7 +45,12 @@ class PortofolioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $project = Project::with(['client', 'category'])->find($id);
+        
+        return Inertia::render('website/portofolio/project-detail', [
+            'project' => $project,
+        ]);
+        
     }
 
     /**
