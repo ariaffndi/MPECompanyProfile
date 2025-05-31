@@ -46,7 +46,10 @@ class ServicesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $service = Service::find($id);
+        return Inertia::render('website/services/service-detail', [
+            'service' => $service,
+        ]);
     }
 
     /**

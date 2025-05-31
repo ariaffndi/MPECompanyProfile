@@ -1,6 +1,7 @@
 import ProductCard from '../../product-card';
 import ScrollReveal from '../../scroll-reveal';
 import ButtonTemplate from '../../button-template';
+import { Link } from '@inertiajs/react';
 
 interface Product {
     id: number;
@@ -33,7 +34,7 @@ const ServiceProduct = ({ products }: Props) => {
                             <h2 className="text-3xl font-light">NEED A MORE CUSTOMIZED</h2>
                             <h2 className="text-3xl font-bold">PRODUCT SOLUTION?</h2>
                             <ButtonTemplate size="btn-md">
-                                <a href="#">Lets Talk</a>
+                                <Link href="#">Lets Talk</Link>
                             </ButtonTemplate>
                         </div>
                     </div>

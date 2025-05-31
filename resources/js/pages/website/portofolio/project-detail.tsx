@@ -52,7 +52,7 @@ const ProjectDetail = ({ project }: Props) => {
                     </ScrollReveal>
                     <ScrollReveal direction="left">
                         <ScrollReveal direction="left">
-                            <div className="relative z-20 mx-4 -mt-16 grid grid-cols-2 rounded-lg bg-white p-8 shadow-lg md:mx-12 md:grid-cols-4">
+                            <div className="relative z-20 mx-4 -mt-24 grid grid-cols-2 rounded-lg bg-white p-8 shadow-lg md:mx-12 md:grid-cols-4">
                                 <DetailItem title="Location" value={project.location} customClass="border-r" />
                                 <DetailItem title="Client" value={project.client.client_type} customClass="border-l border-r" />
                                 <DetailItem title="Category" value={project.category.category_name} customClass="border-l border-r" />

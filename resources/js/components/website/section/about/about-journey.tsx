@@ -1,7 +1,6 @@
-import React from 'react'
 import ScrollReveal from '@/components/website/scroll-reveal';
 import ButtonTemplate from '../../button-template';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 
 type Company = {
     name: string;
@@ -18,7 +17,7 @@ const AboutJourney = () => {
                       <h2 className="text-3xl font-light">OUR AMAZING</h2>
                       <h2 className="text-3xl font-bold">JOURNEY</h2>
                       <ButtonTemplate size="btn-md">
-                          <a href="#">Lets Talk</a>
+                          <Link href="#">Lets Talk</Link>
                       </ButtonTemplate>
                   </ScrollReveal>
               </div>

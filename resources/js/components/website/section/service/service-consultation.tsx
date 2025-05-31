@@ -1,7 +1,7 @@
-import React from 'react'
 import bgConsultation from '@/assets/images/bg-consultation.jpg'
 import ScrollReveal from '../../scroll-reveal';
 import ButtonTemplate from '../../button-template';
+import { Link } from '@inertiajs/react';
 
 const ServiceConsultation = () => {
   return (
@@ -12,7 +12,9 @@ const ServiceConsultation = () => {
                   <div className="max-w-md transform text-left md:max-w-fit xl:translate-x-1/2">
                       <h1 className="mb-5 text-3xl font-light md:text-5xl">SCHEDULE A</h1>
                       <h1 className="mb-5 text-3xl font-bold md:text-5xl">FREE CONSULTATION</h1>
-                      <ButtonTemplate size="btn-md">Enquire Now</ButtonTemplate>
+                      <ButtonTemplate size="btn-md">
+                          <Link href="#">Enquire Now</Link>
+                      </ButtonTemplate>
                   </div>
               </div>
           </div>

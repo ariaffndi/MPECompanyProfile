@@ -22,6 +22,7 @@ use App\Http\Controllers\Website\InquiryController as WebsiteInquiryController;
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ServicesController::class,'index']);
+Route::get('/services/{id}', [ServicesController::class, 'show'])->name('services.show');
 Route::get('/portofolio', [PortofolioController::class,'index']);
 Route::get('/portofolio/{id}', [PortofolioController::class, 'show'])->name('portofolio.show');
 Route::get('/contact', [ContactController::class,'index']);

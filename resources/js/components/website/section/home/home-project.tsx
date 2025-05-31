@@ -1,5 +1,6 @@
 import ScrollReveal from '@/components/website/scroll-reveal';
 import ButtonTemplate from '../../button-template';
+import { Link } from '@inertiajs/react';
 
 interface project {
     id: number;
@@ -21,7 +22,7 @@ const HomeProject = ({ projects }: Props) => {
                         <h2 className="text-3xl font-light">OUR RECENT</h2>
                         <h2 className="text-3xl font-bold">PROJECT</h2>
                         <ButtonTemplate size="btn-md">
-                            <a href="#">Show All Project</a>
+                            <Link href="#">Show All Project</Link>
                         </ButtonTemplate>
                     </ScrollReveal>
                 </div>
