@@ -7,7 +7,12 @@ use App\Models\Inquiry;
 use App\Models\Product;
 use App\Models\Service;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\NewOrderAdmin;
+use App\Notifications\NewOrderGuest;
 use Inertia\Inertia;
+use App\Notifications\NewOrderNotification;
+use Illuminate\Support\Facades\Notification;
 
 class InquiryController extends Controller
 {
@@ -53,7 +58,7 @@ class InquiryController extends Controller
         ]);
 
 
-        $inquiry = Inquiry::create([
+        $inquiry = Inquiry::create([ 
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
@@ -62,6 +67,13 @@ class InquiryController extends Controller
             'detail' => $validated['detail'],
             'status' => 'pending',
         ]);
+
+
+        Notification::route('mail', $request->email)
+        ->notify(new NewOrderGuest());
+
+        $admins = User::all();
+        Notification::send($admins, new NewOrderAdmin($inquiry));
 
         return redirect()->back()->with('success', 'Permintaan penawaran berhasil dikirim.');
     }
