@@ -1,10 +1,11 @@
-import { CirclePlus } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ScrollReveal from '../../scroll-reveal';
+import { Link } from '@inertiajs/react';
+import ButtonTemplate from '../../button-template';
 
 interface service {
     id: number;
@@ -36,6 +37,7 @@ const HomeService = ({ services }: Props) => {
                         navigation={true}
                         modules={[Navigation]}
                         className="mySwiper"
+                        loop={true}
                         breakpoints={{
                             320: { slidesPerView: 2 },
                             768: { slidesPerView: 3 },
@@ -59,20 +61,12 @@ const HomeService = ({ services }: Props) => {
                                 </div>
                             </SwiperSlide>
                         ))}
-                        <SwiperSlide key={`up-${services.length}`}>
-                            <a
-                                href="#"
-                                className="relative m-5 flex aspect-9/16 items-center overflow-hidden shadow-md duration-300 ease-in hover:scale-105"
-                            >
-                                <CirclePlus size={80} className="absolute w-full text-sky-900 opacity-100 md:scale-100 lg:scale-200" />
-                                <div className="absolute inset-0 bg-sky-900 opacity-70"></div>
-                                <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
-                                    <h2 className="mx-2 text-xs font-light md:text-sm lg:mx-4 lg:text-lg">SHOW MORE</h2>
-                                    <h2 className="mx-2 text-xs font-bold md:text-sm lg:mx-4 lg:text-lg">WHAT WE PROVIDE</h2>
-                                </div>
-                            </a>
-                        </SwiperSlide>
                     </Swiper>
+                    <div className="my-10 text-center">
+                        <ButtonTemplate size="btn-md">
+                            <Link href="#">Show More</Link>
+                        </ButtonTemplate>
+                    </div>
                 </ScrollReveal>
             </div>
         </section>
