@@ -29,7 +29,7 @@ const HomePartner = ({ partners }: Props) => {
             <div className="space-y-8">
                 <Swiper
                     slidesPerView="auto"
-                    spaceBetween={75}
+                    spaceBetween={30}
                     loop={true}
                     speed={10000}
                     allowTouchMove={true}
@@ -56,7 +56,7 @@ const HomePartner = ({ partners }: Props) => {
 
                 <Swiper
                     slidesPerView="auto"
-                    spaceBetween={75}
+                    spaceBetween={30}
                     loop={true}
                     speed={10000}
                     allowTouchMove={true}
