@@ -34,10 +34,10 @@ const AboutTeam = ({ teams }: Props) => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.5, ease: 'easeInOut' }}
-                        className="grid grid-cols-2 gap-6 overflow-hidden md:grid-cols-4 lg:grid-cols-5"
+                        className="grid grid-cols-2 gap-6 overflow-hidden md:grid-cols-4 lg:grid-cols-5 xl:p-2"
                     >
                         {visibleTeams.map((team) => (
-                            <div key={team.id} className="card ...">
+                            <div key={team.id} className="card">
                                 <div className="card bg-base-100 aspect-4/5 h-full shadow-sm transition duration-300 ease-in hover:scale-105">
                                     <figure className="px-10 pt-10">
                                         <img

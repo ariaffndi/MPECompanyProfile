@@ -1,7 +1,7 @@
-import ScrollReveal from '../../scroll-reveal';
 import { Button } from '@/components/ui/button';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
+import ScrollReveal from '../../scroll-reveal';
 
 interface Gallery {
     id: number;
@@ -21,7 +21,7 @@ const AboutGallery = ({ gallery }: Props) => {
         <section id="aboutGallery" className="my-20">
             <ScrollReveal direction="up">
                 {gallery.length > 0 && (
-                    <div className="mb-10">
+                    <div className="mb-10 xl:p-2">
                         <img
                             loading="lazy"
                             src={`/storage/${gallery[0].activity_image}`}
@@ -38,7 +38,7 @@ const AboutGallery = ({ gallery }: Props) => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.5, ease: 'easeInOut' }}
-                        className="grid grid-cols-1 gap-6 overflow-hidden md:grid-cols-3 lg:grid-cols-4"
+                        className="grid grid-cols-1 gap-6 overflow-hidden md:grid-cols-3 lg:grid-cols-4 xl:p-2"
                     >
                         {visibileActivity.slice(1).map((gallery) => (
                             <div key={gallery.id} className="duration-300 ease-in hover:scale-105">
@@ -51,16 +51,15 @@ const AboutGallery = ({ gallery }: Props) => {
                                 />
                             </div>
                         ))}
-
                     </motion.div>
                 </AnimatePresence>
-                        {gallery.length > 5 && (
-                            <div className="flex justify-center">
-                                <Button className="btn btn-md mt-4 w-fit rounded-lg bg-sky-500 text-white hover:bg-sky-600" onClick={handleShowAll}>
-                                    {showAll ? 'Show Less' : 'Show All'}
-                                </Button>
-                            </div>
-                        )}
+                {gallery.length > 16 && (
+                    <div className="flex justify-center">
+                        <Button className="btn btn-md mt-4 w-fit rounded-lg bg-sky-500 text-white hover:bg-sky-600" onClick={handleShowAll}>
+                            {showAll ? 'Show Less' : 'Show All'}
+                        </Button>
+                    </div>
+                )}
             </ScrollReveal>
         </section>
     );
