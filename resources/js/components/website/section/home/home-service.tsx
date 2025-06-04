@@ -1,11 +1,11 @@
+import { Link } from '@inertiajs/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ScrollReveal from '../../scroll-reveal';
-import { Link } from '@inertiajs/react';
 import ButtonTemplate from '../../button-template';
+import ScrollReveal from '../../scroll-reveal';
 
 interface service {
     id: number;

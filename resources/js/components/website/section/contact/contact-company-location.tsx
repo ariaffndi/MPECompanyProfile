@@ -29,8 +29,13 @@ const ContactCompanyLocation = () => {
                 </div>
             </div>
             <ScrollReveal direction="up">
-                <div className="w-full my-10">
-                    <img loading="lazy" src={company.office_image} alt="Mitra Prima Enviro" className="aspect-video w-full object-cover" />
+                <div className="my-10 w-full">
+                    <img
+                        loading="lazy"
+                        src={`/storage/${company.office_image}`}
+                        alt="Mitra Prima Enviro"
+                        className="aspect-video w-full object-cover"
+                    />
                 </div>
                 <MapEmbed src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.9654389570696!2d112.7794910748518!3d-7.2815408927257215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fa3ec22cd90f%3A0x260ff601d35b3c0b!2sPT.%20Mitra%20Prima%20Enviro!5e1!3m2!1sen!2sid!4v1748679494292!5m2!1sen!2sid" />
             </ScrollReveal>
