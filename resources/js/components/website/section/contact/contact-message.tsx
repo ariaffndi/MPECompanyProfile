@@ -26,17 +26,17 @@ const ContactMessage = () => {
     };
 
     return (
-        <section id="contactMessage" className="scroll-mt-34 flex w-full flex-col items-start gap-5 md:flex-row">
+        <section id="contactMessage" className="scroll-mt-34 w-full px-4 py-12 md:flex md:items-center md:justify-between md:px-12 ">
             <div className="aspect-video place-self-center md:w-1/2 md:place-self-start lg:pl-5">
-                <div className="flex h-full items-center justify-center text-center md:text-start">
+                <div className="flex h-full items-center justify-center text-center md:text-start ">
                     <ScrollReveal direction="right">
                         <h2 className="text-3xl font-light">DROP US</h2>
                         <h2 className="text-3xl font-bold">A MESSAGE</h2>
-                        <div className="my-6 text-lg leading-relaxed text-gray-700 dark:text-gray-50">{description}</div>
+                        <div className="my-6 mr-6  text-lg leading-relaxed text-gray-700 dark:text-gray-50">{description}</div>
                     </ScrollReveal>
                 </div>
             </div>
-            <div className="justify-end gap-5 md:w-1/2">
+            <div className="justify-end gap-5 md:w-1/2 mt-4">
                 <ScrollReveal direction="left">
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                         <input

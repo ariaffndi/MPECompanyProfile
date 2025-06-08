@@ -27,7 +27,7 @@ const HomeProject = ({ projects }: Props) => {
                     </ScrollReveal>
                 </div>
             </div>
-            <div className="grid grid-cols-1 justify-end gap-5 md:w-2/3 md:grid-cols-2">
+            <div className="grid w-full grid-cols-1 justify-end gap-5 md:w-2/3 md:grid-cols-2">
                 {projects.map((project) => (
                     <ScrollReveal direction="left" key={project.id}>
                         <div className="bg-base-100 shadow-md duration-300 ease-in hover:scale-105">

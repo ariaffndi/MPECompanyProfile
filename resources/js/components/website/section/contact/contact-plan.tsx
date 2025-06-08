@@ -22,7 +22,7 @@ const ContactPlan = () => {
                         <p className="mb-4">{description}</p>
                     </div>
                     <ButtonTemplate size="btn-md">
-                        <Link href="#">Enquire Now</Link>
+                        <Link href="/inquiry">Enquire Now</Link>
                     </ButtonTemplate>
                 </ScrollReveal>
             </div>
