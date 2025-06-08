@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Website;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
+use App\Models\User;
+use App\Notifications\NewContactNotification;
+use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
 {
@@ -28,7 +32,20 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'message' => 'required|string',
+        ]);
+
+        $contact = Contact::create($validated);
+
+
+        $admins = User::all();
+        Notification::send($admins, new NewContactNotification($contact));
+
+        return redirect()->back()->with('success', 'Pesanmu sudah terkirim!');
     }
 
     /**

@@ -1,10 +1,29 @@
+import { Button } from '@/components/ui/button';
 import ScrollReveal from '@/components/website/scroll-reveal';
-import ButtonTemplate from '../../button-template';
-import { Link } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+import React from 'react';
 
 const ContactMessage = () => {
     const description: string =
         'Got something on your mind? Whether it’s a question, an idea, or just a quick hello — we’d love to hear from you! Fill out the form and we’ll get back to you soon.';
+
+    const { data, setData, post, processing, reset, errors } = useForm({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+    });
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        post(route('contact.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset();
+            },
+        });
+    };
 
     return (
         <section id="contactMessage" className="flex w-full flex-col items-start gap-5 md:flex-row">
@@ -19,29 +38,55 @@ const ContactMessage = () => {
             </div>
             <div className="justify-end gap-5 md:w-1/2">
                 <ScrollReveal direction="left">
-                    <form action="">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                         <input
                             type="text"
+                            name="name"
                             placeholder="Name*"
+                            value={data.name}
+                            onChange={(e) => setData('name', e.target.value)}
                             className="input input-lg input-ghost w-full rounded-none border-0 border-b-2 border-gray-600 bg-none focus:border-gray-600 focus:outline-none"
                         />
                         <input
                             type="email"
+                            name="email"
                             placeholder="Email*"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
                             className="input input-lg input-ghost w-full rounded-none border-0 border-b-2 border-gray-600 bg-none focus:border-gray-600 focus:outline-none"
                         />
                         <input
                             type="text"
+                            name="phone"
                             placeholder="Phone*"
+                            value={data.phone}
+                            onChange={(e) => setData('phone', e.target.value)}
                             className="input input-lg input-ghost w-full rounded-none border-0 border-b-2 border-gray-600 bg-none focus:border-gray-600 focus:outline-none"
                         />
                         <textarea
+                            name="message"
                             placeholder="Message*"
+                            value={data.message}
+                            onChange={(e) => setData('message', e.target.value)}
                             className="mb4 textarea textarea-lg textarea-ghost w-full rounded-none border-0 border-b-2 border-gray-600 bg-none focus:border-gray-600 focus:outline-none md:min-h-40"
                         ></textarea>
-                        <ButtonTemplate size="btn-md">
-                            <Link href="#">Send</Link>
-                        </ButtonTemplate>
+
+                        <Button
+                            type="submit"
+                            className="btn btn-md mt-4 w-fit rounded-lg bg-sky-500 px-12 text-white hover:bg-sky-600"
+                            disabled={processing}
+                        >
+                            {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+                            Send
+                        </Button>
+
+                        {Object.keys(errors).length > 0 && (
+                            <div className="mt-2 text-sm text-red-500">
+                                {Object.values(errors).map((err, i) => (
+                                    <div key={i}>{err}</div>
+                                ))}
+                            </div>
+                        )}
                     </form>
                 </ScrollReveal>
             </div>

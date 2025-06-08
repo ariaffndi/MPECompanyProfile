@@ -35,7 +35,7 @@ const AboutSection = () => {
                             .join(' ')}
                     </p>
                     <ButtonTemplate size="btn-md">
-                        <Link href="#">Explore More</Link>
+                        <Link href="/about#aboutJourney">Explore More</Link>
                     </ButtonTemplate>
                 </ScrollReveal>
             </div>

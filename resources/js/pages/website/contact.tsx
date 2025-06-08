@@ -4,11 +4,13 @@ import ContactContacts from '@/components/website/section/contact/contact-contac
 import ContactMessage from '@/components/website/section/contact/contact-message';
 import ContactPlan from '@/components/website/section/contact/contact-plan';
 import PageHero from '@/components/website/section/page-hero';
+import { useFlashToast } from '@/hooks/useFlashToast';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
 
 export default function Contact() {
+    useFlashToast();
     return (
         <>
             <Head title="Contact Us"></Head>

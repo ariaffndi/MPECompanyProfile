@@ -33,9 +33,9 @@ const HomeHero = () => {
             </div>
             <ScrollLink
                 to="homeAbout"
-                smooth={true}
-                duration={500}
-                offset={-120}
+                    smooth={true}
+                    duration={500}
+                    offset={-120}
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer text-white"
             >
                 <ArrowDown size={32} />
