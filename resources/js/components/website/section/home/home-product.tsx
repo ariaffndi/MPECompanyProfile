@@ -34,7 +34,7 @@ const HomeProduct = ({ products }: Props) => {
 
                 <div className="my-10 text-center">
                     <ButtonTemplate size="btn-md">
-                        <Link href="#">Show More</Link>
+                        <Link href="/services#serviceProduct">Show More</Link>
                     </ButtonTemplate>
                 </div>
             </ScrollReveal>

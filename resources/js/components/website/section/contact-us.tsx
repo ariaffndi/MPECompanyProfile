@@ -11,7 +11,7 @@ const ContactUs = () => {
                     <h1 className="text-3xl font-light text-sky-500">Ready to collaborate?</h1>
                     <h1 className="text-3xl font-bold">Let's team up and create something incredible!</h1>
                     <ButtonTemplate size="btn-md">
-                        <Link href="#">Contact Us</Link>
+                        <Link href="/contact#contactMessage">Contact Us</Link>
                     </ButtonTemplate>
                 </ScrollReveal>
             </div>

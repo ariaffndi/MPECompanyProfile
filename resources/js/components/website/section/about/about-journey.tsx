@@ -1,7 +1,7 @@
 import ScrollReveal from '@/components/website/scroll-reveal';
 import { Link, usePage } from '@inertiajs/react';
 import ButtonTemplate from '../../button-template';
-import ScrollToHash from '../scroll-to-hash';
+
 
 type Company = {
     name: string;
@@ -12,15 +12,14 @@ const AboutJourney = () => {
     const { company } = usePage<{ company: Company }>().props;
     return (
         <>
-            <ScrollToHash offset={-120} />
-            <section id="aboutJourney" className="flex w-full flex-col items-start gap-5 md:flex-row">
+            <section id="aboutJourney" className="scroll-mt-32 flex w-full flex-col items-start gap-5 md:flex-row">
                 <div className="aspect-video place-self-center md:w-2/5 md:place-self-start lg:pl-5">
                     <div className="flex h-full items-center justify-center text-center md:text-start">
                         <ScrollReveal direction="right">
                             <h2 className="text-3xl font-light">OUR AMAZING</h2>
                             <h2 className="text-3xl font-bold">JOURNEY</h2>
                             <ButtonTemplate size="btn-md">
-                                <Link href="#">Lets Talk</Link>
+                                <Link href="/contact#contactMessage">Lets Talk</Link>
                             </ButtonTemplate>
                         </ScrollReveal>
                     </div>

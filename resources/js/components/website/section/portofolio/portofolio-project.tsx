@@ -42,7 +42,7 @@ const PortofolioProject = ({ projects }: Props) => {
 
 
     return (
-        <section id="serviceService" className="my-20">
+        <section id="portofolioProject" className="scroll-mt-32 my-20">
             <div className="mb-8 flex flex-wrap justify-center gap-3">
                 {categories.map((cat) => (
                     <button

@@ -64,7 +64,7 @@ const HomeService = ({ services }: Props) => {
                     </Swiper>
                     <div className="my-10 text-center">
                         <ButtonTemplate size="btn-md">
-                            <Link href="#">Show More</Link>
+                            <Link href="/services#serviceService">Show More</Link>
                         </ButtonTemplate>
                     </div>
                 </ScrollReveal>

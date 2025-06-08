@@ -26,7 +26,7 @@ const ContactMessage = () => {
     };
 
     return (
-        <section id="contactMessage" className="flex w-full flex-col items-start gap-5 md:flex-row">
+        <section id="contactMessage" className="scroll-mt-34 flex w-full flex-col items-start gap-5 md:flex-row">
             <div className="aspect-video place-self-center md:w-1/2 md:place-self-start lg:pl-5">
                 <div className="flex h-full items-center justify-center text-center md:text-start">
                     <ScrollReveal direction="right">

@@ -16,7 +16,7 @@ interface Props {
 
 const ServiceProduct = ({ products }: Props) => {
     return (
-        <section id="serviceProduct" className="my-20">
+        <section id="serviceProduct" className="scroll-mt-30 my-20">
             <ScrollReveal direction="up">
                 <div className="my-10">
                     <h2 className="text-center text-3xl font-light">OUR PRODUCTS</h2>
@@ -34,7 +34,7 @@ const ServiceProduct = ({ products }: Props) => {
                             <h2 className="text-3xl font-light">NEED A MORE CUSTOMIZED</h2>
                             <h2 className="text-3xl font-bold">PRODUCT SOLUTION?</h2>
                             <ButtonTemplate size="btn-md">
-                                <Link href="#">Lets Talk</Link>
+                                <Link href="/contact#contactMessage">Lets Talk</Link>
                             </ButtonTemplate>
                         </div>
                     </div>
