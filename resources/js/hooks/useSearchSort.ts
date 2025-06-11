@@ -1,5 +1,5 @@
 // src/hooks/useSearchSort.ts
-import { useState, } from 'react';
+import { useState } from 'react';
 
 export function useSearchSort<T>(data: T[], getKey: (item: T) => string) {
     const [search, setSearch] = useState('');
@@ -11,9 +11,7 @@ export function useSearchSort<T>(data: T[], getKey: (item: T) => string) {
 
     const filtered = data
         .filter((item) => getKey(item).toLowerCase().includes(search.toLowerCase()))
-        .sort((a, b) =>
-            sortOrder === 'asc' ? getKey(a).localeCompare(getKey(b)) : getKey(b).localeCompare(getKey(a))
-        );
+        .sort((a, b) => (sortOrder === 'asc' ? getKey(a).localeCompare(getKey(b)) : getKey(b).localeCompare(getKey(a))));
 
     return { search, setSearch, sortOrder, toggleSort, filtered };
 }

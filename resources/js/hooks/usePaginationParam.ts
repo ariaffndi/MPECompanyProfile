@@ -7,10 +7,14 @@ export function usePaginationParam() {
 
     const setPage = (newPage: number) => {
         urlParams.set('page', newPage.toString());
-        router.get(window.location.pathname + '?' + urlParams.toString(), {}, {
-            preserveState: true,
-            preserveScroll: true,
-        });
+        router.get(
+            window.location.pathname + '?' + urlParams.toString(),
+            {},
+            {
+                preserveState: true,
+                preserveScroll: true,
+            },
+        );
     };
 
     return { page, setPage };
