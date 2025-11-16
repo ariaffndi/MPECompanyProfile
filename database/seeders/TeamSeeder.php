@@ -19,7 +19,7 @@ class TeamSeeder extends Seeder
             Team::create([
                 'name' => $faker->name,
                 'position' => $faker->jobTitle,
-                'image' => 'team'.$index.'.jpg', // atau sesuaikan nama file/folder-nya
+                'image' => 'team'.$index.'.jpg',
             ]);
         }
     }
