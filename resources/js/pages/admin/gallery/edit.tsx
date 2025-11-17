@@ -70,7 +70,7 @@ export default function GalleryEdit({ gallery, page }: { gallery: GalleryForm; p
                     <form className="flex flex-col gap-6" onSubmit={submit}>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="activity_name">Nama Team</Label>
+                                <Label htmlFor="activity_name">Nama Kegiatan</Label>
                                 <Input
                                     id="activity_name "
                                     name="activity_name"
