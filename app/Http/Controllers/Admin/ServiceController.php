@@ -59,13 +59,13 @@ class ServiceController extends Controller
 
         $path = null;
         if ($request->hasFile('service_image')) {
-            $path = $request->file('service_image')->store('service_image', 'public');
+            $path = $request->file('service_image')->store('service', 'public');
             $validated['service_image'] = $path;
         }
 
         Service::create($validated);
 
-        return redirect()->route('service.index')->with('success', 'Layanan berhasil ditambahkan');
+       return redirect()->route('admin.service.index')->with('success', 'Layanan berhasil ditambahkan');
     }
 
 
@@ -97,8 +97,9 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $validated = $request->validate([
-            'service_name' => 'string|max:225',
-            'service_description' => 'max:1000',
+            'service_name' => 'required|string|max:255',
+            'service_description' => 'required|string|max:1000',
+            'service_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($request->hasFile('service_image')) {
@@ -110,7 +111,7 @@ class ServiceController extends Controller
 
         $currentPage = $request->get('page', 1);
 
-        return redirect()->route('service.index', ['page' => $currentPage])
+        return redirect()->route('admin.service.index', ['page' => $currentPage])
             ->with('success', 'Layanan berhasil diupdate.');
     }
 
@@ -125,7 +126,7 @@ class ServiceController extends Controller
         $data->delete();
         $currentPage = request()->get('page', 1);
 
-        return redirect()->route('service.index', ['page' => $currentPage])
+        return redirect()->route('admin.service.index', ['page' => $currentPage])
             ->with('success', 'Layanan berhasil dihapus.');
     }
 }

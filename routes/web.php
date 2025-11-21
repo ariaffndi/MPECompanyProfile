@@ -50,6 +50,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('admin/service', ServiceController::class);
     Route::post('/admin/service/{service}', [ServiceController::class, 'update']);
 
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+    Route::resource('service', ServiceController::class)->names([
+        'index' => 'service.index',
+        'create' => 'service.create',
+        'store' => 'service.store',
+        'show' => 'service.show',
+        'edit' => 'service.edit',
+        'update' => 'service.update',
+        'destroy' => 'service.destroy',
+    ]);
+
+});
+
     //Team routes
     Route::resource('admin/team', TeamController::class);
     Route::post('/admin/team/{team}', [TeamController::class, 'update']);
