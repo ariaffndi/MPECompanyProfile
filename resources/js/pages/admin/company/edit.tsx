@@ -108,17 +108,19 @@ export default function EditCompany({ company }: { company: FormCompany }) {
                                     <Input
                                         id="whatsapp"
                                         type="text"
-                                        value={data.whatsapp}
+                                        value={'+62' + data.whatsapp.slice(2)}
                                         onChange={(e) => {
-                                            let value = e.target.value;
-                                            if (!value.startsWith('62')) {
-                                                value = '62' + value;
+                                            let input = e.target.value;
+                                            if (!input.startsWith('+62')) {
+                                                input = '+62';
                                             }
-                                            setData('whatsapp', value);
+                                            const numberOnly = input.replace('+62', '');
+                                            setData('whatsapp', '62' + numberOnly.replace(/\D/g, ''));
                                         }}
                                     />
                                     <InputError message={errors.whatsapp} />
                                 </div>
+
                                 <div className="grid gap-2">
                                     <Label htmlFor="instagram">Instagram *url</Label>
                                     <Input id="instagram" type="text" value={data.instagram} onChange={(e) => setData('instagram', e.target.value)} />

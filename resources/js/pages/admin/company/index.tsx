@@ -82,7 +82,7 @@ export default function Company({ company }: Props) {
                                     <MessageCircle size={20} />
                                 </div>
                                 <div>
-                                    <p className="text-sm">{company.whatsapp}</p>
+                                    <p className="text-sm">+{company.whatsapp}</p>
                                 </div>
                             </div>
                         </div>

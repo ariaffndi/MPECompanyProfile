@@ -1,18 +1,26 @@
-import { ReactNode } from 'react';
-
 type ContactCardProps = {
-    icon: ReactNode;
+    href: string;
+    icon: React.ReactNode;
     label: string;
     value: string;
 };
 
-const ContactCard = ({ icon, label, value }: ContactCardProps) => {
+const ContactCard = ({ href, icon, label, value }: ContactCardProps) => {
     return (
-        <div className="p-2 text-center md:p-3 lg:p-4 hover:scale-105 ease-in transition duration-300">
-            <div className="mx-auto mb-2 w-fit rounded-full bg-sky-200 p-4">{icon}</div>
-            <p className="text-md lg:text-lg">{label}</p>
-            <p className="text-md font-bold lg:text-lg">{value}</p>
-        </div>
+        <a
+            href={href}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="block"
+        >
+            <div className="rounded-xl p-4 text-center transition-transform duration-300 hover:scale-105">
+                <div className="mx-auto mb-3 w-fit rounded-full bg-sky-200 p-4">{icon}</div>
+
+                <p className="text-base font-medium text-gray-600 md:text-lg dark:text-gray-300">{label}</p>
+
+                <p className="text-lg font-bold break-all text-gray-900 md:text-xl dark:text-white">{value}</p>
+            </div>
+        </a>
     );
 };
 

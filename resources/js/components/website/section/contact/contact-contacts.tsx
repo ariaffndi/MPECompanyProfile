@@ -20,9 +20,16 @@ const ContactContacts = () => {
                 </div>
 
                 <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <ContactCard icon={<Phone size={40} />} label="Front Office" value={company.phone} />
-                    <ContactCard icon={<Mail size={40} />} label="Email" value={company.email} />
-                    <ContactCard icon={<Send size={40} />} label="WhatsApp" value={company.whatsapp} />
+                    <ContactCard href={`tel:${company.phone}`} icon={<Phone size={40} />} label="Front Office" value={company.phone} />
+
+                    <ContactCard href={`mailto:${company.email}`} icon={<Mail size={40} />} label="Email" value={company.email} />
+
+                    <ContactCard
+                        href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo, saya ingin bertanya mengenai produk dan layanan PT. Mitra Prima Enviro.')}`}
+                        icon={<Send size={40} />}
+                        label="WhatsApp"
+                        value={`+${company.whatsapp}`}
+                    />
                 </div>
             </ScrollReveal>
         </section>
