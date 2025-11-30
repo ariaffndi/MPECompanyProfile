@@ -104,6 +104,7 @@ export default function ServiceEdit({ service, page }: { service: ServiceForm; p
                                     onChange={handleFileChange}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.service_image} />
                                 {selectedFileName && <p className="text-sm text-gray-500">File dipilih: {selectedFileName}</p>}
                                 {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}

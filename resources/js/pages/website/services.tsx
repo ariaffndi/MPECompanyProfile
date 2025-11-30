@@ -1,12 +1,13 @@
-import GuestLayout from '@/layouts/guestLayout';
-import { Head } from '@inertiajs/react';
-import SectionLayout from '@/layouts/section-layout';
-import PageHero from '@/components/website/section/page-hero';
-import bgService from '@/assets/images/bg-service.jpg';
+import bgService from '@/assets/images/bg-service.webp';
 import ContactUs from '@/components/website/section/contact-us';
-import ServiceService from '@/components/website/section/service/service-service';
-import ServiceProduct from '@/components/website/section/service/service-product';
+import PageHero from '@/components/website/section/page-hero';
 import ServiceConsultation from '@/components/website/section/service/service-consultation';
+import ServiceProduct from '@/components/website/section/service/service-product';
+import ServiceService from '@/components/website/section/service/service-service';
+import GuestLayout from '@/layouts/guestLayout';
+import SectionLayout from '@/layouts/section-layout';
+import { Head } from '@inertiajs/react';
+import Meta from '@/components/Meta';
 
 interface service {
     id: number;
@@ -27,11 +28,15 @@ interface Props {
     products: Product[];
 }
 
-
 export default function Services({ services, products }: Props) {
     return (
         <>
-            <Head title="Services"></Head>
+            <Meta
+                title="Services"
+                description="Jasa IPAL profesional, konsultasi AMDAL, SPPL, UKL-UPL, dan perizinan lingkungan. Melayani seluruh Indonesia."
+                image=""
+            />
+            <Head title=""></Head>
             <GuestLayout>
                 <PageHero backgroundImage={bgService} firstTitle="OUR SERVICE" secondTitle="OUR SOLUTION" />
                 <SectionLayout>

@@ -68,6 +68,7 @@ export default function PartnerCreate() {
                                     onChange={(e) => setData('logo', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.logo} />
                             </div>
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>

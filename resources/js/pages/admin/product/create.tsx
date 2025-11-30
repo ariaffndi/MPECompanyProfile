@@ -11,6 +11,7 @@ import { FormEventHandler } from 'react';
 type ProductForm = {
     product_name: string;
     product_description: string;
+    product_specification: string;
     product_image: File | null;
 };
 
@@ -25,6 +26,7 @@ export default function ProductCreate() {
     const { data, setData, post, processing, errors, reset } = useForm<ProductForm>({
         product_name: '',
         product_description: '',
+        product_specification: '',
         product_image: null,
     });
 
@@ -74,6 +76,20 @@ export default function ProductCreate() {
                             </div>
 
                             <div className="grid gap-2">
+                                <Label htmlFor="product specification">Spesifikasi Produk</Label>
+                                <textarea
+                                    id="product_specification"
+                                    rows={5}
+                                    className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                                    value={data.product_specification}
+                                    required
+                                    onChange={(e) => setData('product_specification', e.target.value)}
+                                    placeholder="spesifikasi produk"
+                                />
+                                <InputError message={errors.product_specification} />
+                            </div>
+
+                            <div className="grid gap-2">
                                 <Label htmlFor="product image">Foto Produk</Label>
                                 <input
                                     id="product_image"
@@ -84,6 +100,7 @@ export default function ProductCreate() {
                                     onChange={(e) => setData('product_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.product_image} />
                             </div>
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>

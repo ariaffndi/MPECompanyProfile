@@ -12,6 +12,7 @@ type ProductForm = {
     id: number;
     product_name: string;
     product_description: string;
+    product_specification: string;
     product_image: string;
 };
 
@@ -26,6 +27,7 @@ export default function ProductEdit({ product, page }: { product: ProductForm; p
     const { data, setData, post, processing, errors, reset } = useForm({
         product_name: product.product_name || '',
         product_description: product.product_description || '',
+        product_specification: product.product_specification || '',
         product_image: null as File | null,
     });
 
@@ -84,7 +86,7 @@ export default function ProductEdit({ product, page }: { product: ProductForm; p
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="product_description">Deskripsi Produk</Label>
+                                <Label htmlFor="product description">Deskripsi Produk</Label>
                                 <textarea
                                     id="product_description"
                                     rows={5}
@@ -97,6 +99,19 @@ export default function ProductEdit({ product, page }: { product: ProductForm; p
                             </div>
 
                             <div className="grid gap-2">
+                                <Label htmlFor="product specification">Spesifikasi Produk</Label>
+                                <textarea
+                                    id="product_specification"
+                                    rows={5}
+                                    className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+                                    value={data.product_specification}
+                                    onChange={(e) => setData('product_specification', e.target.value)}
+                                    placeholder="spesifikasi produk"
+                                />
+                                <InputError message={errors.product_specification} />
+                            </div>
+
+                            <div className="grid gap-2">
                                 <Label htmlFor="product_image">Foto Produk</Label>
                                 <input
                                     id="product_image"
@@ -106,6 +121,7 @@ export default function ProductEdit({ product, page }: { product: ProductForm; p
                                     onChange={handleFileChange}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.product_image} />
                                 {selectedFileName && <p className="text-sm text-gray-500">File dipilih: {selectedFileName}</p>}
                                 {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}

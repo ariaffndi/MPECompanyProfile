@@ -8,7 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;    
 
-class ServicesController extends Controller
+class ProductServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,11 +44,19 @@ class ServicesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showService(string $id)
     {
         $service = Service::find($id);
-        return Inertia::render('website/services/service-detail', [
+        return Inertia::render('website/product-service/service-detail', [
             'service' => $service,
+        ]);
+    }
+
+    public function showProduct(string $id)
+    {
+        $product = Product::find($id);
+        return Inertia::render('website/product-service/product-detail', [
+            'product' => $product,
         ]);
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('product_name');
             $table->text('product_description');
+            $table->text('product_specification');
             $table->string('product_image');
             $table->timestamps();
             $table->softDeletes();

@@ -114,7 +114,7 @@ export default function ProjectEdit({ project, page }: { project: ProjectForm; p
                                         id="client_id"
                                         value={data.client_id}
                                         onChange={(e) => setData('client_id', parseInt(e.target.value))}
-                                        className="rounded-md border border-gray-300 p-2"
+                                        className="bg-base-200 rounded-md border border-gray-300 p-2"
                                     >
                                         <option value="">-- Pilih Client --</option>
                                         {clients.map((client: Client) => (
@@ -131,7 +131,7 @@ export default function ProjectEdit({ project, page }: { project: ProjectForm; p
                                         id="category_id"
                                         value={data.category_id}
                                         onChange={(e) => setData('category_id', parseInt(e.target.value))}
-                                        className="rounded-md border border-gray-300 p-2"
+                                        className="bg-base-200 rounded-md border border-gray-300 p-2"
                                     >
                                         <option value="">-- Pilih Kategori --</option>
                                         {categories.map((category: Category) => (
@@ -172,6 +172,7 @@ export default function ProjectEdit({ project, page }: { project: ProjectForm; p
                                     onChange={handleFileChange}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.project_image} />
                                 {selectedFileName && <p className="text-sm text-gray-500">File dipilih: {selectedFileName}</p>}
                                 {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}

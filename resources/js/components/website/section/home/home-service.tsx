@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ButtonTemplate from '../../button-template';
 import ScrollReveal from '../../scroll-reveal';
@@ -34,19 +34,23 @@ const HomeService = ({ services }: Props) => {
                         pagination={{
                             clickable: true,
                         }}
-                        navigation={true}
-                        modules={[Navigation]}
+                        autoplay={{
+                            delay: 2000,
+                            disableOnInteraction: false,
+                        }}
+                        modules={[Autoplay]}
                         className="mySwiper"
                         loop={true}
                         breakpoints={{
-                            320: { slidesPerView: 2 },
+                            320: { slidesPerView: 1 },
                             768: { slidesPerView: 3 },
                             1024: { slidesPerView: 4 },
                         }}
                     >
                         {services.map((service) => (
                             <SwiperSlide key={`up-${service.id}`}>
-                                <div className="relative m-5 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-105">
+                                <div className="relative m-5 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-105 hover:cursor-pointer">
+                                <a href={route('services.show', service.id)}>
                                     <img
                                         loading="lazy"
                                         title={service.service_name}
@@ -56,8 +60,9 @@ const HomeService = ({ services }: Props) => {
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
                                     <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
-                                        <h2 className="mx-2 text-xs font-bold md:text-sm lg:mx-4 lg:text-lg">{service.service_name}</h2>
+                                        <h2 className="mx-2 text-md font-bold lg:mx-4 lg:text-lg">{service.service_name}</h2>
                                     </div>
+                                </a>
                                 </div>
                             </SwiperSlide>
                         ))}

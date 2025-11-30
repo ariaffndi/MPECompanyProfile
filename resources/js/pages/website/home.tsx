@@ -9,6 +9,7 @@ import HomeStatistic from '@/components/website/section/home/home-statistic';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
+import Meta from '@/components/Meta';
 
 interface Partner {
     id: number;
@@ -50,8 +51,13 @@ interface Props {
 export default function Home({ partners, services, projects, products, yearsExperience, totalProject, totalPartner, totalTeam }: Props) {
     return (
         <>
-            <Head title="Mitra Prima Enviro">
-            </Head>
+            <Meta
+                title="Jasa Pengolahan Air Limbah - Mitra Prima Enviro"
+                description="Jasa IPAL profesional, konsultasi AMDAL, SPPL, UKL-UPL, dan perizinan lingkungan. Melayani seluruh Indonesia."
+                image=""
+            />
+
+            <Head title=""></Head>
             <GuestLayout>
                 <HomeHero />
                 <SectionLayout>
@@ -62,6 +68,7 @@ export default function Home({ partners, services, projects, products, yearsExpe
                     <HomeStatistic yearsExperience={yearsExperience} totalProject={totalProject} totalPartner={totalPartner} totalTeam={totalTeam} />
                     <HomePartner partners={partners} />
                     <ContactUs />
+                    
                 </SectionLayout>
             </GuestLayout>
         </>

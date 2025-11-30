@@ -143,6 +143,7 @@ export default function EditCompany({ company }: { company: FormCompany }) {
                                     onChange={(e) => setData('office_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <p className="text-xs font-light text-red-600">*Gunakan gambar dengan rasio 2:3</p>
                                 <InputError message={errors.office_image} />
                             </div>

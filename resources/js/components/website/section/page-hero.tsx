@@ -11,7 +11,7 @@ const PageHero: React.FC<PageHeroProps> = ({ backgroundImage, firstTitle, second
     const bgImage = backgroundImage;
 
     return (
-        <section className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
+        <section id='heroSection' className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
             <div className="absolute inset-0 bg-black opacity-70"></div>
             <div className="hero-content text-center">
                 <div className="max-w-md text-white">

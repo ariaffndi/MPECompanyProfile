@@ -57,10 +57,10 @@ const Footer = () => {
                                 </a>
                             </div>
                             <nav className="flex flex-col gap-1 text-sm">
-                                <a className="link link-hover">ABOUT US</a>
-                                <a className="link link-hover">SERVICES</a>
-                                <a className="link link-hover">PORTOFOLIO</a>
-                                <a className="link link-hover">CONTACT US</a>
+                                <a className="link link-hover" href='/about'>ABOUT US</a>
+                                <a className="link link-hover" href='/service'>SERVICES</a>
+                                <a className="link link-hover" href='/portofolio'>PORTOFOLIO</a>
+                                <a className="link link-hover" href='/contact'>CONTACT US</a>
                             </nav>
                         </div>
                         <div className="text-sm leading-snug">

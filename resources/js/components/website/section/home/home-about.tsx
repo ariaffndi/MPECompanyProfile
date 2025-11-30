@@ -1,4 +1,4 @@
-import sectionImage from '@/assets/images/section-about.jpg';
+import sectionImage from '@/assets/images/section-about.webp';
 import ScrollReveal from '@/components/website/scroll-reveal';
 import { Link, usePage } from '@inertiajs/react';
 import ButtonTemplate from '../../button-template';

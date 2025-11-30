@@ -71,6 +71,7 @@ export default function TeamCreate() {
                                     onChange={(e) => setData('activity_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.activity_image} />
                             </div>
                             <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>

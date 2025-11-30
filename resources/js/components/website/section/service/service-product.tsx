@@ -29,7 +29,7 @@ const ServiceProduct = ({ products }: Props) => {
                     {products.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
-                    <div className="flex h-full items-center justify-center text-center">
+                    <div className="flex h-full items-center justify-center text-center ">
                         <div>
                             <h2 className="text-3xl font-light">NEED A MORE CUSTOMIZED</h2>
                             <h2 className="text-3xl font-bold">PRODUCT SOLUTION?</h2>

@@ -1,4 +1,4 @@
-import bgHome from '@/assets/images/bg-home.jpg';
+import bgHome from '@/assets/images/bg-home.webp';
 import { usePage } from '@inertiajs/react';
 import { ArrowDown } from 'lucide-react';
 import { Link as ScrollLink } from 'react-scroll';
@@ -13,7 +13,7 @@ type Company = {
 const HomeHero = () => {
     const { company } = usePage<{ company: Company }>().props;
     return (
-        <section className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgHome}) ` }}>
+        <section id='heroSection' className="hero min-h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${bgHome}) ` }}>
             <div className="absolute inset-0 bg-black opacity-70"></div>
             <div className="hero-content flex-col px-10 text-white lg:flex-row-reverse">
                 <div>

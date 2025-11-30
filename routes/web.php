@@ -13,16 +13,26 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Website\ContactController;
 use App\Http\Controllers\Website\PortofolioController;
-use App\Http\Controllers\Website\ServicesController;
+use App\Http\Controllers\Website\ProductServiceController;
 use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\AboutController;
 use App\Http\Controllers\Website\InquiryController as WebsiteInquiryController;
+use Spatie\Sitemap\SitemapGenerator;
+
+Route::get('/generate-sitemap', function () {
+    SitemapGenerator::create('https://web.mitraprimaenviro.com')
+        ->writeToFile(public_path('sitemap.xml'));
+
+    return 'Sitemap generated';
+});
+
 
 //website route
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [AboutController::class,'index']);
-Route::get('/services', [ServicesController::class,'index']);
-Route::get('/services/{id}', [ServicesController::class, 'show'])->name('services.show');
+Route::get('/services', [ProductServiceController::class,'index']);
+Route::get('/services/{id}', [ProductServiceController::class, 'showService'])->name('services.show');
+Route::get('/product/{id}', [ProductServiceController::class, 'showProduct'])->name('products.show');
 Route::get('/portofolio', [PortofolioController::class,'index']);
 Route::get('/portofolio/{id}', [PortofolioController::class, 'show'])->name('portofolio.show');
 Route::get('/contact', [ContactController::class,'index']);

@@ -1,4 +1,4 @@
-import bgConsultation from '@/assets/images/bg-consultation.jpg';
+import bgConsultation from '@/assets/images/bg-consultation.webp';
 import { Link } from '@inertiajs/react';
 import ButtonTemplate from '../../button-template';
 import ScrollReveal from '../../scroll-reveal';

@@ -1,13 +1,13 @@
-import bgPortofolio from '@/assets/images/bg-potofolio.jpg';
+import bgPortofolio from '@/assets/images/bg-potofolio.webp';
 import ContactUs from '@/components/website/section/contact-us';
 import PageHero from '@/components/website/section/page-hero';
-import GuestLayout from '@/layouts/guestLayout';
-import SectionLayout from '@/layouts/section-layout';
-import { Head } from '@inertiajs/react';
 import PortofolioPartner from '@/components/website/section/portofolio/portofoio-partner';
 import PortofolioDescription from '@/components/website/section/portofolio/portofolio-description';
 import PortofolioProject from '@/components/website/section/portofolio/portofolio-project';
-
+import GuestLayout from '@/layouts/guestLayout';
+import SectionLayout from '@/layouts/section-layout';
+import { Head } from '@inertiajs/react';
+import Meta from '@/components/Meta';
 
 interface Project {
     id: number;
@@ -34,6 +34,11 @@ interface Props {
 export default function Portofolio({ projects, partners }: Props) {
     return (
         <>
+            <Meta
+                title="Portofolio"
+                description="Jasa IPAL profesional, konsultasi AMDAL, SPPL, UKL-UPL, dan perizinan lingkungan. Melayani seluruh Indonesia."
+                image=""
+            />
             <Head title="Portofolio"></Head>
             <GuestLayout>
                 <PageHero backgroundImage={bgPortofolio} firstTitle="OUR AMAZING" secondTitle="PORTOFOLIO" />

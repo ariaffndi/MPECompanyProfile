@@ -76,7 +76,7 @@ export default function ProjectCreate() {
                                     required
                                     value={data.project_name}
                                     onChange={(e) => setData('project_name', e.target.value)}
-                                    placeholder='Nama Project'
+                                    placeholder="Nama Project"
                                 />
                                 <InputError message={errors.project_name} className="mt-2" />
                             </div>
@@ -89,7 +89,7 @@ export default function ProjectCreate() {
                                         value={data.client_id}
                                         required
                                         onChange={(e) => setData('client_id', parseInt(e.target.value))}
-                                        className="rounded-md border border-gray-300 p-2"
+                                        className="bg-base-200 rounded-md border border-gray-300 p-2"
                                     >
                                         <option value="">-- Pilih Client --</option>
                                         {clients.map((client: Client) => (
@@ -107,7 +107,7 @@ export default function ProjectCreate() {
                                         value={data.category_id}
                                         required
                                         onChange={(e) => setData('category_id', parseInt(e.target.value))}
-                                        className="rounded-md border border-gray-300 p-2"
+                                        className="bg-base-200 rounded-md border border-gray-300 p-2"
                                     >
                                         <option value="">-- Pilih Kategori --</option>
                                         {categories.map((category: Category) => (
@@ -123,17 +123,36 @@ export default function ProjectCreate() {
                             <div className="grid grid-cols-3 gap-4">
                                 <div className="grid gap-2">
                                     <Label htmlFor="location">Lokasi</Label>
-                                    <Input placeholder='lokasi' id="location" type="text" required value={data.location} onChange={(e) => setData('location', e.target.value)} />
+                                    <Input
+                                        placeholder="lokasi"
+                                        id="location"
+                                        type="text"
+                                        required
+                                        value={data.location}
+                                        onChange={(e) => setData('location', e.target.value)}
+                                    />
                                     <InputError message={errors.location} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="year">Tahun Project</Label>
-                                    <Input id="year" type="number" required value={data.year} onChange={(e) => setData('year', parseInt(e.target.value))} />
+                                    <Input
+                                        id="year"
+                                        type="number"
+                                        required
+                                        value={data.year}
+                                        onChange={(e) => setData('year', parseInt(e.target.value))}
+                                    />
                                     <InputError message={errors.year} />
                                 </div>
                                 <div className="grid gap-2">
                                     <Label htmlFor="value">Nilai Project</Label>
-                                    <Input id="value" type="number" required value={data.value} onChange={(e) => setData('value', parseInt(e.target.value))} />
+                                    <Input
+                                        id="value"
+                                        type="number"
+                                        required
+                                        value={data.value}
+                                        onChange={(e) => setData('value', parseInt(e.target.value))}
+                                    />
                                     <InputError message={errors.value} />
                                 </div>
                             </div>
@@ -149,6 +168,7 @@ export default function ProjectCreate() {
                                     onChange={(e) => setData('project_image', e.target.files ? e.target.files[0] : null)}
                                     className="file-input file-input-ghost"
                                 />
+                                <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.project_image} />
                             </div>
 

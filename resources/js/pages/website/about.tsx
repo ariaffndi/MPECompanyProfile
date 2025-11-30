@@ -1,4 +1,4 @@
-import bgAbout from '@/assets/images/bg-about.jpg';
+import bgAbout from '@/assets/images/bg-about.webp';
 import AboutGallery from '@/components/website/section/about/about-gallery';
 import AboutJourney from '@/components/website/section/about/about-journey';
 import AboutPartner from '@/components/website/section/about/about-partner';
@@ -9,6 +9,7 @@ import PageHero from '@/components/website/section/page-hero';
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head } from '@inertiajs/react';
+import Meta from '@/components/Meta';
 
 interface Partner {
     id: number;
@@ -42,8 +43,12 @@ interface Props {
 export default function About({ yearsExperience, totalProject, totalPartner, totalTeam, team, gallery, partners }: Props) {
     return (
         <>
-            <Head title="About">
-            </Head>
+            <Meta
+                title="About"
+                description="Jasa IPAL profesional, konsultasi AMDAL, SPPL, UKL-UPL, dan perizinan lingkungan. Melayani seluruh Indonesia."
+                image=""
+            />
+            <Head title=""></Head>
             <GuestLayout>
                 <PageHero backgroundImage={bgAbout} firstTitle="GET TO" secondTitle="KNOW US" />
                 <SectionLayout>

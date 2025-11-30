@@ -19,6 +19,7 @@ class ProductSeeder extends Seeder
             Product::create([
                 'product_name' => $faker->word,
                 'product_description' => $faker->paragraph,
+                'product_specification' => $faker->paragraph,
                 'product_image' => 'product'.$index.'.jpg',
             ]);
         }

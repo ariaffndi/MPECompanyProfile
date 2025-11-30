@@ -30,7 +30,8 @@ const HomeProject = ({ projects }: Props) => {
             <div className="grid w-full grid-cols-1 justify-end gap-5 md:w-2/3 md:grid-cols-2">
                 {projects.map((project) => (
                     <ScrollReveal direction="left" key={project.id}>
-                        <div className="bg-base-100 shadow-md duration-300 ease-in hover:scale-105">
+                        <div className="bg-base-100 shadow-md duration-300 ease-in hover:scale-105 hover:cursor-pointer">
+                            <a href={route('portofolio.show', project.id)}>
                             <figure>
                                 <img
                                     loading="lazy"
@@ -44,6 +45,7 @@ const HomeProject = ({ projects }: Props) => {
                                 <h2 className="card-title text-md font-bold lg:text-xl">{project.project_name}</h2>
                                 <p className="text-sm lg:text-lg">{project.location}</p>
                             </div>
+                            </a>
                         </div>
                     </ScrollReveal>
                 ))}
