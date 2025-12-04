@@ -31,9 +31,9 @@ const ProductDetail = ({ product }: Props) => {
             <GuestLayout>
                 <div className="bg-base-200" id="heroSection">
                     <ScrollReveal direction="up">
-                        <div className="relative h-[100vh] bg-cover bg-center" style={{ backgroundImage: `url(/storage/${product.product_image})` }}>
+                        <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: `url(/storage/${product.product_image})` }}>
                             <div className="absolute inset-0 bg-black/40"></div>
-                            <div className="relative z-10 flex h-full flex-col justify-center px-8 pb-12 text-white">
+                            <div className="relative z-10 flex h-full flex-col justify-center px-8 pb-12 text-base-100">
                                 <ScrollReveal direction="right">
                                     <div className="mb-4 text-sm font-light tracking-wide uppercase opacity-75">
                                         Product / <span className="font-bold">{product.product_name}</span>

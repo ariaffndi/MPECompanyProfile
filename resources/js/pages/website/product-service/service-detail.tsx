@@ -23,9 +23,9 @@ const ServiceDetail = ({ service }: Props) => {
             <GuestLayout>
                 <div className="bg-base-200" id="heroSection">
                     <ScrollReveal direction="up">
-                        <div className="relative h-[100vh] bg-cover bg-center" style={{ backgroundImage: `url(/storage/${service.service_image})` }}>
+                        <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: `url(/storage/${service.service_image})` }}>
                             <div className="absolute inset-0 bg-black/40"></div>
-                            <div className="relative z-20 mx-4 -mt-24 grid grid-cols-1 rounded-lg bg-white p-8 shadow-lg md:mx-12 md:grid-cols-2">
+                            <div className="text-base-100 relative z-10 flex h-full flex-col justify-center px-8 pb-12">
                                 <ScrollReveal direction="right">
                                     <div className="mb-4 text-sm font-light tracking-wide uppercase opacity-75">
                                         Service / <span className="font-bold">{service.service_name}</span>
