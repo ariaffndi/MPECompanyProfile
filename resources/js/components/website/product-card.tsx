@@ -41,7 +41,7 @@ const ProductCard = ({ product }: Props) => {
                             isMobile ? (expanded || !isLongText ? 'max-h-[500px]' : 'max-h-[5rem]') : 'max-h-[5rem] group-hover:max-h-[500px]'
                         } overflow-hidden transition-all duration-700 ease-in-out`}
                     >
-                        <p className="text-sm text-gray-700">{product.product_description}</p>
+                        <p className="text-sm text-base-content">{product.product_description}</p>
                     </div>
 
                     {isMobile && isLongText && (

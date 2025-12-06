@@ -38,7 +38,7 @@ const ProjectDetail = ({ project }: Props) => {
             <GuestLayout>
                 <div className="bg-base-200">
                     <ScrollReveal direction="up">
-                        <div className="relative h-[100vh] bg-cover bg-center" style={{ backgroundImage: `url(/storage/${project.project_image})` }}>
+                        <div className="relative h-screen bg-cover bg-center" style={{ backgroundImage: `url(/storage/${project.project_image})` }}>
                             <div className="absolute inset-0 bg-black/40"></div>
                             <div className="relative z-10 flex h-full flex-col justify-center px-8 pb-12 text-white">
                                 <ScrollReveal direction="right">
