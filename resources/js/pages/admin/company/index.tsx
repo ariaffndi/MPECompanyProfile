@@ -111,7 +111,7 @@ export default function Company({ company }: Props) {
                         <img src={`/storage/${company.office_image}`} alt={company.name} className="w-full rounded-lg object-cover" />
                     </div>
                 </div>
-                <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border p-4 md:min-h-min">
+                <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-screen flex-1 overflow-hidden rounded-xl border p-4 md:min-h-min">
                     <p className="text-sm">
                         {company.description}
                         <br />
