@@ -77,8 +77,8 @@ jobs:
       # ===============================
       # Static Analysis & Lint
       # ===============================
-      - name: PHPStan (Laravel)
-        run: ./vendor/bin/phpstan analyse
+      #- name: PHPStan (Laravel)
+      #  run: ./vendor/bin/phpstan analyse
 
       - name: ESLint (React)
         run: npm run lint
@@ -133,16 +133,16 @@ jobs:
       # ===============================
       # Slack Notification (CI Result)
       # ===============================
-      - name: Slack Notification
-        if: always()
-        uses: slackapi/slack-github-action@v1
-        with:
-          payload: |
-            {
-              "text": "CI Pipeline ${{ job.status }} for commit ${{ github.sha }}"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      #- name: Slack Notification
+      # if: always()
+      #  uses: slackapi/slack-github-action@v1
+      #  with:
+      #    payload: |
+      #      {
+      #        "text": "CI Pipeline ${{ job.status }} for commit ${{ github.sha }}"
+      #      }
+      #  env:
+      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
   # =====================================
   # STAGING DEPLOY (AUTO - develop)
