@@ -1,0 +1,202 @@
+name: CI/CD Laravel Inertia SPA
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+
+env:
+  APP_ENV: testing
+  DB_CONNECTION: mysql
+  DB_HOST: 127.0.0.1
+  DB_PORT: 3306
+  DB_DATABASE: testing
+  DB_USERNAME: root
+  DB_PASSWORD: root
+
+jobs:
+  ci:
+    name: CI - Laravel + Inertia SPA
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      # ===============================
+      # Checkout
+      # ===============================
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ===============================
+      # PHP & Node Setup
+      # ===============================
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo, mysql
+          coverage: none
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ===============================
+      # Install Dependencies
+      # ===============================
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      # ===============================
+      # Laravel Setup
+      # ===============================
+      - name: Prepare Laravel environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan storage:link
+          php artisan migrate:fresh --seed
+
+      # ===============================
+      # Static Analysis & Lint
+      # ===============================
+      - name: PHPStan (Laravel)
+        run: ./vendor/bin/phpstan analyse
+
+      - name: ESLint (React)
+        run: npm run lint
+
+      - name: TypeScript Check
+        run: npm run typecheck
+
+      # ===============================
+      # InertiaJS / React Tests
+      # ===============================
+      - name: Run React Component Tests
+        run: npm run test
+
+      # ===============================
+      # Laravel Feature / Inertia Tests
+      # ===============================
+      - name: Run Laravel Tests
+        run: php artisan test
+
+      # ===============================
+      # Laravel Dusk (E2E SPA)
+      # ===============================
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Run Laravel Dusk
+        run: php artisan dusk
+
+      # ===============================
+      # Build Production Assets
+      # ===============================
+      - name: Build Frontend Assets
+        run: npm run build
+
+      # ===============================
+      # Docker Build & Push
+      # ===============================
+      - name: Login to Docker Registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/mitraprimaenviro:${{ github.sha }} .
+
+      - name: Push Docker Image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/mitraprimaenviro:${{ github.sha }}
+
+      # ===============================
+      # Slack Notification (CI Result)
+      # ===============================
+      - name: Slack Notification
+        if: always()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "CI Pipeline ${{ job.status }} for commit ${{ github.sha }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  # =====================================
+  # STAGING DEPLOY (AUTO - develop)
+  # =====================================
+  deploy-staging:
+    name: Deploy to Staging
+    if: github.ref == 'refs/heads/develop'
+    needs: ci
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH Deploy Staging
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          script: |
+            cd /var/www/mitraprimaenviro
+            git pull origin develop
+            composer install --no-dev
+            npm install
+            npm run build
+            php artisan migrate --force
+            php artisan optimize:clear
+            sudo systemctl reload nginx
+
+  # =====================================
+  # PRODUCTION DEPLOY (MANUAL - main)
+  # =====================================
+  deploy-production:
+    name: Deploy to Production
+    if: github.ref == 'refs/heads/main'
+    needs: ci
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://mitraprimaenviro.com
+
+    steps:
+      - name: SSH Deploy Production
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            cd /var/www/mitraprimaenviro
+            git fetch --all
+            git checkout main
+            git pull origin main
+            composer install --no-dev
+            npm install
+            npm run build
+            php artisan migrate --force
+            php artisan optimize
+            sudo systemctl reload nginx
