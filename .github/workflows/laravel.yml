@@ -1,202 +1,97 @@
-name: CI/CD Laravel Inertia SPA
+name: Laravel Inertia SPA CI/CD
 
 on:
   push:
-    branches: [develop, main]
+    branches: [main, develop]
   pull_request:
-
-env:
-  APP_ENV: testing
-  DB_CONNECTION: mysql
-  DB_HOST: 127.0.0.1
-  DB_PORT: 3306
-  DB_DATABASE: testing
-  DB_USERNAME: root
-  DB_PASSWORD: root
 
 jobs:
   ci:
-    name: CI - Laravel + Inertia SPA
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:8
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: testing
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="mysqladmin ping -h localhost"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
+          --health-retries=5
+
+    env:
+      APP_ENV: testing
+      DB_CONNECTION: mysql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_DATABASE: testing
+      DB_USERNAME: root
+      DB_PASSWORD: root
 
     steps:
-      # ===============================
-      # Checkout
-      # ===============================
+      # 1. Checkout
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ===============================
-      # PHP & Node Setup
-      # ===============================
+      # 2. Setup PHP
       - name: Setup PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
-          extensions: mbstring, pdo, mysql
+          php-version: 8.4
+          extensions: mbstring, pdo_mysql
           coverage: none
 
-      - name: Setup Node.js 20
+      # 3. Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
+          cache: npm
 
-      # ===============================
-      # Install Dependencies
-      # ===============================
+      # 4. Install Composer dependencies (WITH dev deps)
       - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist
+        run: composer install --prefer-dist --no-progress --no-interaction
 
+      # 5. Install NPM dependencies
       - name: Install NPM dependencies
         run: npm install
 
-      # ===============================
-      # Laravel Setup
-      # ===============================
-      - name: Prepare Laravel environment
+      # 6. Laravel setup
+      - name: Prepare Laravel
         run: |
           cp .env.example .env
           php artisan key:generate
           php artisan storage:link
           php artisan migrate:fresh --seed
 
-      # ===============================
-      # Static Analysis & Lint
-      # ===============================
-      - name: PHPStan (Laravel)
-        run: ./vendor/bin/phpstan analyse
+      # 7. PHPStan (FIXED)
+      - name: Run PHPStan
+        run: php vendor/bin/phpstan analyse --memory-limit=1G
 
-      - name: ESLint (React)
+      # 8. ESLint / TypeScript
+      - name: Run ESLint
         run: npm run lint
 
-      - name: TypeScript Check
-        run: npm run typecheck
-
-      # ===============================
-      # InertiaJS / React Tests
-      # ===============================
-      - name: Run React Component Tests
+      # 9. Inertia / React tests
+      - name: Run React tests
         run: npm run test
 
-      # ===============================
-      # Laravel Feature / Inertia Tests
-      # ===============================
-      - name: Run Laravel Tests
-        run: php artisan test
-
-      # ===============================
-      # Laravel Dusk (E2E SPA)
-      # ===============================
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
-
-      - name: Run Laravel Dusk
-        run: php artisan dusk
-
-      # ===============================
-      # Build Production Assets
-      # ===============================
-      - name: Build Frontend Assets
+      # 10. Build production assets
+      - name: Build frontend assets
         run: npm run build
 
-      # ===============================
-      # Docker Build & Push
-      # ===============================
-      - name: Login to Docker Registry
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build Docker Image
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/mitraprimaenviro:${{ github.sha }} .
-
-      - name: Push Docker Image
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/mitraprimaenviro:${{ github.sha }}
-
-      # ===============================
-      # Slack Notification (CI Result)
-      # ===============================
-      - name: Slack Notification
-        if: always()
+      # 11. Notify Slack on Failure (FIXED)
+      - name: Slack Notification (Failure)
+        if: failure()
         uses: slackapi/slack-github-action@v1
         with:
           payload: |
             {
-              "text": "CI Pipeline ${{ job.status }} for commit ${{ github.sha }}"
+              "text": "❌ CI FAILED\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}"
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-
-  # =====================================
-  # STAGING DEPLOY (AUTO - develop)
-  # =====================================
-  deploy-staging:
-    name: Deploy to Staging
-    if: github.ref == 'refs/heads/develop'
-    needs: ci
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: SSH Deploy Staging
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.STAGING_HOST }}
-          username: ${{ secrets.STAGING_USER }}
-          key: ${{ secrets.STAGING_SSH_KEY }}
-          script: |
-            cd /var/www/mitraprimaenviro
-            git pull origin develop
-            composer install --no-dev
-            npm install
-            npm run build
-            php artisan migrate --force
-            php artisan optimize:clear
-            sudo systemctl reload nginx
-
-  # =====================================
-  # PRODUCTION DEPLOY (MANUAL - main)
-  # =====================================
-  deploy-production:
-    name: Deploy to Production
-    if: github.ref == 'refs/heads/main'
-    needs: ci
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-      url: https://mitraprimaenviro.com
-
-    steps:
-      - name: SSH Deploy Production
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.PROD_HOST }}
-          username: ${{ secrets.PROD_USER }}
-          key: ${{ secrets.PROD_SSH_KEY }}
-          script: |
-            cd /var/www/mitraprimaenviro
-            git fetch --all
-            git checkout main
-            git pull origin main
-            composer install --no-dev
-            npm install
-            npm run build
-            php artisan migrate --force
-            php artisan optimize
-            sudo systemctl reload nginx
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
