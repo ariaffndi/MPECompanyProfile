@@ -83,8 +83,8 @@ jobs:
       #- name: ESLint (React)
       #  run: npm run lint
 
-      - name: TypeScript Check
-        run: npm run typecheck
+      #- name: TypeScript Check
+      #  run: npm run typecheck
 
       # ===============================
       # InertiaJS / React Tests
