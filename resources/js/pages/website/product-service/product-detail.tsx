@@ -5,6 +5,8 @@ import ServiceConsultation from '@/components/website/section/service/service-co
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head, usePage } from '@inertiajs/react';
+import { useState } from 'react';
+
 
 interface Product {
     id: number;
@@ -23,8 +25,13 @@ interface Props {
     product: Product;
 }
 
+
 const ProductDetail = ({ product }: Props) => {
     const { company } = usePage<{ company: Company }>().props;
+    const PRICE = 1500000; // harga hardcode (Rp)
+    const [qty, setQty] = useState(1);
+    const totalPrice = PRICE * qty;
+
     return (
         <>
             <Head title="Product"></Head>
@@ -78,16 +85,48 @@ const ProductDetail = ({ product }: Props) => {
                         <div className="flex w-full flex-col justify-center lg:w-1/2">
                             <ScrollReveal direction="left">
                                 <h2 className="text-3xl font-bold text-gray-700 dark:text-gray-50">Specification</h2>
+
                                 <ul className="my-6 list-disc pl-5 leading-relaxed text-gray-700 dark:text-gray-50">
                                     {product.product_specification
                                         .split('.')
                                         .map((item, index) => item.trim() && <li key={index}>{item.trim()}.</li>)}
                                 </ul>
 
+                                {/* Harga */}
+                                <div className="mb-4">
+                                    <p className="text-sm text-gray-500">Harga</p>
+                                    <p className="text-2xl font-bold text-gray-800">Rp {PRICE.toLocaleString('id-ID')}</p>
+                                </div>
+
+                                {/* Counter */}
+                                <div className="mb-6 flex items-center gap-4">
+                                    <button onClick={() => setQty(Math.max(1, qty - 1))} className="h-10 w-10 rounded-lg border text-lg">
+                                        −
+                                    </button>
+
+                                    <span className="text-lg font-semibold">{qty}</span>
+
+                                    <button onClick={() => setQty(qty + 1)} className="h-10 w-10 rounded-lg border text-lg">
+                                        +
+                                    </button>
+
+                                    <span className="ml-4 text-sm text-gray-600">
+                                        Total: <strong>Rp {totalPrice.toLocaleString('id-ID')}</strong>
+                                    </span>
+                                </div>
+
+                                {/* WhatsApp */}
                                 <a
-                                    href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent('Halo, saya ingin bertanya mengenai produk ' + product.product_name)}`}
+                                    href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
+                                        `Halo, saya ingin memesan produk ${product.product_name}
+Jumlah: ${qty}
+Harga satuan: Rp ${PRICE.toLocaleString('id-ID')}
+Total: Rp ${totalPrice.toLocaleString('id-ID')}`,
+                                    )}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
-                                    <ButtonTemplate size="btn-md">Pesan Melalui WhatsApp</ButtonTemplate>
+                                    <ButtonTemplate size="btn-md">Pesan Sekarang</ButtonTemplate>
                                 </a>
                             </ScrollReveal>
                         </div>
