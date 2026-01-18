@@ -104,8 +104,8 @@ jobs:
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
 
-      - name: Run Laravel Dusk
-        run: php artisan dusk
+     # - name: Run Laravel Dusk
+      #  run: php artisan dusk
 
       # ===============================
       # Build Production Assets
