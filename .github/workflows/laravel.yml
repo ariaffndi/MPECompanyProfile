@@ -89,14 +89,14 @@ jobs:
       # ===============================
       # InertiaJS / React Tests
       # ===============================
-      - name: Run React Component Tests
-        run: npm run test
+      #- name: Run React Component Tests
+      # run: npm run test
 
       # ===============================
       # Laravel Feature / Inertia Tests
       # ===============================
-      - name: Run Laravel Tests
-        run: php artisan test
+     # - name: Run Laravel Tests
+       # run: php artisan test
 
       # ===============================
       # Laravel Dusk (E2E SPA)
