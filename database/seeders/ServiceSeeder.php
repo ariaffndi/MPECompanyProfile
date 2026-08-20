@@ -15,7 +15,7 @@ class ServiceSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 5) as $index) {
             Service::create([
                 'service_name' => $faker->bs,
                 'service_description' => $faker->sentence,

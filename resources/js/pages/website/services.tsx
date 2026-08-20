@@ -32,7 +32,7 @@ export default function Services({ services, products }: Props) {
     return (
         <>
             <Meta
-                title="Services"
+                title="Products & Services"
                 description="Jasa IPAL profesional, konsultasi AMDAL, SPPL, UKL-UPL, dan perizinan lingkungan. Melayani seluruh Indonesia."
                 image=""
             />

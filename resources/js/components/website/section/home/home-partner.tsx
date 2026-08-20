@@ -28,6 +28,7 @@ const HomePartner = ({ partners }: Props) => {
 
             <div className="space-y-8">
                 <Swiper
+                    className="cursor-grab active:cursor-grabbing"
                     slidesPerView="auto"
                     spaceBetween={30}
                     loop={true}
@@ -47,7 +48,7 @@ const HomePartner = ({ partners }: Props) => {
                                     title={partner.company_name}
                                     src={`/storage/${partner.logo}`}
                                     alt={partner.company_name}
-                                    className="mx-auto aspect-video w-[100px] md:w-[150px] object-contain grayscale transition duration-500 hover:grayscale-0 dark:invert"
+                                    className="mx-auto aspect-video w-[100px] object-contain grayscale transition duration-500 hover:grayscale-0 md:w-[150px] dark:invert"
                                 />
                             </ScrollReveal>
                         </SwiperSlide>
@@ -55,6 +56,7 @@ const HomePartner = ({ partners }: Props) => {
                 </Swiper>
 
                 <Swiper
+                    className="cursor-grab active:cursor-grabbing"
                     slidesPerView="auto"
                     spaceBetween={30}
                     loop={true}

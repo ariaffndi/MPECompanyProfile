@@ -68,9 +68,7 @@ export default function Gallery() {
                         <thead>
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
-                                <th>
-                                    Nama Kegiatan
-                                </th>
+                                <th>Nama Kegiatan</th>
                                 <th className="">Foto</th>
                                 <th>Aksi</th>
                             </tr>
@@ -79,7 +77,7 @@ export default function Gallery() {
                             {gallery.data.map((galleries, index) => (
                                 <tr
                                     key={galleries.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedGallery(galleries)}
                                 >
                                     <td>{(gallery.current_page - 1) * gallery.per_page + index + 1}</td>

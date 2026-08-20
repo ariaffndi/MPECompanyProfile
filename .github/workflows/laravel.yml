@@ -34,15 +34,11 @@ jobs:
           --health-retries=3
 
     steps:
-      # ===============================
       # Checkout
-      # ===============================
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ===============================
       # PHP & Node Setup
-      # ===============================
       - name: Setup PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
@@ -55,18 +51,14 @@ jobs:
         with:
           node-version: '20'
 
-      # ===============================
       # Install Dependencies
-      # ===============================
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist
 
       - name: Install NPM dependencies
         run: npm install
 
-      # ===============================
       # Laravel Setup
-      # ===============================
       - name: Prepare Laravel environment
         run: |
           cp .env.example .env
@@ -74,48 +66,36 @@ jobs:
           php artisan storage:link
           php artisan migrate:fresh --seed
 
-      # ===============================
       # Static Analysis & Lint
-      # ===============================
-      #- name: PHPStan (Laravel)
-      #  run: ./vendor/bin/phpstan analyse
+      - name: PHPStan (Laravel)
+        run: ./vendor/bin/phpstan analyse
 
-      #- name: ESLint (React)
-      #  run: npm run lint
+      - name: ESLint (React)
+        run: npm run lint
 
-      #- name: TypeScript Check
-      #  run: npm run typecheck
+      - name: TypeScript Check
+        run: npm run typecheck
 
-      # ===============================
       # InertiaJS / React Tests
-      # ===============================
-      #- name: Run React Component Tests
-      # run: npm run test
+      - name: Run React Component Tests
+        run: npm run test
 
-      # ===============================
       # Laravel Feature / Inertia Tests
-      # ===============================
-     # - name: Run Laravel Tests
-       # run: php artisan test
+      - name: Run Laravel Tests
+        run: php artisan test
 
-      # ===============================
       # Laravel Dusk (E2E SPA)
-      # ===============================
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
 
-     # - name: Run Laravel Dusk
-      #  run: php artisan dusk
+      - name: Run Laravel Dusk
+        run: php artisan dusk
 
-      # ===============================
       # Build Production Assets
-      # ===============================
       - name: Build Frontend Assets
         run: npm run build
 
-      # ===============================
       # Docker Build & Push
-      # ===============================
       - name: Login to Docker Registry
         uses: docker/login-action@v3
         with:
@@ -130,23 +110,19 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/mitraprimaenviro:${{ github.sha }}
 
-      # ===============================
       # Slack Notification (CI Result)
-      # ===============================
-      #- name: Slack Notification
-      # if: always()
-      #  uses: slackapi/slack-github-action@v1
-      #  with:
-      #    payload: |
-      #      {
-      #        "text": "CI Pipeline ${{ job.status }} for commit ${{ github.sha }}"
-      #      }
-      #  env:
-      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      - name: Slack Notification
+        if: always()
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+              "text": "CI Pipeline ${{ job.status }} for commit ${{ github.sha }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
-  # =====================================
   # STAGING DEPLOY (AUTO - develop)
-  # =====================================
   deploy-staging:
     name: Deploy to Staging
     if: github.ref == 'refs/heads/develop'
@@ -170,9 +146,7 @@ jobs:
             php artisan optimize:clear
             sudo systemctl reload nginx
 
-  # =====================================
   # PRODUCTION DEPLOY (MANUAL - main)
-  # =====================================
   deploy-production:
     name: Deploy to Production
     if: github.ref == 'refs/heads/main'

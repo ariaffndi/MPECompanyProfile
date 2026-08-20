@@ -190,7 +190,7 @@ export default function ProjectEdit({ project, page }: { project: ProjectForm; p
                                 <InputError message={errors.description} />
                             </div>
 
-                            <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
+                            <Button type="submit" className="mt-2 w-full cursor-pointer" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Edit Project
                             </Button>

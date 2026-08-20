@@ -38,7 +38,7 @@ const AboutTeam = ({ teams }: Props) => {
                     >
                         {visibleTeams.map((team) => (
                             <div key={team.id} className="">
-                                <div className="card bg-base-100 flex h-full shadow-sm transition duration-300 ease-in hover:scale-105">
+                                <div className="card bg-base-100 flex h-full shadow-sm transition duration-300 ease-in hover:scale-105 cursor-pointer">
                                     <figure className="px-10 pt-10">
                                         <img
                                             loading="lazy"

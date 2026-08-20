@@ -18,9 +18,9 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
+        $teams = Team::orderBy('created_at', 'desc')->get();
         $gallery = Gallery::latest()->get();
-        $partners = Partner::all();
+        $partners = Partner::orderBy('company_name')->get();
         $currentYear = Carbon::now()->year;
         $yearsExperience = $currentYear - 2009;
         $totalPartner = Partner::count();

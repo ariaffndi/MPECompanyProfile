@@ -68,7 +68,7 @@ export default function Service() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th>Layanan</th>
-                                <th className='hidden sm:table-cell'>Deskripsi</th>
+                                <th className="hidden sm:table-cell">Deskripsi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
@@ -77,12 +77,14 @@ export default function Service() {
                             {filtered.map((serviceItem, index) => (
                                 <tr
                                     key={serviceItem.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedService(serviceItem)}
                                 >
                                     <td>{(service.current_page - 1) * service.per_page + index + 1}</td>
                                     <td>{serviceItem.service_name}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap hidden sm:table-cell">{serviceItem.service_description}</td>
+                                    <td className="hidden max-w-[200px] truncate whitespace-nowrap sm:table-cell">
+                                        {serviceItem.service_description}
+                                    </td>
                                     <td className="hidden sm:table-cell">
                                         <img
                                             width={50}

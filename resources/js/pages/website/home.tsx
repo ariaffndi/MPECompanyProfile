@@ -52,7 +52,7 @@ export default function Home({ partners, services, projects, products, yearsExpe
     return (
         <>
             <Meta
-                title="Jasa Pengolahan Air Limbah - Mitra Prima Enviro"
+                title="Mitra Prima Enviro | Contractor - Supplier - Environment Services"
                 description="Jasa IPAL profesional, konsultasi AMDAL, SPPL, UKL-UPL, dan perizinan lingkungan. Melayani seluruh Indonesia."
                 image=""
             />

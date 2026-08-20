@@ -77,14 +77,19 @@ export default function Team() {
                             {filtered.map((teams, index) => (
                                 <tr
                                     key={teams.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedTeam(teams)}
                                 >
                                     <td>{(team.current_page - 1) * team.per_page + index + 1}</td>
                                     <td>{teams.name}</td>
                                     <td className="max-w-[200px] truncate whitespace-nowrap">{teams.position}</td>
                                     <td className="hidden sm:table-cell">
-                                        <img src={`/storage/${teams.image}`} width={50} alt={teams.name} className="mx-auto aspect-square rounded-lg object-cover" />
+                                        <img
+                                            src={`/storage/${teams.image}`}
+                                            width={50}
+                                            alt={teams.name}
+                                            className="mx-auto aspect-square rounded-lg object-cover"
+                                        />
                                     </td>
                                     <td>
                                         <div className="flex flex-nowrap items-center justify-center gap-1">

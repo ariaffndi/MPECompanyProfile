@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-
 use App\Models\Team;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\Format;
 
 class TeamController extends Controller
 {
@@ -20,12 +22,18 @@ class TeamController extends Controller
         $query = Team::query();
 
         if ($request->has('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where(
+                'name',
+                'like',
+                '%' . $request->search . '%'
+            );
         }
 
         $query->orderBy('name');
 
-        $teams = $query->paginate(5)->withQueryString();
+        $teams = $query
+            ->paginate(5)
+            ->withQueryString();
 
         return Inertia::render('admin/team/index', [
             'team' => $teams,
@@ -51,18 +59,44 @@ class TeamController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:225',
             'position' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+
+            'image' => [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg,gif,webp',
+                'max:10240',
+            ],
         ]);
 
-        $path = null;
+        /*
+        |--------------------------------------------------------------------------
+        | Upload Team Image
+        |--------------------------------------------------------------------------
+        */
+
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('image', 'public');
-            $validated['image'] = $path;
+
+            $validated['image'] = $this->processImage(
+                $request->file('image'),
+                'team',
+                1200
+            );
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Create Team
+        |--------------------------------------------------------------------------
+        */
 
         Team::create($validated);
 
-        return redirect()->route('team.index')->with('success', 'Team berhasil ditambahkan');
+        return redirect()
+            ->route('team.index')
+            ->with(
+                'success',
+                'Team berhasil ditambahkan'
+            );
     }
 
     /**
@@ -79,6 +113,7 @@ class TeamController extends Controller
     public function edit(Team $team)
     {
         $page = request('page');
+
         return Inertia::render('admin/team/edit', [
             'team' => $team,
             'page' => $page,
@@ -91,20 +126,53 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $validated = $request->validate([
-            'name' => 'string|max:225',
-            'position' => "max:225"
+            'name' => 'required|string|max:225',
+            'position' => 'required|max:225',
+
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,gif,webp',
+                'max:10240',
+            ],
         ]);
 
+        /*
+        |--------------------------------------------------------------------------
+        | Update Team Image
+        |--------------------------------------------------------------------------
+        */
+
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('team', 'public');
-            $validated['image'] = $image;
+            Storage::disk('public')->delete($team->image);
+
+            $validated['image'] = $this->processImage(
+                $request->file('image'),
+                'team',
+                1200
+            );
+        } else {
+            unset($validated['image']);
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Database
+        |--------------------------------------------------------------------------
+        */
 
         $team->update($validated);
 
         $currentPage = $request->get('page', 1);
 
-        return redirect()->route('team.index', ['page' => $currentPage])->with('success', 'Team berhasil diupdate');
+        return redirect()
+            ->route('team.index', [
+                'page' => $currentPage
+            ])
+            ->with(
+                'success',
+                'Team berhasil diupdate'
+            );
     }
 
     /**
@@ -112,10 +180,107 @@ class TeamController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Team::findOrFail($id);
-        $data->delete();
+        $team = Team::findOrFail($id);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Delete Team Image
+        |--------------------------------------------------------------------------
+        */
+
+        if ($team->image) {
+            Storage::disk('public')->delete(
+                $team->image
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Soft Delete
+        |--------------------------------------------------------------------------
+        */
+
+        $team->delete();
+
         $currentPage = request()->get('page', 1);
 
-        return redirect()->route('team.index', ['page' => $currentPage])->with('success', 'Team berhasil dihapus');
+        return redirect()
+            ->route('team.index', [
+                'page' => $currentPage
+            ])
+            ->with(
+                'success',
+                'Team berhasil dihapus'
+            );
+    }
+
+    /**
+     * Process uploaded image.
+     */
+    private function processImage(
+        $file,
+        string $prefix,
+        int $maxWidth = 1200
+    ): string {
+
+        $manager = new ImageManager(
+            new Driver()
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Decode Image
+        |--------------------------------------------------------------------------
+        */
+
+        $image = $manager->decode($file);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Resize
+        |--------------------------------------------------------------------------
+        */
+
+        if ($image->width() > $maxWidth) {
+            $image = $image->scale(
+                width: $maxWidth
+            );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Convert to WebP
+        |--------------------------------------------------------------------------
+        */
+
+        $encoded = $image->encodeUsingFormat(
+            Format::WEBP,
+            quality: 30
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Generate Filename
+        |--------------------------------------------------------------------------
+        */
+
+        $filename = 'team/'
+            . $prefix
+            . '_'
+            . uniqid()
+            . '.webp';
+
+        /*
+        |--------------------------------------------------------------------------
+        | Save Image
+        |--------------------------------------------------------------------------
+        */
+
+        Storage::disk('public')->put(
+            $filename,
+            (string) $encoded
+        );
+
+        return $filename;
     }
 }

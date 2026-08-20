@@ -54,7 +54,7 @@ const AboutVision = ({ yearsExperience, totalProject, totalPartner, totalTeam }:
 
                 <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-4">
                     {visionItems.map((item, index) => (
-                        <div key={index} className="group relative duration-300 ease-in hover:scale-105">
+                        <div key={index} className="group relative duration-300 ease-in hover:scale-105 cursor-pointer">
                             <ScrollReveal direction={item.direction}>
                                 <div className="p-2 text-center md:p-3 lg:p-4">
                                     {item.icon}

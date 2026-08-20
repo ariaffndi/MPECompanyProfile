@@ -68,7 +68,7 @@ export default function Product() {
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
                                 <th>Produk</th>
-                                <th className='hidden sm:table-cell'>Deskripsi</th>
+                                <th className="hidden sm:table-cell">Deskripsi</th>
                                 <th className="hidden sm:table-cell">Foto</th>
                                 <th>Aksi</th>
                             </tr>
@@ -77,12 +77,12 @@ export default function Product() {
                             {filtered.map((products, index) => (
                                 <tr
                                     key={products.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedProduct(products)}
                                 >
                                     <td>{(product.current_page - 1) * product.per_page + index + 1}</td>
                                     <td>{products.product_name}</td>
-                                    <td className="max-w-[200px] truncate whitespace-nowrap hidden sm:table-cell">{products.product_description}</td>
+                                    <td className="hidden max-w-[200px] truncate whitespace-nowrap sm:table-cell">{products.product_description}</td>
                                     <td className="hidden sm:table-cell">
                                         <img
                                             width={50}

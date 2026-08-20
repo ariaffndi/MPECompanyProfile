@@ -99,7 +99,10 @@ export default function ProductEdit({ product, page }: { product: ProductForm; p
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="product specification">Spesifikasi Produk</Label>
+                                <div className="flex items-center gap-2">
+                                    <Label htmlFor="product specification">Spesifikasi Produk</Label>{' '}
+                                    <p className="text-xs font-light text-red-600">*Gunakan "." (titik) untuk memisahkan baris</p>
+                                </div>
                                 <textarea
                                     id="product_specification"
                                     rows={5}
@@ -127,7 +130,7 @@ export default function ProductEdit({ product, page }: { product: ProductForm; p
                                 {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}
                             </div>
 
-                            <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
+                            <Button type="submit" className="mt-2 w-full cursor-pointer" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Edit Produk
                             </Button>

@@ -28,7 +28,7 @@ const Partners = ({ partners }: Props) => {
                     className="my-10 grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-6"
                 >
                     {visiblePartners.map((partner) => (
-                        <div key={partner.id} className="duration-300 ease-in hover:scale-105">
+                        <div key={partner.id} className="duration-300 ease-in hover:scale-105 cursor-pointer">
                             <img
                                 loading="lazy"
                                 src={`/storage/${partner.logo}`}

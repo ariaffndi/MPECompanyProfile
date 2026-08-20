@@ -89,9 +89,7 @@ export default function Project() {
                               <th className="hidden sm:table-cell">Klien</th>
                               <th className="hidden sm:table-cell">Kategori</th>
                               <th className="hidden sm:table-cell">Lokasi</th>
-                              <th>
-                                    Tahun
-                              </th>
+                              <th>Tahun</th>
                               <th className="hidden sm:table-cell">Harga</th>
                               <th className="hidden sm:table-cell">Deskripsi</th>
                               <th className="hidden sm:table-cell">Foto</th>
@@ -102,7 +100,7 @@ export default function Project() {
                            {project.data.map((projectItem, index) => (
                               <tr
                                     key={projectItem.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedProject(projectItem)}
                               >
                                     <td>{(project.current_page - 1) * project.per_page + index + 1}</td>
@@ -112,7 +110,7 @@ export default function Project() {
                                     <td className="hidden sm:table-cell">{projectItem.location}</td>
                                     <td>{projectItem.year}</td>
                                     <td className="hidden sm:table-cell">Rp.{projectItem.value}</td>
-                                    <td className="max-w-[100px] truncate whitespace-nowrap hidden sm:table-cell">{projectItem.description}</td>
+                                    <td className="hidden max-w-[100px] truncate whitespace-nowrap sm:table-cell">{projectItem.description}</td>
                                     <td className="hidden sm:table-cell">
                                        <img
                                           width={50}
@@ -197,7 +195,7 @@ export default function Project() {
                                                 </DialogContent>
                                           </Dialog>
                                        </div>
-                                 </td>
+                                    </td>
                               </tr>
                            ))}
                         </tbody>

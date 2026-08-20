@@ -20,7 +20,7 @@ class InquirySeeder extends Seeder
         $services = Service::pluck('id')->toArray();
         $products = Product::pluck('id')->toArray();
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 3) as $index) {
             Inquiry::create([
                 'name' => $faker->name,
                 'email' => $faker->email,

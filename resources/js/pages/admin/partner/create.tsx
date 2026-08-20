@@ -71,7 +71,7 @@ export default function PartnerCreate() {
                                 <p className="text-xs font-light text-red-600">*Max 2MB</p>
                                 <InputError message={errors.logo} />
                             </div>
-                            <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
+                            <Button type="submit" className="mt-2 w-full cursor-pointer" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Tambah Partner
                             </Button>

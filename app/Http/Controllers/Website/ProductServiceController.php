@@ -15,8 +15,8 @@ class ProductServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
-        $products = Product::all();
+        $services = Service::orderBy('service_name')->get();
+        $products = Product::orderBy('product_name')->get();
 
 
         return Inertia::render('website/services', [

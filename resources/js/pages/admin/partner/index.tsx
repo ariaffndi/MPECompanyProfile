@@ -70,9 +70,7 @@ export default function Partner() {
                         <thead>
                             <tr className="bg-base-300 text-base-content">
                                 <th>No</th>
-                                <th>
-                                    Partner
-                                </th>
+                                <th>Partner</th>
                                 <th className="">Logo</th>
                                 <th>Aksi</th>
                             </tr>
@@ -81,7 +79,7 @@ export default function Partner() {
                             {filtered.map((partnerItem, index) => (
                                 <tr
                                     key={partnerItem.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`hover:bg-gray-100 cursor-pointer transition ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedPartner(partnerItem)}
                                 >
                                     <td>{(partner.current_page - 1) * partner.per_page + index + 1}</td>
@@ -91,7 +89,7 @@ export default function Partner() {
                                             width={80}
                                             src={`/storage/${partnerItem.logo}`}
                                             alt={partnerItem.company_name}
-                                            className="mx-auto aspect-square rounded-lg object-cover "
+                                            className="mx-auto aspect-square rounded-lg object-cover"
                                         />
                                     </td>
                                     <td>

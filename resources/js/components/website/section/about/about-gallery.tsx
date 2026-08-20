@@ -27,7 +27,7 @@ const AboutGallery = ({ gallery }: Props) => {
                             src={`/storage/${gallery[0].activity_image}`}
                             alt={gallery[0].activity_name}
                             title={gallery[0].activity_name}
-                            className="aspect-video w-full object-cover"
+                            className="aspect-video w-full object-cover cursor-pointer"
                         />
                     </div>
                 )}
@@ -41,7 +41,7 @@ const AboutGallery = ({ gallery }: Props) => {
                         className="grid grid-cols-1 gap-6 overflow-hidden md:grid-cols-3 lg:grid-cols-4 xl:p-2"
                     >
                         {visibileActivity.slice(1).map((gallery) => (
-                            <div key={gallery.id} className="duration-300 ease-in hover:scale-105">
+                            <div key={gallery.id} className="duration-300 ease-in hover:scale-105 cursor-pointer">
                                 <img
                                     loading="lazy"
                                     src={`/storage/${gallery.activity_image}`}

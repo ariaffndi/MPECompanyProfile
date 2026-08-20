@@ -107,7 +107,7 @@ export default function Inquiry() {
                             {inquiry.data.map((inquiryItem, index) => (
                                 <tr
                                     key={inquiryItem.id}
-                                    className="border-base-content/5 hover:bg-base-200 border-1"
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedInquiry(inquiryItem)}
                                 >
                                     <td>{(inquiry.current_page - 1) * inquiry.per_page + index + 1}</td>

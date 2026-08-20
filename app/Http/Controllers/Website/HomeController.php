@@ -19,8 +19,8 @@ class HomeController extends Controller
     public function index()
     {
         $partners = Partner::all();
-        $services = Service::all();
-        $products = Product::orderBy('created_at', 'desc')->take(4)->get();
+        $services = Service::orderBy('service_name')->get();
+        $products = Product::orderBy('product_name')->take(4)->get();
         $recentProjects = Project::orderBy('created_at', 'desc')->take(4)->get();
         $currentYear = Carbon::now()->year;
         $yearsExperience = $currentYear - 2009;

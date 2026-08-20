@@ -161,7 +161,7 @@ export default function EditCompany({ company }: { company: FormCompany }) {
                                 <InputError message={errors.description} />
                             </div>
 
-                            <Button type="submit" className="mt-2 w-full">
+                            <Button type="submit" className="mt-2 w-full cursor-pointer">
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Simpan Perubahan
                             </Button>

@@ -15,7 +15,7 @@ class PortofolioController extends Controller
      */
     public function index()
     {
-        $partners = Partner::all();
+        $partners = Partner::orderBy('company_name')->get();
         $projects = Project::with(['client', 'category'])->orderBy('value', 'desc')->get();
 
         return Inertia::render('website/portofolio', [

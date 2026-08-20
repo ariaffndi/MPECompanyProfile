@@ -5,8 +5,7 @@ import ServiceConsultation from '@/components/website/section/service/service-co
 import GuestLayout from '@/layouts/guestLayout';
 import SectionLayout from '@/layouts/section-layout';
 import { Head, usePage } from '@inertiajs/react';
-import { useState } from 'react';
-
+// import { useState } from 'react';
 
 interface Product {
     id: number;
@@ -25,12 +24,11 @@ interface Props {
     product: Product;
 }
 
-
 const ProductDetail = ({ product }: Props) => {
     const { company } = usePage<{ company: Company }>().props;
-    const PRICE = 1500000; // harga hardcode (Rp)
-    const [qty, setQty] = useState(1);
-    const totalPrice = PRICE * qty;
+    // const PRICE = 1500000; // harga hardcode (Rp)
+    // const [qty, setQty] = useState(1);
+    // const totalPrice = PRICE * qty;
 
     return (
         <>
@@ -93,13 +91,13 @@ const ProductDetail = ({ product }: Props) => {
                                 </ul>
 
                                 {/* Harga */}
-                                <div className="mb-4">
+                                {/* <div className="mb-4">
                                     <p className="text-sm text-gray-500">Harga</p>
                                     <p className="text-2xl font-bold text-gray-800">Rp {PRICE.toLocaleString('id-ID')}</p>
-                                </div>
+                                </div> */}
 
                                 {/* Counter */}
-                                <div className="mb-6 flex items-center gap-4">
+                                {/* <div className="mb-6 flex items-center gap-4">
                                     <button onClick={() => setQty(Math.max(1, qty - 1))} className="h-10 w-10 rounded-lg border text-lg">
                                         −
                                     </button>
@@ -113,16 +111,25 @@ const ProductDetail = ({ product }: Props) => {
                                     <span className="ml-4 text-sm text-gray-600">
                                         Total: <strong>Rp {totalPrice.toLocaleString('id-ID')}</strong>
                                     </span>
-                                </div>
+                                </div> */}
 
                                 {/* WhatsApp */}
+                                {/* <a
+                                    href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
+                                        `Halo, saya ingin memesan produk ${product.product_name}
+                                        Jumlah: ${qty}
+                                        Harga satuan: Rp ${PRICE.toLocaleString('id-ID')}
+                                        Total: Rp ${totalPrice.toLocaleString('id-ID')}`,
+                                    )}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <ButtonTemplate size="btn-md">Pesan Sekarang</ButtonTemplate>
+                                </a> */}
                                 <a
                                     href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
                                         `Halo, saya ingin memesan produk ${product.product_name}
-Jumlah: ${qty}
-Harga satuan: Rp ${PRICE.toLocaleString('id-ID')}
-Total: Rp ${totalPrice.toLocaleString('id-ID')}`,
-                                    )}`}
+                                        `)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

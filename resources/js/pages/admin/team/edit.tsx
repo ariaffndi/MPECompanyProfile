@@ -104,7 +104,7 @@ export default function TeamEdit({ team, page }: { team: TeamForm; page: number 
                                 {previewImage && <img src={previewImage} alt="Preview" className="mt-2 h-24 w-24 rounded-lg object-cover" />}
                             </div>
 
-                            <Button type="submit" className="mt-2 w-full" tabIndex={4} disabled={processing}>
+                            <Button type="submit" className="mt-2 w-full cursor-pointer" tabIndex={4} disabled={processing}>
                                 {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                 Edit Team
                             </Button>

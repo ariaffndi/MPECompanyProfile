@@ -55,7 +55,10 @@ export default function User() {
                         </thead>
                         <tbody>
                             {filtered.map((userItem, index) => (
-                                <tr key={userItem.id} className="border-base-content/5 hover:bg-base-200 border-1">
+                                <tr
+                                    key={userItem.id}
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
+                                >
                                     <td>{(user.current_page - 1) * user.per_page + index + 1}</td>
                                     <td>{userItem.name}</td>
                                     <td>{userItem.email}</td>
