@@ -76,7 +76,10 @@ export default function ProductCreate() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="product specification">Spesifikasi Produk</Label>
+                                <div className="flex items-center gap-2">
+                                    <Label htmlFor="product specification">Spesifikasi Produk</Label>{' '}
+                                    <p className="text-xs font-light text-red-600">*Gunakan "." (titik) untuk memisahkan baris</p>
+                                </div>
                                 <textarea
                                     id="product_specification"
                                     rows={5}

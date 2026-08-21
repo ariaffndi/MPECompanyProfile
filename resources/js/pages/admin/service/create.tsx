@@ -1,12 +1,12 @@
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 type ServiceForm = {
     service_name: string;
@@ -24,8 +24,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function ServiceCreate() {
     const { data, setData, post, processing, errors, reset } = useForm<ServiceForm>({
         service_name: '',
-        service_description:'',
-        service_image:null,
+        service_description: '',
+        service_image: null,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -60,7 +60,10 @@ export default function ServiceCreate() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="service description">Deskripsi Layanan</Label>
+                                <div className="flex items-center gap-2">
+                                    <Label htmlFor="service description">Deskripsi Layanan</Label>{' '}
+                                    <p className="text-xs font-light text-red-600">*Gunakan "." (titik) untuk memisahkan baris</p>
+                                </div>
                                 <textarea
                                     id="service_description"
                                     rows={5}

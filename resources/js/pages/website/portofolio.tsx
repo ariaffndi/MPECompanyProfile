@@ -12,6 +12,7 @@ import Meta from '@/components/Meta';
 interface Project {
     id: number;
     project_name: string;
+    slug: string;
     location: string;
     value: number;
     project_image: string;

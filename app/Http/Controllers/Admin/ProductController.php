@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Format;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -68,6 +69,16 @@ class ProductController extends Controller
                 'max:10240',
             ],
         ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Generate Slug
+        |--------------------------------------------------------------------------
+        */
+
+        $validated['slug'] = Str::slug(
+            $validated['product_name']
+        );
 
         /*
         |--------------------------------------------------------------------------
@@ -141,19 +152,39 @@ class ProductController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | Update Slug
+        |--------------------------------------------------------------------------
+        */
+
+        $validated['slug'] = Str::slug(
+            $validated['product_name']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
         | Product Image
         |--------------------------------------------------------------------------
         */
 
         if ($request->hasFile('product_image')) {
-            Storage::disk('public')->delete($product->product_image);
 
+            // Hapus gambar lama
+            if ($product->product_image) {
+                Storage::disk('public')->delete(
+                    $product->product_image
+                );
+            }
+
+            // Upload + resize + convert WebP
             $validated['product_image'] = $this->processImage(
                 $request->file('product_image'),
                 'product',
                 1600
             );
+
         } else {
+
+            // Jangan ubah gambar lama
             unset($validated['product_image']);
         }
 

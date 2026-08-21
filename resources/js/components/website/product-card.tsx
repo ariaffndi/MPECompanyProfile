@@ -4,6 +4,7 @@ import ButtonTemplate from './button-template';
 interface Product {
     id: number;
     product_name: string;
+    slug: string;
     product_description: string;
     product_image: string;
 }
@@ -27,7 +28,7 @@ const ProductCard = ({ product }: Props) => {
     const isLongText = product.product_description.length > 120;
 
     return (
-        <a href={route('products.show', product.id)} className="bg-base-300 overflow-hidden duration-300 ease-in hover:scale-105 hover:shadow-md">
+        <a href={route('products.show', product.slug)} className="bg-base-300 overflow-hidden duration-300 ease-in hover:scale-105 hover:shadow-md">
             <div className="bg-base-200 relative w-full pb-[100%]">
                 <img src={`/storage/${product.product_image}`} alt={product.product_name} className="absolute inset-0 h-full w-full object-cover hover:cursor-pointer" />
             </div>

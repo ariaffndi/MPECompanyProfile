@@ -9,14 +9,27 @@ class Project extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['project_name', 'client_id', 'category_id', 'location', 'year', 'value', 'description', 'project_image'];
-    protected $dates = ['delete_at_'];
+    protected $fillable = [
+        'project_name',
+        'slug',
+        'client_id',
+        'category_id',
+        'location',
+        'year',
+        'value',
+        'description',
+        'project_image',
+    ];
 
-    public function client(){
-            return $this->belongsTo(Client::class);
-        }
+    protected $dates = ['delete_at'];
 
-    public function category(){
-            return $this->belongsTo(Category::class);
-        }
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

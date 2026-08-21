@@ -7,6 +7,7 @@ import { Head } from '@inertiajs/react';
 
 type Project = {
     project_name: string;
+    slug: string;
     location: string;
     project_image: string;
     value: string;
@@ -63,29 +64,22 @@ const ProjectDetail = ({ project }: Props) => {
                 </div>
                 <SectionLayout>
                     <section id="portofolioDescription" className="flex w-full flex-col items-start gap-5 md:flex-row">
-                        <div className="aspect-video place-self-center md:w-2/5 md:place-self-start lg:pl-5">
-                            <div className="flex w-full items-center justify-center text-center md:text-start">
-                                <ScrollReveal direction="right">
-                                    <h2 className="text-3xl font-light">ABOUT</h2>
-                                    <h2 className="text-3xl font-bold">THE PROJECT</h2>
-                                </ScrollReveal>
-                            </div>
+                        <div className="flex lg:aspect-video w-full items-center justify-center md:w-2/5 md:justify-start lg:pl-5">
+                            <ScrollReveal direction="right">
+                                <h2 className="text-center text-3xl font-light md:text-start">ABOUT</h2>
+                                <h2 className="text-center text-3xl font-bold md:text-start">THE PROJECT</h2>
+                            </ScrollReveal>
                         </div>
-                        <div className="justify-end gap-5 md:w-3/5">
+
+                        <div className="md:w-3/5">
                             <ScrollReveal direction="left">
-                                <div className="my-6 text-lg leading-relaxed text-gray-700 dark:text-gray-50">
-                                    {project.description
-                                        .split('.')
-                                        .map((s) => s.trim())
-                                        .map((sentence, index) => (
-                                            <p className="mb-4" key={index}>
-                                                {sentence}
-                                            </p>
-                                        ))}
-                                </div>
+                                <p className="my-6 text-lg leading-relaxed whitespace-pre-line text-gray-700 dark:text-gray-50">
+                                    {project.description}
+                                </p>
                             </ScrollReveal>
                         </div>
                     </section>
+
                     <ServiceConsultation />
                     <ContactUs />
                 </SectionLayout>

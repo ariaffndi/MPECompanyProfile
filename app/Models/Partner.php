@@ -10,5 +10,5 @@ class Partner extends Model
     use SoftDeletes;
     
     protected $fillable = ['company_name', 'logo'];
-    protected $dates = ['delete_at_'];
+    protected $dates = ['delete_at'];
 }

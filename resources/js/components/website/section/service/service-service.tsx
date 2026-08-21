@@ -8,10 +8,10 @@ import { Link } from '@inertiajs/react';
 interface Service {
     id: number;
     service_name: string;
+    slug: string;
     service_image: string;
     service_description: string;
 }
-
 interface Props {
     services: Service[];
 }
@@ -29,7 +29,7 @@ const ServiceService = ({ services }: Props) => {
                 <div className="my-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {services.map((service) => (
                         <div key={service.id} className="card h-full">
-                            <a className="card bg-base-100 h-full shadow-sm transition duration-300 ease-in hover:scale-105 hover:cursor-pointer" href={route('services.show', service.id)}>
+                            <a className="card bg-base-100 h-full shadow-sm transition duration-300 ease-in hover:scale-105 hover:cursor-pointer" href={route('services.show', service.slug)}>
                                 <figure className="px-5 pt-5">
                                     <img
                                         loading="lazy"

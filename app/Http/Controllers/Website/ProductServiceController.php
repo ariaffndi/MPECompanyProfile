@@ -44,17 +44,19 @@ class ProductServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showService(string $id)
+    public function showService(string $slug)
     {
-        $service = Service::find($id);
+        $service = Service::where('slug', $slug)->firstOrFail();
+
         return Inertia::render('website/product-service/service-detail', [
             'service' => $service,
         ]);
     }
 
-    public function showProduct(string $id)
+    public function showProduct(string $slug)
     {
-        $product = Product::find($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
+
         return Inertia::render('website/product-service/product-detail', [
             'product' => $product,
         ]);

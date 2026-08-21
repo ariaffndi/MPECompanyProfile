@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 interface Project {
     id: number;
     project_name: string;
+    slug: string;
     location: string;
     value: number;
     project_image: string;
@@ -66,7 +67,7 @@ const PortofolioProject = ({ projects }: Props) => {
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.3 }}
                             className="group relative cursor-pointer overflow-hidden shadow-lg transition duration-300 ease-in hover:scale-105"
-                            href={route('portofolio.show', project.id)}
+                            href={route('portofolio.show', project.slug)}
                         >
                             <img
                                 loading="lazy"

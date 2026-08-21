@@ -10,7 +10,7 @@ class Client extends Model
     use SoftDeletes;
 
     protected $fillable = ['client_type'];
-    protected $dates = ['delete_at_'];
+    protected $dates = ['delete_at'];
 
     public function projects() {
         return $this->hasMany(Project::class);

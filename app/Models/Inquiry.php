@@ -12,7 +12,7 @@ class Inquiry extends Model
     use Notifiable;
 
     protected $fillable = ['name', 'email', 'phone', 'service_id', 'product_id', 'detail', 'status'];
-    protected $dates = ['delete_at_'];
+    protected $dates = ['delete_at'];
 
     public function service(){
             return $this->belongsTo(Service::class);

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Format;
+use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
@@ -68,6 +69,9 @@ class ServiceController extends Controller
             ],
         ]);
 
+        // Generate slug dari nama service
+        $validated['slug'] = Str::slug($validated['service_name']);
+
         /*
         |--------------------------------------------------------------------------
         | Upload Service Image
@@ -75,19 +79,12 @@ class ServiceController extends Controller
         */
 
         if ($request->hasFile('service_image')) {
-
             $validated['service_image'] = $this->processImage(
                 $request->file('service_image'),
                 'service',
                 1600
             );
         }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Create Service
-        |--------------------------------------------------------------------------
-        */
 
         Service::create($validated);
 
@@ -137,6 +134,9 @@ class ServiceController extends Controller
             ],
         ]);
 
+        // Update slug berdasarkan nama service
+        $validated['slug'] = Str::slug($validated['service_name']);
+
         /*
         |--------------------------------------------------------------------------
         | Update Service Image
@@ -144,14 +144,22 @@ class ServiceController extends Controller
         */
 
         if ($request->hasFile('service_image')) {
-            Storage::disk('public')->delete($service->service_image);
+
+            if ($service->service_image) {
+                Storage::disk('public')->delete(
+                    $service->service_image
+                );
+            }
 
             $validated['service_image'] = $this->processImage(
                 $request->file('service_image'),
                 'service',
                 1600
             );
+
         } else {
+
+            // Jangan update kolom image jika tidak ada upload baru
             unset($validated['service_image']);
         }
 

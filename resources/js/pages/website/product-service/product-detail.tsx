@@ -10,6 +10,7 @@ import { Head, usePage } from '@inertiajs/react';
 interface Product {
     id: number;
     product_name: string;
+    slug: string;
     product_image: string;
     product_description: string;
     product_specification: string;
@@ -51,7 +52,7 @@ const ProductDetail = ({ product }: Props) => {
                     <ScrollReveal direction="left">
                         <ScrollReveal direction="left">
                             <div className="relative z-20 mx-4 -mt-24 grid grid-cols-1 rounded-lg bg-white p-8 shadow-lg md:mx-12 md:grid-cols-2">
-                                <div className="order-1 md:order-1">
+                                <div className="order-1 flex items-center justify-center md:order-1">
                                     <ScrollReveal direction="right">
                                         <h2 className="text-center text-3xl font-light text-gray-500">ABOUT</h2>
                                         <h2 className="text-center text-3xl font-bold text-gray-800">OUR PRODUCT</h2>
@@ -59,7 +60,7 @@ const ProductDetail = ({ product }: Props) => {
                                 </div>
                                 <div className="order-2 mt-4 md:order-2 md:mt-0">
                                     <ScrollReveal direction="left">
-                                        <p className="text-gray-800">{product.product_description}</p>
+                                        <p className="whitespace-pre-line text-gray-800">{product.product_description}</p>
                                     </ScrollReveal>
                                 </div>
                             </div>
@@ -84,11 +85,9 @@ const ProductDetail = ({ product }: Props) => {
                             <ScrollReveal direction="left">
                                 <h2 className="text-3xl font-bold text-gray-700 dark:text-gray-50">Specification</h2>
 
-                                <ul className="my-6 list-disc pl-5 leading-relaxed text-gray-700 dark:text-gray-50">
-                                    {product.product_specification
-                                        .split('.')
-                                        .map((item, index) => item.trim() && <li key={index}>{item.trim()}.</li>)}
-                                </ul>
+                                <p className="my-6 list-disc pl-5 leading-relaxed whitespace-pre-line text-gray-700 dark:text-gray-50">
+                                    {product.product_specification}
+                                </p>
 
                                 {/* Harga */}
                                 {/* <div className="mb-4">
@@ -129,7 +128,8 @@ const ProductDetail = ({ product }: Props) => {
                                 <a
                                     href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(
                                         `Halo, saya ingin memesan produk ${product.product_name}
-                                        `)}`}
+                                        `,
+                                    )}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Response;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Format;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -101,6 +102,16 @@ class ProjectController extends Controller
                 'client_id' => 'nullable|exists:clients,id',
                 'category_id' => 'nullable|exists:categories,id',
             ]);
+
+            /*
+            |--------------------------------------------------------------------------
+            | Generate Slug
+            |--------------------------------------------------------------------------
+            */
+
+            $validated['slug'] = Str::slug(
+                $validated['project_name']
+            );
 
             /*
             |--------------------------------------------------------------------------
@@ -199,19 +210,39 @@ class ProjectController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | Update Slug
+        |--------------------------------------------------------------------------
+        */
+
+        $validated['slug'] = Str::slug(
+            $validated['project_name']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
         | Update Project Image
         |--------------------------------------------------------------------------
         */
 
         if ($request->hasFile('project_image')) {
-            Storage::disk('public')->delete($project->project_image);
 
+            // Hapus gambar lama
+            if ($project->project_image) {
+                Storage::disk('public')->delete(
+                    $project->project_image
+                );
+            }
+
+            // Upload + resize + convert WebP
             $validated['project_image'] = $this->processImage(
                 $request->file('project_image'),
                 'project',
                 1600
             );
+
         } else {
+
+            // Pertahankan gambar lama
             unset($validated['project_image']);
         }
 

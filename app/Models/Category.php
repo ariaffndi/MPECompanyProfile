@@ -10,7 +10,7 @@ class Category extends Model
     use SoftDeletes;
 
     protected $fillable = ['catetory_name'];
-    protected $dates = ['delete_at_'];
+    protected $dates = ['delete_at'];
 
     public function projects() {
         return $this->hasMany(Project::class);

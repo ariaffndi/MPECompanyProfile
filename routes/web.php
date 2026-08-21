@@ -31,10 +31,13 @@ Route::get('/generate-sitemap', function () {
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [AboutController::class,'index']);
 Route::get('/services', [ProductServiceController::class,'index']);
-Route::get('/services/{id}', [ProductServiceController::class, 'showService'])->name('services.show');
-Route::get('/product/{id}', [ProductServiceController::class, 'showProduct'])->name('products.show');
+Route::get('/services/{slug}', [ProductServiceController::class, 'showService'])
+    ->name('services.show');
+Route::get('/products/{slug}', [ProductServiceController::class, 'showProduct'])
+    ->name('products.show');
 Route::get('/portofolio', [PortofolioController::class,'index']);
-Route::get('/portofolio/{id}', [PortofolioController::class, 'show'])->name('portofolio.show');
+Route::get('/portofolio/{slug}', [PortofolioController::class, 'show'])
+    ->name('portofolio.show');
 Route::get('/contact', [ContactController::class,'index']);
 Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
 Route::get('/inquiry', [WebsiteInquiryController::class,'create'])->name('inquiry.create');
