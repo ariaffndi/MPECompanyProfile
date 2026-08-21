@@ -79,14 +79,14 @@ export default function Partner() {
                             {filtered.map((partnerItem, index) => (
                                 <tr
                                     key={partnerItem.id}
-                                    className={`hover:bg-gray-100 cursor-pointer transition ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
+                                    className={`cursor-pointer transition hover:bg-gray-100 ${index % 2 === 0 ? 'bg-base' : 'bg-gray-50'}`}
                                     onClick={() => setSelectedPartner(partnerItem)}
                                 >
                                     <td>{(partner.current_page - 1) * partner.per_page + index + 1}</td>
                                     <td>{partnerItem.company_name}</td>
                                     <td className="">
                                         <img
-                                            width={80}
+                                            width={50}
                                             src={`/storage/${partnerItem.logo}`}
                                             alt={partnerItem.company_name}
                                             className="mx-auto aspect-square rounded-lg object-cover"

@@ -82,10 +82,7 @@ export default function ServiceEdit({ service, page }: { service: ServiceForm; p
                                 <InputError message={errors.service_name} className="mt-2" />
                             </div>
                             <div className="grid gap-2">
-                                <div className="flex items-center gap-2">
-                                    <Label htmlFor="service description">Deskripsi Layanan</Label>{' '}
-                                    <p className="text-xs font-light text-red-600">*Gunakan "." (titik) untuk memisahkan baris</p>
-                                </div>
+                                <Label htmlFor="service description">Deskripsi Layanan</Label>
                                 <textarea
                                     id="service_description"
                                     rows={5}

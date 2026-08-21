@@ -32,11 +32,7 @@ export default function Gallery() {
     const { gallery } = usePage<{ gallery: Paginator<Gallery> }>().props;
     const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
 
-    const { search, page, handlePageChange, handleSearch } = useFilterSortPagination(
-        'gallery.index',
-        gallery.data,
-        (item) => item.activity_name,
-    );
+    const { search, page, handlePageChange, handleSearch } = useFilterSortPagination('gallery.index', gallery.data, (item) => item.activity_name);
 
     useFlashToast();
 
