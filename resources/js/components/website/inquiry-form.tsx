@@ -35,7 +35,7 @@ export default function InquiryForm() {
     const { data, setData, post, processing, errors, reset } = useForm<InquiryForm>({
         name: '',
         email: '',
-        phone: '62',
+        phone: '',
         service_id: null,
         product_id: null,
         detail: '',
@@ -54,7 +54,9 @@ export default function InquiryForm() {
         <form className="flex flex-col gap-6" onSubmit={submit}>
             <div className="grid gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="name">Nama</Label>
+                    <Label htmlFor="name">
+                        Nama <span className="text-xs text-red-600">*</span>
+                    </Label>
                     <Input
                         id="name"
                         type="text"
@@ -68,7 +70,9 @@ export default function InquiryForm() {
 
                 <div className="grid grid-cols-2 gap-4">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">
+                            Email <span className="text-xs text-red-600">*</span>
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -81,7 +85,9 @@ export default function InquiryForm() {
                         <InputError message={errors.email} />
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="phone">No. Telp</Label>
+                        <Label htmlFor="phone">
+                            No. Telp <span className="text-xs text-red-600">*</span>
+                        </Label>
                         <Input
                             id="phone"
                             type="number"
@@ -99,7 +105,7 @@ export default function InquiryForm() {
                 <div className="grid grid-cols-2 gap-4">
                     <div className="grid gap-2">
                         <Label htmlFor="service_id">
-                            Layanan <span className="text-xs text-red-600">*opsional</span>
+                            Layanan <span className="text-xs text-red-600">(opsional)</span>
                         </Label>
                         <select
                             id="service_id"
@@ -121,7 +127,7 @@ export default function InquiryForm() {
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="product_id">
-                            Produk <span className="text-xs text-red-600">*opsional</span>
+                            Produk <span className="text-xs text-red-600">(opsional)</span>
                         </Label>
                         <select
                             id="product_id"
