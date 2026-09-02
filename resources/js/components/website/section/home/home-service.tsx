@@ -10,6 +10,7 @@ import ScrollReveal from '../../scroll-reveal';
 interface service {
     id: number;
     service_name: string;
+    slug: string;
     service_image: string;
 }
 
@@ -50,19 +51,19 @@ const HomeService = ({ services }: Props) => {
                         {services.map((service) => (
                             <SwiperSlide key={`up-${service.id}`}>
                                 <div className="relative m-5 aspect-9/16 overflow-hidden shadow-md duration-300 ease-in hover:scale-105 hover:cursor-pointer">
-                                <a href={route('services.show', service.id)}>
-                                    <img
-                                        loading="lazy"
-                                        title={service.service_name}
-                                        src={`/storage/${service.service_image}`}
-                                        alt={service.service_name}
-                                        className="h-full w-full object-cover"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
-                                    <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
-                                        <h2 className="mx-2 text-md font-bold lg:mx-4 lg:text-lg">{service.service_name}</h2>
-                                    </div>
-                                </a>
+                                    <a href={route('services.show', service.slug)}>
+                                        <img
+                                            loading="lazy"
+                                            title={service.service_name}
+                                            src={`/storage/${service.service_image}`}
+                                            alt={service.service_name}
+                                            className="h-full w-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-sky-900 to-transparent opacity-100"></div>
+                                        <div className="absolute bottom-2 w-full text-center text-white lg:bottom-5 lg:p-4">
+                                            <h2 className="text-md mx-2 font-bold lg:mx-4 lg:text-lg">{service.service_name}</h2>
+                                        </div>
+                                    </a>
                                 </div>
                             </SwiperSlide>
                         ))}

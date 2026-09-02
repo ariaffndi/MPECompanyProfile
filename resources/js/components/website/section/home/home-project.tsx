@@ -5,6 +5,7 @@ import { Link } from '@inertiajs/react';
 interface project {
     id: number;
     project_name: string;
+    slug: string;
     location: string;
     project_image: string;
 }
@@ -31,20 +32,20 @@ const HomeProject = ({ projects }: Props) => {
                 {projects.map((project) => (
                     <ScrollReveal direction="left" key={project.id}>
                         <div className="bg-base-100 shadow-md duration-300 ease-in hover:scale-105 hover:cursor-pointer">
-                            <a href={route('portofolio.show', project.id)}>
-                            <figure>
-                                <img
-                                    loading="lazy"
-                                    src={`/storage/${project.project_image}`}
-                                    alt={project.project_name}
-                                    title={project.project_name}
-                                    className="aspect-video w-full object-cover"
-                                />
-                            </figure>
-                            <div className="bg-sky-900 p-2 text-white md:p-3 lg:p-4">
-                                <h2 className="card-title text-md font-bold lg:text-xl">{project.project_name}</h2>
-                                <p className="text-sm lg:text-lg">{project.location}</p>
-                            </div>
+                            <a href={route('portofolio.show', project.slug)}>
+                                <figure>
+                                    <img
+                                        loading="lazy"
+                                        src={`/storage/${project.project_image}`}
+                                        alt={project.project_name}
+                                        title={project.project_name}
+                                        className="aspect-video w-full object-cover"
+                                    />
+                                </figure>
+                                <div className="bg-sky-900 p-2 text-white md:p-3 lg:p-4">
+                                    <h2 className="card-title text-md font-bold lg:text-xl">{project.project_name}</h2>
+                                    <p className="text-sm lg:text-lg">{project.location}</p>
+                                </div>
                             </a>
                         </div>
                     </ScrollReveal>
